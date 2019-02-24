@@ -16,7 +16,7 @@ class DirectRoutingUser {
   
     DirectRoutingUser ([string]$SipAddress)
     {
-      $this.SipAddress            = $SipAddress
+        $this.SipAddress            = $SipAddress
     }
   
   }
