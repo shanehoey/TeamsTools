@@ -16,13 +16,9 @@ class DirectRoutingUser {
   
     DirectRoutingUser ([string]$SipAddress)
     {
-      $this.Mediant            = $Mediant
+      $this.SipAddress            = $SipAddress
     }
   
-    DirectRoutingUser ([string]$SipAddress)
-    {
-      $this.Mediant            = $Mediant
-    }
   }
 
 
@@ -73,7 +69,7 @@ function get-ttUserDialPlan {
 
    
     $voiceRoute   =  Get-CsOnlineVoiceRoute -Identity $user.OnlineVoiceRoutingPolicy -ErrorAction silentlycontinue
-   
+    $voiceRoute
 }
 
 
@@ -83,21 +79,96 @@ function get-ttUserPSTNUsage {
     )
 
     $pstnusage    =  foreach($pu in (Get-CsOnlinePstnUsage -ErrorAction silentlycontinue).usages) {$pu}
-   
+    $pstnusage 
 
 }
 
 
-function get-drtUserPSTNGateway {
+function get-ttUserPSTNGateway {
     (
         [Microsoft.Rtc.Management.ADConnect.Schema.ADOCOnlineUser]$csUser
     )
 
     $pstngateway  =  foreach ( $gw in $voiceroute.OnlinePstnGatewayList) { Get-CsOnlinePSTNGateway -Identity $gw -ErrorAction silentlycontinue }
     $pstngateway
+
 }
 
 
+#<select name = "name_sfbo_policy" class="form-control form-control-sm"  id = "name_sfbo_policy" >
+#    <option value = "Default" selected>Default</option>
+#    <option value = "Australia" >Australia</option>
+#</select>
+
+
+
+function new-ttMediantConfig {
+    param (
+        [CmdletBinding(DefaultParameterSetName = 'default', SupportsShouldProcess = $true, ConfirmImpact = 'low')]
+
+        [Parameter(Mandatory = $false, ParameterSetName = 'default')]
+        [ValidatePattern('^[A-Za-z0-9]+$')]
+        [string]$name_directrouting = "DirectRouting",
+        
+        [Parameter(Mandatory = $true, ParameterSetName = 'default')]
+        [ValidatePattern('^[A-Za-z0-9.\-]+$')]
+        [string]$eth0_public_fqdn,
+
+        [Parameter(Mandatory = $true, ParameterSetName = 'default')]
+        [ValidatePattern('((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$')]
+        [string]$eth0_public_ip_address ,
+
+        [Parameter(Mandatory = $false, ParameterSetName = 'default')]
+        [ValidateRange(1025,65535)]
+        [string]$sip2_listen_port = "5067",
+
+        [Parameter(Mandatory = $false, ParameterSetName = 'default')]
+        [ValidatePattern('^[A-Za-z0-9]+$')]
+        [string]$name_itsp = "itsp",
+
+
+        [Parameter(Mandatory = $false, ParameterSetName = 'default')]
+        [ValidateRange(1025,65535)]
+        [string]$sip1_listen_port = "5061",
+
+        [Parameter(Mandatory = $false, ParameterSetName = 'default')]
+        [ValidateSet("udp","tcp","tls")] 
+        [string]$sip1_listen_protocol = "udp",
+
+        [Parameter(Mandatory = $true, ParameterSetName = 'default')]
+        [ValidatePattern('^[A-Za-z0-9.\-]+$')]
+        [string]$sip1_proxy_fqdn ,
+        
+        [Parameter(Mandatory = $false, ParameterSetName = 'default')]
+        [ValidateRange(1025,65535)]
+        [string]$sip1_proxy_port = "5061",
+        
+        [Parameter(Mandatory = $false, ParameterSetName = 'default')]
+        [ValidateSet("udp","tcp","tls")] 
+        [string]$sip1_proxy_protocol = "udp",
+
+        [Parameter(Mandatory = $true, ParameterSetName = 'default')]
+        [ValidatePattern('^[A-Za-z0-9.\-]+$')]
+        [string]$sbc_syslog_server,
+        
+        [Parameter(Mandatory = $true, ParameterSetName = 'default')]
+        [ValidatePattern('^[A-Za-z0-9.\-]+$')]
+        [string]$sbc_ntp_server,
+
+        [Parameter(Mandatory = $false, ParameterSetName = 'default')]
+        [ValidateRange(-12,12)]
+        [string]$sbc_ntp_offset = 0
+
+    )
+
+    $wizard =  "wizard/eth0_oamp_ms"
+    $email =  "shane@directrouting.guide" #only required till I remove this from backend
+    $uri = "https://prod-23.australiasoutheast.logic.azure.com:443/workflows/fc0b3b3491b0462580829985873bf1ba/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=jj-r8e3Ik0fibvEqAKR5UwXRs2JVxT1T-m4OcLjoSWA"
+    
+    $body =  @{ "wizard"=$wizard; "email"=$email; "name_directrouting" = $name_directrouting; "eth0_public_fqdn" = $eth0_public_fqdn; "eth0_public_ip_address"  = $eth0_public_ip_address; "sip2_listen_port" = $sip2_listen_port; "name_itsp" = $name_itsp; "sip1_listen_port" = $sip1_listen_port; "sip1_listen_protocol" = $sip1_listen_protocol; "sip1_proxy_fqdn" = $sip1_proxy_fqdn; "sip1_proxy_port" = $sip1_proxy_port; "sip1_proxy_protocol" = $sip1_proxy_protocol; "sbc_syslog_server" = $sbc_syslog_server; "sbc_ntp_server" = $sbc_ntp_server; "sbc_ntp_offset" = $sbc_ntp_offset;} | ConvertTo-Json
+
+    invoke-webrequest -uri $uri -Method post -Body $body -ContentType "application/x-www-form-urlencoded"
+}
 
 
 # SIG # Begin signature block
