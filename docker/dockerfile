@@ -1,6 +1,10 @@
 FROM mcr.microsoft.com/powershell:latest
 
+LABEL "name"="Teams Tools"
+LABEL "description"="PowerShell Container with default tools installed"
+LABEL "maintainer"="Shane Hoey"
+LABEL "version"="0.1.1-beta"
+
 RUN pwsh -NoProfile -Command \
   Install-Module -name "MicrosoftTeams" -version 1.1.3-preview
-  Install-Module -name "Mediant"  
   Install-Module -name "TeamsTools"
