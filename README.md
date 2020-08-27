@@ -5,9 +5,7 @@ A PowerShell Module, that includes a collection of scripts to expand on Managing
 
 ## Recommended Usage (Docker)
 
-By using the docker inage everything cames pre-install in a standard docker container, built from the latest official images.  
-
-Using docker is the simplist and easiest method to use teams as the only prerequisite is to install docker engine. 
+Using docker is the simplist and easiest method to use teams as the only prerequisite is to install docker engine. By using TeamsTools within a docker image everything comes pre-install, built from the latest official images, and latest modules from PowerShell Gallery. 
 
 1) Install Docker Desktop from [Docker Hub](https://hub.docker.com/search?q=&type=edition&offering=community&sort=updated_at&order=desc)
 
