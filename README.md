@@ -1,17 +1,34 @@
 # TeamsTools
 A PowerShell Module, that includes a collection of scripts to expand on Microsoft Teams Direct Routing
 
+## Recommended Usage (Docker)
+By using the docker inage everything cames pre-install in a standard docker container, built from the latest official images.  
 
-## Installation  (PowerShell Module)
+Using docker is the simplist and easiest method to use teams as the only prerequisite is to install docker engine. 
 
+PreRequisite
+1) Install Docker Desktop from [Docker Hub](https://hub.docker.com/search?q=&type=edition&offering=community&sort=updated_at&order=desc)
+
+```powershell 
+docker pull shanehoey/teamstools
+docker run -interactive shanehoey/teamstools
 ```
+
+## Manual Installation (PowerShell)
+
+The Teams tools module can also be installed in your local PowerShell via PowerShell Gallery. 
+
+If you choose this method of installation, you will also require to install the prequisite powwershell modules including :
+
+1) Skype for Business Online Module 
+2) Teams Module 
+3) Azure Module 
+4) Mediant Module *Optional
+5) IPPhone Module *Optional
+
+
+```powershell
 install-module -name TeamsTools
 ```
 
 
-## Installation (Docker) 
-
-```
-docker pull shanehoey/teamstools
-docker run -interactive shanehoey/teamstools
-```
