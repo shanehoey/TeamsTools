@@ -6,7 +6,6 @@ By using the docker inage everything cames pre-install in a standard docker cont
 
 Using docker is the simplist and easiest method to use teams as the only prerequisite is to install docker engine. 
 
-PreRequisite
 1) Install Docker Desktop from [Docker Hub](https://hub.docker.com/search?q=&type=edition&offering=community&sort=updated_at&order=desc)
 
 ```powershell 
