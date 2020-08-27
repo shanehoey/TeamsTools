@@ -1,7 +1,10 @@
 # TeamsTools
-A PowerShell Module, that includes a collection of scripts to expand on Microsoft Teams Direct Routing
+
+A PowerShell Module, that includes a collection of scripts to expand on Managing Microsoft Teams with PowerShell.
+
 
 ## Recommended Usage (Docker)
+
 By using the docker inage everything cames pre-install in a standard docker container, built from the latest official images.  
 
 Using docker is the simplist and easiest method to use teams as the only prerequisite is to install docker engine. 
