@@ -4,7 +4,7 @@ LABEL   Maintainer = "Shane Hoey" \
         Date = "1/09/2020" \
         Description = "docker container with PowerShell Core and latest modules to manage Teams"
 
-RUN pwsh -command "install-module -name MicrosoftTeams -requiredversion 1.1.6 -scope allusers -force -verbose \
+RUN pwsh -command "install-module -name MicrosoftTeams -scope allusers -force -verbose \
                 && install-module -name az -scope allusers -force -verbose \
                 && install-module -name mediant -scope allusers -force -verbose \
                 && install-module -name ipphones -scope allusers -force -verbose "
