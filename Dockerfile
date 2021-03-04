@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/powershell:latest
 
 LABEL   Maintainer = "Shane Hoey" \
-        Date = "1/09/2020" \
+        Date = "4/03/2021" \
         Description = "docker container with PowerShell Core and latest modules to manage Teams"
 
 RUN pwsh -command "install-module -name MicrosoftTeams -scope allusers -force -verbose \
