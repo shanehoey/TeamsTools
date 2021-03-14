@@ -35,8 +35,8 @@ get-module
 
 get-command -module tmp*
 
-$session = new-csonlinesession -
-import-pssession -session $session -
+$session = new-csonlinesession
+import-pssession -session $session
 
 
 $session2 = new-csonlinesession
