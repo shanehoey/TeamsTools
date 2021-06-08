@@ -5,4 +5,3 @@ services:
         image: shanehoey/teamstools:latest
         stdin_open: true 
         tty: true        
-

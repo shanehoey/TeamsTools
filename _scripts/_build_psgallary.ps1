@@ -1,6 +1,6 @@
 exit
 
-set-location $env:USERPROFILE\github\TeamsTools
+set-location $env:USERPROFILE\github\shanehoey\TeamsTools
 
 $NuGetApiKey = $NuGetApiKey
 $NuGetApiKey
