@@ -10,7 +10,7 @@ RUN pwsh -command "install-module -name MicrosoftTeams -scope allusers -force -v
                 && install-module -name mediant -scope allusers -force -verbose \
                 && install-module -name ipphone -scope allusers -force -verbose"
 
-COPY  profile.ps1 /home/.config/powershell/profile.ps1
+COPY profile.ps1 /home/.config/powershell/profile.ps1
 
 ENV HOME /home
 
