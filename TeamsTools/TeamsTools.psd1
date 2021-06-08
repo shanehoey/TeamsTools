@@ -12,10 +12,10 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '0.1.0'
+ModuleVersion = '0.1.1'
 
 # Supported PSEditions
-# CompatiblePSEditions = @()
+CompatiblePSEditions = @()
 
 # ID used to uniquely identify this module
 GUID = '3863756e-8652-4049-8c44-c4c4e4fcbdfa'
@@ -27,10 +27,10 @@ Author = 'Shane Hoey'
 CompanyName = 'Unknown'
 
 # Copyright statement for this module
-Copyright = '(c) 2019 shane. All rights reserved.'
+Copyright = '(c) 2021 shane. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'A collection of scripts to extend the funtionality of the Direct Routing Cmdlets (SFBO)'
+Description = 'A collection of scripts to extend the funtionality of the Direct Routing Cmdlets'
 
 # Minimum version of the Windows PowerShell engine required by this module
 # PowerShellVersion = ''
@@ -88,7 +88,7 @@ AliasesToExport = @()
 # ModuleList = @()
 
 # List of all files packaged with this module
-FileList = 'License.txt', 'DirectRoutingTools.psm1', 'DirectRoutingTools.psd1'
+FileList = 'License.txt', 'TeamsTools.psm1', 'TeamsTools.psd1'
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
@@ -99,16 +99,16 @@ PrivateData = @{
         Tags = 'AudioCodes','Mediant','Gateway','SBC','Skype','SkypeforBusiness','Skype4B','Microsoft Teams','Direct Routing'
 
         # A URL to the license for this module.
-        LicenseUri = 'https://docs.shanehoey.com/DirectRoutingTools/license/'
+        LicenseUri = 'https://github.com/shanehoey/TeamsTools/blob/master/LICENSE'
 
         # A URL to the main website for this project.
-        ProjectUri = 'https://docs.shanehoey.com/DirectRoutingTools/'
+        ProjectUri = 'https://github.com/shanehoey/TeamsTools/'
 
         # A URL to an icon representing this module.
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'https://docs.shanehoey.com/DirectRoutingTools/history/'
+        ReleaseNotes = 'https://github.com/shanehoey/TeamsTools/blob/master/README.md'
 
         # Prerelease string of this module
         # Prerelease = ''

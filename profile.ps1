@@ -1,1 +1,0 @@
-Write-Verbose "TeamsTools" -verbose

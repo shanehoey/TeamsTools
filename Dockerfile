@@ -24,6 +24,8 @@ RUN pwsh -command 'install-module -name MicrosoftTeams -scope allusers -force \
 
 COPY /scripts/profile.ps1 /home/.config/powershell/profile.ps1
 
+COPY /TeamsTools /home/.local/share/powershell/Modules/TeamsTools/
+
 ENV HOME /home
 
 WORKDIR $HOME
