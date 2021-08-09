@@ -4,7 +4,7 @@ FROM mcr.microsoft.com/powershell:latest
 # WORKAROUND install-module PSWSMAN or use mcr.microsoft.com/powershell:lts-ubuntu-18.04 or use windows containers
 
 LABEL   Maintainer = "Shane Hoey"\
-        Date = "4/03/2021"\
+        Date = "9/08/2021"\
         Description = "Docker container with PowerShell Core and latest modules to manage Teams"\
         org.opencontainers.image.source = https://github.com/shanehoey/teamstools
 

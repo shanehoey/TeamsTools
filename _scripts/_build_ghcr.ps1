@@ -1,6 +1,6 @@
 exit
 
-set-location $env:USERPROFILE\github\shanehoey\TeamsTools
+set-location $env:USERPROFILE\code\shanehoey\TeamsTools
 
 docker build -t ghcr.io/shanehoey/teamstools:latest -f Dockerfile .
 
