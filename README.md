@@ -13,6 +13,9 @@ Using docker is the simplist and easiest method to use teams as the only prerequ
 docker pull shanehoey/teamstools
 docker run -it shanehoey/teamstools
 
+
+docker pull shanehoey/teamstools
+docker run -it shanehoey/teamstools
 ```
 
 ## Manual Installation (PowerShell)
