@@ -1,7 +1,7 @@
 # TeamsTools
 
 ``` 
-Important Note :  This project is out of date 
+Important Note :  This project is out of date, I am in the midst of updating it, so it will be broken as it stands,
 
 ```
 
