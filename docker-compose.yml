@@ -1,7 +1,0 @@
-version: '3'
-
-services:
-    pwsh:
-        image: shanehoey/teamstools:latest
-        stdin_open: true 
-        tty: true        
