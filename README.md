@@ -1,7 +1,8 @@
 # TeamsTools
 
 ``` 
-Important Note :  This project is out of date, I am in the midst of updating it, so it will be broken as it stands,
+
+Important Note :  As of May 2020 the previous project is out of date, I am in the midst of updating these scripts and will Update them shortly to a new version.
 
 ```
 
@@ -30,11 +31,9 @@ The Teams tools module can also be installed in your local PowerShell via PowerS
 
 If you choose this method of installation, you will also require to install the prequisite powwershell modules including :
 
-1) Skype for Business Online Module
 2) Teams Module
-3) Azure Module
+3) Microsoft Graph Module
 4) Mediant Module *Optional
-5) IPPhone Module *Optional
 
 ```powershell
 
