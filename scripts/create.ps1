@@ -1,6 +1,7 @@
 try {
     get-cstenant | Select-Object Sipdomain
-} catch {
+}
+catch {
     Connect-MicrosoftTeams -UseDeviceAuthentication
 }
 
@@ -77,14 +78,14 @@ Add-TeamsVirtualVoiceRoute  -Identity "AUMEL-International-VR1" -PstnUsageList "
 
 
 # TeamsVirtualVoiceRoutingPolicy
-Add-TeamsVirtualVoiceRoutingPolicy -identity "AUBNE-National" -PstnUsageList "AUBNE-Internal-PU1","AUBNE-National-PU1"
-Add-TeamsVirtualVoiceRoutingPolicy -identity "AUBNE-International" -PstnUsageList "AUBNE-Internal-PU1","AUBNE-National-PU1","AUBNE-International-PU1"
-Add-TeamsVirtualVoiceRoutingPolicy -identity "AUOOL-National" -PstnUsageList "AUOOL-Internal-PU1","AUOOL-National-PU1"
-Add-TeamsVirtualVoiceRoutingPolicy -identity "AUOOL-International" -PstnUsageList "AUOOL-Internal-PU1","AUOOL-National-PU1","AUOOL-International-PU1"
-Add-TeamsVirtualVoiceRoutingPolicy -identity "AUSYD-National" -PstnUsageList "AUSYD-Internal-PU1","AUSYD-National-PU1"
-Add-TeamsVirtualVoiceRoutingPolicy -identity "AUSYD-International" -PstnUsageList "AUSYD-Internal-PU1","AUSYD-National-PU1","AUSYD-International-PU1"
-Add-TeamsVirtualVoiceRoutingPolicy -identity "AUMEL-National" -PstnUsageList "AUMEL-Internal-PU1","AUMEL-National-PU1"
-Add-TeamsVirtualVoiceRoutingPolicy -identity "AUMEL-International" -PstnUsageList "AUMEL-Internal-PU1","AUMEL-National-PU1","AUMEL-International-PU1"
+Add-TeamsVirtualVoiceRoutingPolicy -identity "AUBNE-National" -PstnUsageList "AUBNE-Internal-PU1", "AUBNE-National-PU1"
+Add-TeamsVirtualVoiceRoutingPolicy -identity "AUBNE-International" -PstnUsageList "AUBNE-Internal-PU1", "AUBNE-National-PU1", "AUBNE-International-PU1"
+Add-TeamsVirtualVoiceRoutingPolicy -identity "AUOOL-National" -PstnUsageList "AUOOL-Internal-PU1", "AUOOL-National-PU1"
+Add-TeamsVirtualVoiceRoutingPolicy -identity "AUOOL-International" -PstnUsageList "AUOOL-Internal-PU1", "AUOOL-National-PU1", "AUOOL-International-PU1"
+Add-TeamsVirtualVoiceRoutingPolicy -identity "AUSYD-National" -PstnUsageList "AUSYD-Internal-PU1", "AUSYD-National-PU1"
+Add-TeamsVirtualVoiceRoutingPolicy -identity "AUSYD-International" -PstnUsageList "AUSYD-Internal-PU1", "AUSYD-National-PU1", "AUSYD-International-PU1"
+Add-TeamsVirtualVoiceRoutingPolicy -identity "AUMEL-National" -PstnUsageList "AUMEL-Internal-PU1", "AUMEL-National-PU1"
+Add-TeamsVirtualVoiceRoutingPolicy -identity "AUMEL-International" -PstnUsageList "AUMEL-Internal-PU1", "AUMEL-National-PU1", "AUMEL-International-PU1"
 
 
 # TeamsVirtualDialPlan
