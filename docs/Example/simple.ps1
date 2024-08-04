@@ -4,10 +4,7 @@ try {
     Connect-MicrosoftTeams -UseDeviceAuthentication
 }
 
-Set-Location -Path s:\devdrive\TeamsToolsUpdated
-Remove-Module -Name TeamsTools
 Import-Module  -Name .\teamstools\ -Verbose -Force
-
 
 # TeamsVirtualTopology
 New-TeamsVirtualTopology -domain "sandbox.audicodes.dev"

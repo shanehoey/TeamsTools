@@ -4,9 +4,8 @@ try {
     Connect-MicrosoftTeams -UseDeviceAuthentication
 }
 
-Set-Location -Path s:\devdrive\TeamsToolsUpdated
-Remove-Module -Name TeamsTools
-Import-Module  -Name .\teamstools\ -Verbose -Force
+Install-Module -Names TeamsTools
+Import-Module -Name TeamsTools -Verbose -Force
 
 New-TeamsVirtualTopology -DomainName sandbox.shanehoey.dev
 
@@ -14,21 +13,17 @@ Get-CsTenantNetworkRegion | foreach-object {
     Add-TeamsVirtualNetworkRegion -NetworkRegionID $psitem.NetworkRegionID -Description $psitem.description -source "Tenant"
 }
 
-
 Get-CsTenantNetworkSite | foreach-object { 
     Add-TeamsVirtualNetworkSite -source "Tenant" -NetworkSiteID $psitem.NetworkSiteID -NetworkRegionID $psitem.NetworkRegionID -Description $psitem.description -EmergencyCallingPolicy $psitem.EmergencyCallingPolicy -Location $psitem.Location -VoiceRoutingPolicy $psitem.VoiceRoutingPolicy -VoicePolicy $psitem.VoicePolicy  
 }
-
 
 foreach ($item in Get-CsTenantNetworkSubnet) {
     Add-TeamsVirtualNetworkRegion -NetworkRegionID $item.NetworkRegionID -Description $item.description -source "Tenant"
 }
 
-
 foreach ($item in Get-CsTenantTrustedIPAddress ) {
     Add-TeamsVirtualTrustedIPAddress -IpAddress $item.IpAddress -Mask $item.Mask -source "Tenant" -Description $item.description
 }
-
 
 foreach ($item in Get-CsOnlinePSTNGateway) {
     Add-TeamsVirtualPSTNGateway -Identity $item.Identity -SipSignalingPort $item.SipSignalingPort -MaxConcurrentSessions $item.MaxConcurrentSessions -FailoverResponseCodes $item.FailoverResponseCodes -MediaBypass $item.MediaBypass -GatewaySiteId $item.GatewaySiteId -BypassMode $item.BypassMode -ProxySbc $item.ProxySbc -source "Tenant"

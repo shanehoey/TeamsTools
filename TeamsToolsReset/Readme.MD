@@ -1,2 +1,0 @@
-# Teams Tenant Reset
-

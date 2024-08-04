@@ -4,13 +4,13 @@
 RootModule = 'TeamsTools.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.2.0'
+ModuleVersion = '1.0.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
 
 # ID used to uniquely identify this module
-GUID = '3863756e-8652-4049-8c44-c4c4e4fcbdfa'
+GUID = '89094aae-3ad4-4ee9-8367-af85f8120cf8'
 
 # Author of this module
 Author = 'Shane Hoey'
@@ -19,7 +19,7 @@ Author = 'Shane Hoey'
 # CompanyName = ''
 
 # Copyright statement for this module
-Copyright = '(c) 2023 Shane Hoey. All rights reserved.'
+Copyright = '(c) 2020-2024 Shane Hoey. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'A collection of scripts to extend the funtionality of the Direct Routing Cmdlets'
@@ -79,7 +79,7 @@ Description = 'A collection of scripts to extend the funtionality of the Direct 
 # ModuleList = @()
 
 # List of all files packaged with this module
-  FileList = @("TeamsTools.psm1", "TeamsTools.psd1", "LICENSE.txt", "README.md","VirtualTopology.ps1","Classes.ps1","Invoke.ps1")
+FileList = @("TeamsTools.psm1", "TeamsTools.psd1", "LICENSE.txt","Classes.ps1","InvokeTopology.ps1","VirtualTopology.ps1")
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
@@ -87,7 +87,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = 'shanehoey','Mediant','Gateway','SBC','Skype','SkypeforBusiness','Skype4B','Microsoft Teams','Direct Routing'
+        Tags = 'shanehoey','Mediant','Gateway','SBC','Skype','SkypeforBusiness','Skype4B','MicrosoftTeams','DirectRouting'
 
         # A URL to the license for this module.
         LicenseUri = 'https://github.com/shanehoey/TeamsTools/blob/master/LICENSE'

@@ -4,7 +4,7 @@
 RootModule = 'TeamsToolsReset.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.2.0'
+ModuleVersion = '1.0.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -79,7 +79,7 @@ Description = 'A collection of scripts to extend the funtionality of the Direct 
 # ModuleList = @()
 
 # List of all files packaged with this module
-  FileList = @("TeamsToolsReset.psm1", "TeamsToolsReset.psd1", "LICENSE.txt", "README.md","TeamsToolsReset.ps1")
+  FileList = @("TeamsToolsReset.psm1", "TeamsToolsReset.psd1", "LICENSE.txt", "TeamsToolsReset.ps1")
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
@@ -87,7 +87,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = 'shanehoey','Mediant','Gateway','SBC','Skype','SkypeforBusiness','Skype4B','Microsoft Teams','Direct Routing'
+        Tags = 'shanehoey','MicrosoftTeams','DirectRouting'
 
         # A URL to the license for this module.
         LicenseUri = 'https://github.com/shanehoey/TeamsTools/blob/master/LICENSE'
