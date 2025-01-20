@@ -1,6 +1,5 @@
-# TeamsToolsCreating
+# TeamsTools
 # https://github.com/shanehoey/TeamsTools
-
 
 # Invoke-TeamsNetworkRegion
 Function Invoke-TeamsNetworkRegion {

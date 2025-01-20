@@ -1,13 +1,13 @@
-#Requires -Modules @{ ModuleName="MicrosoftTeams"; ModuleVersion="5.0.0" }
-#Requires -Modules @{ ModuleName="Microsoft.Graph.authentication"; ModuleVersion="1.21.0" }
-#Requires -Modules @{ ModuleName="Microsoft.Graph.Groups"; ModuleVersion="1.21.0" }
-#Requires -Modules @{ ModuleName="Microsoft.Graph.Users"; ModuleVersion="1.21.0" }
+#Requires -Modules @{ ModuleName="MicrosoftTeams"; ModuleVersion="6.7.0" }
+#Requires -Modules @{ ModuleName="Microsoft.Graph.authentication"; ModuleVersion="2.25.0" }
+#Requires -Modules @{ ModuleName="Microsoft.Graph.Groups"; ModuleVersion="2.25.0" }
+#Requires -Modules @{ ModuleName="Microsoft.Graph.Users"; ModuleVersion="2.25.0" }
 #Requires -version 5.0
 
 #Set-StrictMode -Version Latest 
 
 <#
-    Copyright (c) 2016-2024 Shane Hoey
+    Copyright (c) 2016-2025 Shane Hoey
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

@@ -19,7 +19,7 @@ Author = 'Shane Hoey'
 # CompanyName = ''
 
 # Copyright statement for this module
-Copyright = '(c) 2016-2024 Shane Hoey. All rights reserved.'
+Copyright = '(c) 2016-2025 Shane Hoey. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'A collection of scripts to extend the funtionality of the Direct Routing Cmdlets'
