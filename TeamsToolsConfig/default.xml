@@ -1,0 +1,282 @@
+<defaults>
+    <VoiceNormalisation>
+
+        <Default  Name="Default">
+            <Emergency Pattern="^$" Translation="$1"/>
+            <Internal Pattern="^$" Translation="$1"/>
+            <National Pattern="^$" Translation="$1"/>
+            <International Pattern="^$" Translation="$1"/>
+        </Default>
+
+        <AU Name="Australia">
+            <Emergency Pattern="^(000)$" Translation="+61$1"/>
+            <Internal Pattern="^$" Translation="$1"/>
+            <Local areacode="02" Pattern="^(612|02|2)?(\d{8})$" Translation="+612$2"/>
+            <Local areacode="03" Pattern="^(613|03|3)?(\d{8})$" Translation="+613$2"/>
+            <Local areacode="07" Pattern="^(617|07|7)?(\d{8})$" Translation="+617$2"/>
+            <Local areacode="08" Pattern="^(618|08|8)?(\d{8})$" Translation="+618$2"/>
+            <National Pattern="^(61|0)?(\d{9})$" Translation="+61$2"/>
+            <Service Pattern="^((1[38](00)?((\d{6})|(\d{4})))|122[12345]|12[45])$" Translation="+61$1"/>
+            <International Pattern="^0011((?!61)(\d{10,15}))$" Translation="+$1"/>
+        </AU>
+
+        <BR Name="Brazil">
+            <Emergency Pattern="^(19[023])$" Translation="+55$1"/>
+            <Internal Pattern="^$" Translation="$1"/>
+            <National Pattern="^(55|0)?(\d{10})$" Translation="+55$2"/>
+            <International Pattern="^00((?!55)(\d{10,15}))$" Translation="+$1"/>
+        </BR>
+
+        <CA Name="Canada">
+            <Emergency Pattern="^(911|811)$" Translation="+1$1"/>
+            <Internal Pattern="^$" Translation="$1"/>
+            <National Pattern="^(1)?(\d{10})$" Translation="+1$2"/>
+            <International Pattern="^011((?!1)(\d{10,15}))$" Translation="+$1"/>
+        </CA>
+
+        <CL Name="Chile">
+            <Emergency Pattern="^(13\d)$" Translation="+56$1"/>
+            <Internal Pattern="^$" Translation="$1"/>
+            <National Pattern="^(\d{3,9)$" Translation="+56$2"/>
+            <International Pattern="^0((?!56)(\d{10,15}))$" Translation="+$1"/>
+        </CL>
+
+        <CO Name="Colombia">
+            <Emergency Pattern="^(123)$" Translation="+57$1"/>
+            <Internal Pattern="^$" Translation="$1"/>
+            <National Pattern="^(57|0)?(\d{3,12})$" Translation="+57$2"/>
+            <International Pattern="^00((?!57)(\d{10,15}))$" Translation="+$1"/>
+        </CO>
+
+        <GB Name="United Kingdom">
+            <Emergency Pattern="^(112|999)$" Translation="+44$1"/>
+            <Internal Pattern="^$" Translation="$1"/>
+            <National Pattern="^(44|0)?(\d{10})$" Translation="+44$2"/>
+            <International Pattern="^00((?!44)(\d{10,15}))$" Translation="+$1"/>
+        </GB>
+
+        <MZ Name="Mozambique">
+            <Emergency Pattern="^(11[79]|198)$" Translation="+25$1"/>
+            <Internal Pattern="^$" Translation="$1"/>
+            <National Pattern="^(25|0)?(\d{10})$" Translation="+25$2"/>
+            <International Pattern="^00((?!25)(\d{10,15}))$" Translation="+$1"/>
+        </MZ>
+
+        <PH Name="Phillipines">
+            <Emergency Pattern="^(911|143|8888|1555|163|1343|1342|136)$" Translation="+63$1"/>
+            <Internal Pattern="^$" Translation="$1"/>
+            <Local areacode="02" Pattern="^(632|02|2)?(\d{8})$" Translation="+632$2"/>
+            <National Pattern="^(63|0)?(\d{9})$" Translation="+63$2"/>
+            <International Pattern="^00((?!63)(\d{10,15}))$" Translation="+$1"/>
+        </PH>
+
+        <SG Name="Singapore">
+            <Emergency Pattern="^(999|995)$" Translation="+65$1"/>
+            <Internal Pattern="^$" Translation="$1"/>
+            <National Pattern="^(65|0)?(\d{10})$" Translation="+65$2"/>
+            <International Pattern="^00((?!65)(\d{10,15}))$" Translation="+$1"/>
+        </SG>
+
+        <US Name="United States">
+            <Emergency Pattern="^(911)$" Translation="+1$1"/>
+            <Internal Pattern="^$" Translation="$1"/>
+            <National Pattern="^(1)?(\d{10,15})$" Translation="+1$2"/>
+            <International Pattern="^011((?!1)(\d{10,15}))$" Translation="+$1"/>
+        </US>
+
+        <ZA Name="South Africa">
+            <Emergency Pattern="^(0101|101)(11|77)$" Translation="+27101$2"/>
+            <Internal Pattern="^$" Translation="$1"/>
+            <National Pattern="^(27|0|00)?(\d{3,10})$" Translation="+27$2"/>
+            <International Pattern="^00((?!27)(\d{10,15}))$" Translation="+$1"/>
+        </ZA>
+
+    </VoiceNormalisation>
+
+    <VoiceRoute>
+
+        <Default Name="Default">
+            <Emergency NumberPattern="^$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="^$"/>
+            <International NumberPattern="^$"/>
+        </Default>
+
+        <AU Name="Australia">
+            <Emergency NumberPattern="^\+61000$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+61\d{3,10}$"/>
+            <International NumberPattern="\+(?!61)\d{10,15}$"/>
+        </AU>
+
+        <AR Name="Argentina">
+            <Emergency NumberPattern="^\+54991$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+54\d{3,10}$"/>
+            <International NumberPattern="\+(?!54)\d{10,15}$"/>
+        </AR>
+
+        <BR Name="Brazil">
+            <Emergency NumberPattern="^\+55(19[023])$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+55\d{3,11}$"/>
+            <International NumberPattern="\+(?!55)\d{10,15}$"/>
+        </BR>
+
+        <CA Name="Canada">
+            <Emergency NumberPattern="^\+1(911|811)$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+1\d{3,10}$"/>
+            <International NumberPattern="\+(?!1)\d{10,15}$"/>
+        </CA>
+
+        <CL Name="Chile">
+            <Emergency NumberPattern="^\+56(13\d)$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+56\d{8,9}$"/>
+            <International NumberPattern="\+(?!56)\d{10,15}$"/>
+        </CL>
+
+        <CO Name="Colombia">
+            <Emergency NumberPattern="^\+57(123)$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+57\d{3,10}$"/>
+            <International NumberPattern="\+(?!57)\d{10,15}$"/>
+        </CO>
+
+        <GB Name="United Kingdom">
+            <Emergency NumberPattern="^\+44(112|999)$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+44\d{3,10}$"/>
+            <International NumberPattern="\+(?!44)\d{10,15}$"/>
+        </GB>
+
+        <MZ Name="Mozambique">
+            <Emergency NumberPattern="^\+25(11[79]|198)$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+61\d{3,10}$"/>
+            <International NumberPattern="\+61\d{3,10}$"/>
+        </MZ>
+
+        <SG Name="Singapore">
+            <Emergency NumberPattern="^\+65(999|995)$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+65\d{3,12}$"/>
+            <International NumberPattern="\+65\d{3,15}$"/>
+        </SG>
+
+        <US Name="United States">
+            <Emergency NumberPattern="^\+1911$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+1\d{3,10}$"/>
+            <International NumberPattern="\+(?!1)\d{10,15}$"/>
+        </US>
+
+        <ZA Name="South Africa">
+            <Emergency NumberPattern="^\+27101(11|77)$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+27\d{3,10}$"/>
+            <International NumberPattern="\+(?!27)\d{10,15}$"/>
+        </ZA>
+
+        <HK Name="Hong Kong">
+            <Emergency NumberPattern="^\+852(999|112)$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+852\d{3,10}$"/>
+            <International NumberPattern="\+(?!852)\d{10,15}$"/>
+        </HK>
+
+        <DE Name="Germany">
+            <Emergency NumberPattern="^\+49112$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+49\d{3,10}$"/>
+            <International NumberPattern="\+(?!49)\d{10,15}$"/>
+        </DE>
+
+        <IN Name="India">
+            <Emergency NumberPattern="^\+911$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+91\d{3,10}$"/>
+            <International NumberPattern="\+(?!91)\d{10,15}$"/>
+        </IN>
+
+        <IE Name="Ireland">
+            <Emergency NumberPattern="^\+353112$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+353\d{3,10}$"/>
+            <International NumberPattern="\+(?!353)\d{10,15}$"/>
+        </IE>
+
+        <IT Name="Italy">
+            <Emergency NumberPattern="^\+39112$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+39\d{3,10}$"/>
+            <International NumberPattern="\+(?!39)\d{10,15}$"/>
+        </IT>
+
+        <JP Name="Japan">
+            <Emergency NumberPattern="^\+81119$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+81\d{3,10}$"/>
+            <International NumberPattern="\+(?!81)\d{10,15}$"/>
+        </JP>
+
+        <MX Name="Mexico">
+            <Emergency NumberPattern="^\+52112$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+52\d{3,10}$"/>
+            <International NumberPattern="\+(?!52)\d{10,15}$"/>
+        </MX>
+
+        <NZ Name="New Zealand">
+            <Emergency NumberPattern="^\+64111$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+64\d{3,10}$"/>
+            <International NumberPattern="\+(?!64)\d{10,15}$"/>
+        </NZ>
+
+        <PH Name="Phillipines">
+            <Emergency NumberPattern="^\+63(911|143|8888|155|163|1343|1342|136)$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+63\d{3,10}$"/>
+            <International NumberPattern="\+(?!63)\d{10,15}$"/>
+        </PH>
+
+        <IL Name="Israel">
+            <Emergency NumberPattern="^\+972112$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+972\d{3,10}$"/>
+            <International NumberPattern="\+(?!972)\d{10,15}$"/>
+        </IL>
+
+        <KR Name="South Korea">
+            <Emergency NumberPattern="^\+82112$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+82\d{3,10}$"/>
+            <International NumberPattern="\+(?!82)\d{10,15}$"/>
+        </KR>
+
+        <TW Name="Taiwan">
+            <Emergency NumberPattern="^\+886112$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+886\d{3,10}$"/>
+            <International NumberPattern="\+(?!886)\d{10,15}$"/>
+        </TW>
+
+        <TH Name="Thailand">
+            <Emergency NumberPattern="^\+66112$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+66\d{3,10}$"/>
+            <International NumberPattern="\+(?!66)\d{10,15}$"/>
+        </TH>
+
+        <VN Name="Vietnam">
+            <Emergency NumberPattern="^\+84112$"/>
+            <Internal NumberPattern="^$"/>
+            <National NumberPattern="\+84\d{3,10}$"/>
+            <International NumberPattern="\+(?!84)\d{10,15}$"/>
+        </VN>
+
+    </VoiceRoute>
+
+</defaults>
