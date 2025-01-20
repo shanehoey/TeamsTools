@@ -257,7 +257,7 @@ class VirtualPstnGateway {
         $this.Identity = $Identity
         $this.BypassMode = "None"
         $this.Enabled = $true
-        $this.FailoverResponseCodes = "408,503,504"
+        $this.FailoverResponseCodes = "408,503,504,500"
         $this.FailoverTimeSeconds = "10"
         $this.ForwardCallHistory = $true
         $this.ForwardPai = $true
