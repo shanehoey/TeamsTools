@@ -1,12 +1,12 @@
-class VoiceNormalisationRule {
-
-    [ValidateNotNullOrEmpty()]
-    [ValidatePattern("^[a-zA-Z0-9_.]{1,32}$")]
-    [string]$identity
+class defaultVoiceNormalisationRule {
 
     [ValidateNotNullOrEmpty()]
     [ValidatePattern("^(global|[A-Z]{2})$")]
     [string]$countryCode
+
+    [ValidateNotNullOrEmpty()]
+    [ValidatePattern("^[a-zA-Z0-9_.\s]{1,32}$")]
+    [string]$displayName
 
     [ValidateNotNullOrEmpty()]
     [ValidateSet("Emergency", "Internal", "Local", "National", "Service", "International")]
@@ -21,18 +21,18 @@ class VoiceNormalisationRule {
     [AllowNull()]
     [string]$areaCode
 
-    VoiceNormalisationRule([string]$identity, [string]$countryCode, [string]$type, [string]$pattern, [string]$translation, [string]$areaCode) {
-        $this.identity = $identity
+    defaultVoiceNormalisationRule([string]$countryCode, [string]$displayName, [string]$type, [string]$pattern, [string]$translation, [string]$areaCode) {
         $this.countryCode = $countryCode
+        $this.displayName = $displayName
         $this.type = $type
         $this.pattern = $pattern
         $this.translation = $translation
         $this.areaCode = $areaCode
     }
 
-    VoiceNormalisationRule([string]$identity, [string]$countryCode, [string]$type, [string]$pattern, [string]$translation) {
-        $this.identity = $identity
+    defaultVoiceNormalisationRule([string]$countryCode, [string]$displayName, [string]$type, [string]$pattern, [string]$translation) {
         $this.countryCode = $countryCode
+        $this.displayName = $displayName
         $this.type = $type
         $this.pattern = $pattern
         $this.translation = $translation
@@ -40,15 +40,15 @@ class VoiceNormalisationRule {
     }
 }
 
-class voiceRoute {
-
-    [ValidateNotNullOrEmpty()]
-    [ValidatePattern("^[a-zA-Z0-9_.]{1,32}$")]
-    [string]$identity
+class defaultVoiceRoute {
 
     [ValidateNotNullOrEmpty()]
     [ValidatePattern("^(global|[A-Z]{2})$")]
     [string]$countryCode
+
+    [ValidateNotNullOrEmpty()]
+    [ValidatePattern("^[a-zA-Z0-9_.\s]{1,32}$")]
+    [string]$displayName
 
     [ValidateNotNullOrEmpty()]
     [ValidateSet("Emergency", "Internal", "Local", "National", "Service", "International")]
@@ -57,10 +57,10 @@ class voiceRoute {
     [ValidateNotNullOrEmpty()]
     [string]$pattern
 
-    voiceRoute([string]$identity, [string]$countryCode, [string]$type, [string]$pattern) {
-        $this.identity = $identity
+    defaultVoiceRoute([string]$countryCode, [string]$displayName, [string]$type, [string]$pattern) {
         $this.countryCode = $countryCode
-        $this.Type = $type
-        $this.Pattern = $pattern
+        $this.displayName = $displayName
+        $this.type = $type
+        $this.pattern = $pattern
     }
 }
