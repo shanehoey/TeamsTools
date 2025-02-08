@@ -7,8 +7,10 @@ catch {
 
 Import-Module  -Name .\teamstools\ -Verbose -Force
 
+
 # TeamsVirtualTopology
-New-TeamsVirtualTopology -domain "sandbox.audicodes.dev"
+New-TeamsVirtualTopology -domain "sandbox.shanehoey.dev"
+
 
 # TeamsNetworkRegion
 Add-TeamsVirtualNetworkRegion -NetworkRegionID "APAC" 
@@ -37,14 +39,13 @@ Add-TeamsVirtualNetworkSubnet -SubnetId 172.17.2.128 -Mask 25 -NetworkSiteID "AU
 Add-TeamsVirtualTrustedIPAddress -IpAddress "198.51.100.0" -Mask 29
 Add-TeamsVirtualTrustedIPAddress -IpAddress "203.0.113.0" -Mask 27
 Add-TeamsVirtualTrustedIPAddress -IpAddress "192.0.2.0" -Mask 28
-
+Add-TeamsVirtualTrustedIPAddress -IpAddress (Invoke-WebRequest -UseBasicParsing api.ipify.org ).Content.Trim() -Mask 32
 
 # TeamsVirtualPSTNGateway
-Add-TeamsVirtualPSTNGateway -Identity "sbc-syd.sandbox.shanehoey.dev" -SipSignalingPort 5062 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true
-Add-TeamsVirtualPSTNGateway -Identity "sbc-mel.sandbox.shanehoey.dev" -SipSignalingPort 5063 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true
-Add-TeamsVirtualPSTNGateway -Identity "sbc-bne.sandbox.shanehoey.dev" -SipSignalingPort 5067 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true -GatewaySiteId "AUBNE"
-Add-TeamsVirtualPSTNGateway -Identity "sbc-ool.sandbox.shanehoey.dev" -SipSignalingPort 5067 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true -GatewaySiteId "AUOOL" -BypassMode "Always" -ProxySbc "sbc-bne.sandbox.shanehoey.dev"
-
+Add-TeamsVirtualPSTNGateway -Identity "sbcsyd.sandbox.shanehoey.dev" -SipSignalingPort 5062 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true
+Add-TeamsVirtualPSTNGateway -Identity "sbcmel.sandbox.shanehoey.dev" -SipSignalingPort 5063 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true
+Add-TeamsVirtualPSTNGateway -Identity "sbcbne.sandbox.shanehoey.dev" -SipSignalingPort 5067 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true -GatewaySiteId "AUBNE"
+Add-TeamsVirtualPSTNGateway -Identity "sbcool.sandbox.shanehoey.dev" -SipSignalingPort 5067 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true -GatewaySiteId "AUOOL" -BypassMode "Always" -ProxySbc "sbc-bne.sandbox.shanehoey.dev"
 
 # TeamsVirtualPSTNUsage
 Add-TeamsVirtualPstnUsage -PstnUsage "AUBNE-Internal-PU1"
@@ -60,21 +61,24 @@ Add-TeamsVirtualPstnUsage -PstnUsage "AUMEL-Internal-PU1"
 Add-TeamsVirtualPstnUsage -PstnUsage "AUMEL-National-PU1"
 Add-TeamsVirtualPstnUsage -PstnUsage "AUMEL-International-PU1"
 
+
 # TeamsVirtualVoiceRoute
 $VoiceRoutes = ([xml](invoke-webrequest https://gist.githubusercontent.com/shanehoey/68c3f24ea4301d84220891f830b73b63/raw/6b61c95566b42a6a842ab6f815a705380521e281/defaults.xml).content).defaults.voiceroute
 
-Add-TeamsVirtualVoiceRoute  -Identity "AUBNE-Internal-VR1" -PstnUsageList "AUBNE-Internal-PU1" -pstngatewayList "sbc-bne.sandbox.shanehoey.dev"  -NumberPattern $VoiceRoutes.AU.Internal.NumberPattern  -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUBNE-National-VR1"-PstnUsageList "AUBNE-National-PU1"-pstngatewayList "sbc-bne.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.National.NumberPattern -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUBNE-International-VR1" -PstnUsageList "AUBNE-International-PU1" -pstngatewayList "sbc-bne.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.International.NumberPattern  -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUOOL-Internal-VR1" -PstnUsageList "AUOOL-Internal-PU1" -pstngatewayList "sbc-ool.sandbox.shanehoey.dev"  -NumberPattern $VoiceRoutes.AU.Internal.NumberPattern  -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUOOL-National-VR1"-PstnUsageList "AUOOL-National-PU1"-pstngatewayList "sbc-ool.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.National.NumberPattern -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUOOL-International-VR1" -PstnUsageList "AUOOL-International-PU1" -pstngatewayList "sbc-ool.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.International.NumberPattern  -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-Internal-VR1" -PstnUsageList "AUSYD-Internal-PU1" -pstngatewayList "sbc-syd.sandbox.shanehoey.dev"  -NumberPattern $VoiceRoutes.AU.Internal.NumberPattern  -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-National-VR1"-PstnUsageList "AUSYD-National-PU1"-pstngatewayList "sbc-syd.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.National.NumberPattern -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-International-VR1" -PstnUsageList "AUSYD-International-PU1" -pstngatewayList "sbc-syd.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.International.NumberPattern  -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUMEL-Internal-VR1" -PstnUsageList "AUMEL-Internal-PU1" -pstngatewayList "sbc-mel.sandbox.shanehoey.dev"  -NumberPattern $VoiceRoutes.AU.Internal.NumberPattern  -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUMEL-National-VR1"-PstnUsageList "AUMEL-National-PU1"-pstngatewayList "sbc-mel.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.National.NumberPattern -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUMEL-International-VR1" -PstnUsageList "AUMEL-International-PU1" -pstngatewayList "sbc-mel.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.International.NumberPattern  -Priority 10000
+
+
+Add-TeamsVirtualVoiceRoute  -Identity "AUBNE-Internal-VR1" -PstnUsageList "AUBNE-Internal-PU1" -pstngatewayList "sbcbne.sandbox.shanehoey.dev"  -NumberPattern $VoiceRoutes.AU.Internal.NumberPattern  -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUBNE-National-VR1"-PstnUsageList "AUBNE-National-PU1"-pstngatewayList "sbcbne.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.National.NumberPattern -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUBNE-International-VR1" -PstnUsageList "AUBNE-International-PU1" -pstngatewayList "sbcbne.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.International.NumberPattern  -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUOOL-Internal-VR1" -PstnUsageList "AUOOL-Internal-PU1" -pstngatewayList "sbcool.sandbox.shanehoey.dev"  -NumberPattern $VoiceRoutes.AU.Internal.NumberPattern  -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUOOL-National-VR1"-PstnUsageList "AUOOL-National-PU1"-pstngatewayList "sbcool.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.National.NumberPattern -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUOOL-International-VR1" -PstnUsageList "AUOOL-International-PU1" -pstngatewayList "sbcool.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.International.NumberPattern  -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-Internal-VR1" -PstnUsageList "AUSYD-Internal-PU1" -pstngatewayList "sbsyd.sandbox.shanehoey.dev"  -NumberPattern $VoiceRoutes.AU.Internal.NumberPattern  -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-National-VR1"-PstnUsageList "AUSYD-National-PU1"-pstngatewayList "sbcsyd.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.National.NumberPattern -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-International-VR1" -PstnUsageList "AUSYD-International-PU1" -pstngatewayList "sbcsyd.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.International.NumberPattern  -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUMEL-Internal-VR1" -PstnUsageList "AUMEL-Internal-PU1" -pstngatewayList "sbcmel.sandbox.shanehoey.dev"  -NumberPattern $VoiceRoutes.AU.Internal.NumberPattern  -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUMEL-National-VR1"-PstnUsageList "AUMEL-National-PU1"-pstngatewayList "sbcmel.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.National.NumberPattern -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUMEL-International-VR1" -PstnUsageList "AUMEL-International-PU1" -pstngatewayList "sbcmel.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.International.NumberPattern  -Priority 10000
 
 
 # TeamsVirtualVoiceRoutingPolicy
@@ -138,7 +142,6 @@ Add-TeamsVirtualSurvivableBranchAppliance -identity "sba.sandbox.shanehoey.dev"
 
 # TeamsVirtualSurvivableBranchAppliancePolicy
 Add-TeamsVirtualSurvivableBranchAppliancePolicy -Identity "SBA" -BranchApplianceFqdns "sba.sandbox.shanehoey.dev" 
-
 
 # TeamsVirtualUser
 #bne
