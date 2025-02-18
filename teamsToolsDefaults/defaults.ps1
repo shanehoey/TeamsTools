@@ -1,5 +1,6 @@
 
 function initialize-teamsDefaultVoiceRoutes {
+
     $routes = @()
     $routes += [defaultVoiceRoute]::new("global", "global", "Emergency", "^$")
     $routes += [defaultVoiceRoute]::new("global", "global", "Internal", "^$")
@@ -132,51 +133,10 @@ function initialize-teamsDefaultVoiceRoutes {
     $routes += [defaultVoiceRoute]::new("VN", "Vietnam", "International", "\+(?!84)\d{10,15}$")
 
     return $routes
+
 }
 
-# Function to get the rules based on name and type
-function Get-TeamsDefaultVoiceRoutes {
-    [CmdletBinding(DefaultParameterSetName = 'ByCountryCode')]
-    param (
-        [Parameter(ParameterSetName = 'ByDisplayName', Mandatory = $true)]
-        [string]$displayName,
-
-        [Parameter(ParameterSetName = 'ByCountryCode', Mandatory = $true)]
-        [string]$countryCode,
-
-        [Parameter(Mandatory = $false)]
-        [ValidateSet("Emergency", "Internal", "Local", "National", "Service", "International")]
-        [string]$Type
-    )
-
-    $rules = initialize-teamsDefaultVoiceRoutes
-
-    switch ($PSCmdlet.ParameterSetName) {
-        'ByDisplayName' {
-            if ($null -eq $Type) {
-                $filteredRules = $rules | Where-Object { $_.displayName -eq $displayName }
-            } else {
-                $filteredRules = $rules | Where-Object { $_.displayName -eq $displayName -and $_.Type -eq $Type }
-            }
-        }
-        'ByCountryCode' {
-            if ($null -eq $Type) {
-                $filteredRules = $rules | Where-Object { $_.countryCode -eq $countryCode }
-            } else {
-                $filteredRules = $rules | Where-Object { $_.countryCode -eq $countryCode -and $_.Type -eq $Type }
-            }
-        }
-    }
-
-    return $filteredRules
-}
-
-# Example usage
-# $defaultEmergencyRules = Get-TeamsDefaults -Name 'Default' -Type 'Emergency'
-# $defaultEmergencyRules | Format-Table -AutoSize
-
-
-function Initialize-TeamsDefaultVoiceNormalisationRules {
+function initialize-teamsDefaultVoiceNormalisationRules {
 
     $rules = @()
 
@@ -248,46 +208,3 @@ function Initialize-TeamsDefaultVoiceNormalisationRules {
 
     return $rules
 }
-
-# Function to get the rules based on name and type
-function Get-TeamsDefaultVoiceNormalisationRules {
-    
-        [CmdletBinding(DefaultParameterSetName = 'ByCountryCode')]
-        param (
-
-            [Parameter(ParameterSetName = 'ByCountryCode', Mandatory = $true)]
-            [string]$countryCode,
-
-            [Parameter(ParameterSetName = 'ByDisplayName', Mandatory = $true)]
-            [string]$displayName,
-    
-            [Parameter(Mandatory = $false)]
-            [ValidateSet("Emergency", "Internal", "Local", "National", "Service", "International")]
-            [string]$type
-        )
-    
-        $rules = Initialize-TeamsDefaultVoiceNormalisationRules
-
-        switch ($PSCmdlet.ParameterSetName) {
-            'ByDisplayName' {
-                if ($null -eq $Type) {
-                    $filteredRules = $rules | Where-Object { $_.displayName -eq $displayName }
-                } else {
-                    $filteredRules = $rules | Where-Object { $_.displayName -eq $displayName -and $_.Type -eq $type }
-                }
-            }
-            'ByCountryCode' {
-                if ($null -eq $Type) {
-                    $filteredRules = $rules | Where-Object { $_.countryCode -eq $countryCode }
-                } else {
-                    $filteredRules = $rules | Where-Object { $_.countryCode -eq $countryCode -and $_.Type -eq $type }
-                }
-            }
-        }
-
-        return $filteredRules
-\}
-  
-# Example usage
-# $defaultEmergencyRules = Get-TeamsDefaults -Name 'Default' -Type 'Emergency'
-# $defaultEmergencyRules | Format-Table -AutoSize

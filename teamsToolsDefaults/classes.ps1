@@ -63,4 +63,6 @@ class defaultVoiceRoute {
         $this.type = $type
         $this.pattern = $pattern
     }
+
 }
+

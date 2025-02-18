@@ -5,7 +5,9 @@ catch {
     Connect-MicrosoftTeams -UseDeviceAuthentication
 }
 
-Import-Module  -Name .\teamstools\ -Verbose -Force
+Import-Module  -Name .\teamsTools\ -Verbose -Force
+Import-Module  -Name .\teamsToolsDefaults\ -Verbose -Force
+Import-Module  -Name .\teamsToolsReset\ -Verbose -Force
 
 
 # TeamsVirtualTopology
@@ -63,9 +65,7 @@ Add-TeamsVirtualPstnUsage -PstnUsage "AUMEL-International-PU1"
 
 
 # TeamsVirtualVoiceRoute
-$VoiceRoutes = ([xml](invoke-webrequest https://gist.githubusercontent.com/shanehoey/68c3f24ea4301d84220891f830b73b63/raw/6b61c95566b42a6a842ab6f815a705380521e281/defaults.xml).content).defaults.voiceroute
-
-
+$voiceroutes  = Get-teamsdefaultvoiceroutes -countryCode "AU" 
 
 Add-TeamsVirtualVoiceRoute  -Identity "AUBNE-Internal-VR1" -PstnUsageList "AUBNE-Internal-PU1" -pstngatewayList "sbcbne.sandbox.shanehoey.dev"  -NumberPattern $VoiceRoutes.AU.Internal.NumberPattern  -Priority 10000
 Add-TeamsVirtualVoiceRoute  -Identity "AUBNE-National-VR1"-PstnUsageList "AUBNE-National-PU1"-pstngatewayList "sbcbne.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.National.NumberPattern -Priority 10000

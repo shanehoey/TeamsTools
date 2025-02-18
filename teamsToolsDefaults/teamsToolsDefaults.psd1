@@ -1,10 +1,10 @@
 @{
 
 # Script module or binary module file associated with this manifest.
-RootModule = 'TeamsToolsDefaults.psm1'
+RootModule = 'teamsToolsDefaults.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.0'
+ModuleVersion = '1.0.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -79,7 +79,7 @@ Description = 'A collection of scripts to extend the funtionality of the Direct 
 # ModuleList = @()
 
 # List of all files packaged with this module
-  FileList = @("TeamsToolsDefaults.psm1", "TeamsToolsDefaults.psd1", "LICENSE.txt", "classes.ps1","defaults.ps1")
+FileList = @("TeamsToolsDefaults.psm1", "TeamsToolsDefaults.psd1", "LICENSE.txt", "classes.ps1","defaults.ps1")
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{

@@ -19,4 +19,4 @@
 . $PSScriptRoot\classes.ps1
 . $PSScriptRoot\defaults.ps1
 
-Export-ModuleMember -Function * -Variable * 
+Export-ModuleMember -Function initialize-teamsDefaultVoiceNormalisationRules, initialize-teamsDefaultVoiceRoutes
