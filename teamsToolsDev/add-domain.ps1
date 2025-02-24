@@ -1,18 +1,16 @@
 
+$domain = "sandbox.shanehoey.dev"
+
 Connect-Mggraph -scopes "Domain.ReadWrite.All" 
+
 Import-Module Microsoft.Graph.Identity.DirectoryManagement
 
-New-MgDomain -AuthenticationType Managed -id "sandbox.shanehoey.dev" -IsAdminManaged -IsDefault 
-New-MgDomain -AuthenticationType Managed -id "play.shanehoey.dev" -IsAdminManaged 
-New-MgDomain -AuthenticationType Managed -id "hosting.shanehoey.dev" -IsAdminManaged
+New-MgDomain -AuthenticationType Managed -id $domain -IsAdminManaged -IsDefault 
 
-(Get-MgDomainVerificationDnsRecord -DomainId "sandbox.shanehoey.dev" | Where-Object {$_.RecordType -eq "Txt"}).AdditionalProperties.text
-(Get-MgDomainVerificationDnsRecord -DomainId "play.shanehoey.dev" | Where-Object {$_.RecordType -eq "Txt"}).AdditionalProperties.text
-(Get-MgDomainVerificationDnsRecord -DomainId "hosting.shanehoey.dev" | Where-Object {$_.RecordType -eq "Txt"}).AdditionalProperties.text
+(Get-MgDomainVerificationDnsRecord -DomainId $domain | Where-Object {$_.RecordType -eq "Txt"}).AdditionalProperties.text
 
-dig sandbox.shanehoey.dev TXT
-dig play.shanehoey.dev TXT
-dig hosting.shanehoey.dev TXT
+dig $domain TXT
+
 
 confirm-MgDomain -DomainId "sandbox.shanehoey.dev" | Format-list *
 confirm-MgDomain -DomainId "play.shanehoey.dev" | Format-list *

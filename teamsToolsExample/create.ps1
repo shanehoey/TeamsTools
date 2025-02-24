@@ -13,7 +13,6 @@ Import-Module  -Name .\teamsToolsReset\ -Verbose -Force
 # TeamsVirtualTopology
 New-TeamsVirtualTopology -domain "sandbox.shanehoey.dev"
 
-
 # TeamsNetworkRegion
 Add-TeamsVirtualNetworkRegion -NetworkRegionID "APAC" 
 Add-TeamsVirtualNetworkRegion -NetworkRegionID "AMERICAS"
@@ -21,20 +20,20 @@ Add-TeamsVirtualNetworkRegion -NetworkRegionID "EMEA"
 
 
 # TeamsVirtualNetworkSite
-Add-TeamsVirtualNetworkSite -NetworkSiteID "AUBNE" -NetworkRegionID "APAC" -Description "Australia Brisbane"
-Add-TeamsVirtualNetworkSite -NetworkSiteID "AUOOL" -NetworkRegionID "APAC" -Description "Australia Gold Coast"
-Add-TeamsVirtualNetworkSite -NetworkSiteID "AUSYD" -NetworkRegionID "APAC" -Description "Australia Sydney"
-Add-TeamsVirtualNetworkSite -NetworkSiteID "AUMEL" -NetworkRegionID "APAC" -Description "Australia Melbourne"
+Add-TeamsVirtualNetworkSite -NetworkSiteID "Brisbane" -NetworkRegionID "APAC" -Description "Australia Brisbane"
+Add-TeamsVirtualNetworkSite -NetworkSiteID "GoldCoast" -NetworkRegionID "APAC" -Description "Australia Gold Coast"
+Add-TeamsVirtualNetworkSite -NetworkSiteID "Sydney" -NetworkRegionID "APAC" -Description "Australia Sydney"
+Add-TeamsVirtualNetworkSite -NetworkSiteID "Melbourne" -NetworkRegionID "APAC" -Description "Australia Melbourne"
 
 
 # TeamsVirtualNetworkSubnet
-Add-TeamsVirtualNetworkSubnet -SubnetId 172.16.8.0 -Mask 24 -NetworkSiteID "AUBNE"
-Add-TeamsVirtualNetworkSubnet -SubnetId 172.16.9.0 -Mask 24 -NetworkSiteID "AUBNE"
-Add-TeamsVirtualNetworkSubnet -SubnetId 172.16.35.0 -Mask 24 -NetworkSiteID "AUOOL"
-Add-TeamsVirtualNetworkSubnet -SubnetId 172.17.1.0 -Mask 25 -NetworkSiteID "AUSYD"
-Add-TeamsVirtualNetworkSubnet -SubnetId 172.17.1.128 -Mask 25 -NetworkSiteID "AUSYD"
-Add-TeamsVirtualNetworkSubnet -SubnetId 172.17.2.0 -Mask 25 -NetworkSiteID "AUMEL"
-Add-TeamsVirtualNetworkSubnet -SubnetId 172.17.2.128 -Mask 25 -NetworkSiteID "AUMEL"
+Add-TeamsVirtualNetworkSubnet -SubnetId 172.16.8.0 -Mask 24 -NetworkSiteID "Brisbane"
+Add-TeamsVirtualNetworkSubnet -SubnetId 172.16.9.0 -Mask 24 -NetworkSiteID "Brisbane"
+Add-TeamsVirtualNetworkSubnet -SubnetId 172.16.35.0 -Mask 24 -NetworkSiteID "GoldCoast"
+Add-TeamsVirtualNetworkSubnet -SubnetId 172.17.1.0 -Mask 25 -NetworkSiteID "Sydney"
+Add-TeamsVirtualNetworkSubnet -SubnetId 172.17.1.128 -Mask 25 -NetworkSiteID "Sydney"
+Add-TeamsVirtualNetworkSubnet -SubnetId 172.17.2.0 -Mask 25 -NetworkSiteID "Melbourne"
+Add-TeamsVirtualNetworkSubnet -SubnetId 172.17.2.128 -Mask 25 -NetworkSiteID "Melbourne"
 
 
 # TeamsVirtualTrustedIPAddress
@@ -45,7 +44,39 @@ Add-TeamsVirtualTrustedIPAddress -IpAddress (Invoke-WebRequest -UseBasicParsing 
 
 # TeamsVirtualPSTNGateway
 Add-TeamsVirtualPSTNGateway -Identity "sbcsyd.sandbox.shanehoey.dev" -SipSignalingPort 5062 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true
-Add-TeamsVirtualPSTNGateway -Identity "sbcmel.sandbox.shanehoey.dev" -SipSignalingPort 5063 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true
+Add-TeamsVirtualPS# TeamsVirtualDialPlan
+Add-TeamsVirtualDialPlan -identity "AU02-DP1"
+Add-TeamsVirtualDialPlan -identity "AU03-DP1"
+Add-TeamsVirtualDialPlan -identity "AU07-DP1"
+Add-TeamsVirtualDialPlan -identity "AU08-DP1"
+
+# TeamsVirtualVoiceNormalisation
+$VoiceNormalisation = ([xml](invoke-webrequest https://gist.githubusercontent.com/shanehoey/68c3f24ea4301d84220891f830b73b63/raw/6b61c95566b42a6a842ab6f815a705380521e281/defaults.xml).content).defaults.VoiceNormalisation
+Add-TeamsVirtualVoiceNormalisation -parent "AU02-DP1" -name "Emergency" -Pattern $VoiceNormalisation.AU.Emergency.Pattern -Translation $VoiceNormalisation.AU.Emergency.Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU02-DP1" -name "FakePSTN" -Pattern '^(9\d{3})$' -Translation '+6177010$1'
+Add-TeamsVirtualVoiceNormalisation -parent "AU02-DP1" -name "Local" -Pattern $VoiceNormalisation.AU.Local[0].Pattern  -Translation $VoiceNormalisation.AU.Local[0].Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU02-DP1" -name "National" -Pattern $VoiceNormalisation.AU.National.Pattern -Translation $VoiceNormalisation.AU.National.Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU02-DP1" -name "Service" -Pattern $VoiceNormalisation.AU.Service.Pattern  -Translation $VoiceNormalisation.AU.Service.Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU02-DP1" -name "International" -Pattern $VoiceNormalisation.AU.International.Pattern -Translation $VoiceNormalisation.AU.International.Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU03-DP1" -name "Emergency" -Pattern $VoiceNormalisation.AU.Emergency.Pattern -Translation $VoiceNormalisation.AU.Emergency.Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU03-DP1" -name "FakePSTN" -Pattern '^(9\d{3})$' -Translation '+6177010$1'
+Add-TeamsVirtualVoiceNormalisation -parent "AU03-DP1" -name "Local" -Pattern $VoiceNormalisation.AU.Local[1].Pattern  -Translation $VoiceNormalisation.AU.Local[1].Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU03-DP1" -name "National" -Pattern $VoiceNormalisation.AU.National.Pattern -Translation $VoiceNormalisation.AU.National.Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU03-DP1" -name "Service" -Pattern $VoiceNormalisation.AU.Service.Pattern  -Translation $VoiceNormalisation.AU.Service.Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU03-DP1" -name "International" -Pattern $VoiceNormalisation.AU.International.Pattern -Translation $VoiceNormalisation.AU.International.Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU07-DP1" -name "Emergency" -Pattern $VoiceNormalisation.AU.Emergency.Pattern -Translation $VoiceNormalisation.AU.Emergency.Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU07-DP1" -name "FakePSTN" -Pattern '^(9\d{3})$' -Translation '+6177010$1'
+Add-TeamsVirtualVoiceNormalisation -parent "AU07-DP1" -name "Local" -Pattern $VoiceNormalisation.AU.Local[2].Pattern  -Translation $VoiceNormalisation.AU.Local[2].Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU07-DP1" -name "National" -Pattern $VoiceNormalisation.AU.National.Pattern -Translation $VoiceNormalisation.AU.National.Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU07-DP1" -name "Service" -Pattern $VoiceNormalisation.AU.Service.Pattern  -Translation $VoiceNormalisation.AU.Service.Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU07-DP1" -name "International" -Pattern $VoiceNormalisation.AU.International.Pattern -Translation $VoiceNormalisation.AU.International.Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU08-DP1" -name "Emergency" -Pattern $VoiceNormalisation.AU.Emergency.Pattern -Translation $VoiceNormalisation.AU.Emergency.Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU08-DP1" -name "FakePSTN" -Pattern '^(9\d{3})$' -Translation '+6177010$1'
+Add-TeamsVirtualVoiceNormalisation -parent "AU08-DP1" -name "Local" -Pattern $VoiceNormalisation.AU.Local[3].Pattern  -Translation $VoiceNormalisation.AU.Local[3].Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU08-DP1" -name "National" -Pattern $VoiceNormalisation.AU.National.Pattern -Translation $VoiceNormalisation.AU.National.Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU08-DP1" -name "Service" -Pattern $VoiceNormalisation.AU.Service.Pattern  -Translation $VoiceNormalisation.AU.Service.Translation
+Add-TeamsVirtualVoiceNormalisation -parent "AU08-DP1" -name "International" -Pattern $VoiceNormalisation.AU.International.Pattern -Translation $VoiceNormalisation.AU.International.Translation
+TNGateway -Identity "sbcmel.sandbox.shanehoey.dev" -SipSignalingPort 5063 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true
 Add-TeamsVirtualPSTNGateway -Identity "sbcbne.sandbox.shanehoey.dev" -SipSignalingPort 5067 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true -GatewaySiteId "AUBNE"
 Add-TeamsVirtualPSTNGateway -Identity "sbcool.sandbox.shanehoey.dev" -SipSignalingPort 5067 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true -GatewaySiteId "AUOOL" -BypassMode "Always" -ProxySbc "sbc-bne.sandbox.shanehoey.dev"
 
