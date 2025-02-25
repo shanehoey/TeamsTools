@@ -1,6 +1,5 @@
 #Requires -Modules @{ ModuleName="MicrosoftTeams"; ModuleVersion="6.7.0" }
 #Requires -Modules @{ ModuleName="Microsoft.Graph.authentication"; ModuleVersion="2.25.0" }
-#Requires -Modules @{ ModuleName="Microsoft.Graph.Domains"; ModuleVersion="2.25.0" }
 #Requires -Modules @{ ModuleName="Microsoft.Graph.Groups"; ModuleVersion="2.25.0" }
 #Requires -Modules @{ ModuleName="Microsoft.Graph.Users"; ModuleVersion="2.25.0" }
 #Requires -version 5.0
@@ -17,7 +16,6 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #>
 
-. $PSScriptRoot\classes.ps1
-. $PSScriptRoot\defaults.ps1
+. $PSScriptRoot\teamsToolsDev.ps1
 
-Export-ModuleMember -Function initialize-teamsDefaultVoiceNormalisationRules, initialize-teamsDefaultVoiceRoutes
+Export-ModuleMember -Function * -Variable * 

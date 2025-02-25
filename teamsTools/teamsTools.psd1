@@ -4,10 +4,11 @@
 RootModule = 'teamsTools.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.1'
+# Major/Minor/Build
+ModuleVersion = '2.0.0'
 
 # Supported PSEditions
-# CompatiblePSEditions = @()
+CompatiblePSEditions = @('Core')
 
 # ID used to uniquely identify this module
 GUID = '89094aae-3ad4-4ee9-8367-af85f8120cf8'
@@ -19,13 +20,13 @@ Author = 'Shane Hoey'
 # CompanyName = ''
 
 # Copyright statement for this module
-Copyright = '(c) 2020-2024 Shane Hoey. All rights reserved.'
+Copyright = '(c) 2020-2025 Shane Hoey. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'A collection of scripts to extend the funtionality of the Direct Routing Cmdlets'
+Description = 'A module for managing Microsoft Teams, in particular to extend the funtionality of the Direct Routing Cmdlets'
 
 # Minimum version of the PowerShell engine required by this module
-# PowerShellVersion = ''
+PowerShellVersion = '7.2'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -43,7 +44,32 @@ Description = 'A collection of scripts to extend the funtionality of the Direct 
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-# RequiredModules = @()
+RequiredModules = @(
+    @{
+        ModuleName = 'MicrosoftTeams'
+        ModuleVersion = '6.7.0'
+    },
+    @{
+        ModuleName = 'Microsoft.Graph.authentication'
+        ModuleVersion = '2.25.0'
+    },
+    @{
+        ModuleName = 'Microsoft.Graph.Groups'
+        ModuleVersion = '2.25.0'
+    },
+    @{
+        ModuleName = 'Microsoft.Graph.Users'
+        ModuleVersion = '2.25.0'
+    },
+     @{
+        ModuleName = 'Microsoft.Graph.Identity.DirectoryManagement'
+        ModuleVersion = '2.25.0'
+    },  
+    @{
+        ModuleName = 'ExchangeOnlineManagement'
+        ModuleVersion = '2.0.4'
+    }
+)
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
@@ -79,7 +105,7 @@ Description = 'A collection of scripts to extend the funtionality of the Direct 
 # ModuleList = @()
 
 # List of all files packaged with this module
-FileList = @("TeamsTools.psm1", "TeamsTools.psd1", "LICENSE.txt","Classes.ps1","InvokeTopology.ps1","VirtualTopology.ps1")
+FileList = @("teamsTools.psm1", "teamsTools.psd1", "LICENSE.txt")
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{

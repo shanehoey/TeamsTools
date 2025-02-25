@@ -1,11 +1,3 @@
-#Requires -Modules @{ ModuleName="MicrosoftTeams"; ModuleVersion="6.7.0" }
-#Requires -Modules @{ ModuleName="Microsoft.Graph.authentication"; ModuleVersion="2.25.0" }
-#Requires -Modules @{ ModuleName="Microsoft.Graph.Groups"; ModuleVersion="2.25.0" }
-#Requires -Modules @{ ModuleName="Microsoft.Graph.Users"; ModuleVersion="2.25.0" }
-#Requires -version 5.0
-
-#Set-StrictMode -Version Latest 
-
 <#
     Copyright (c) 2016-2025 Shane Hoey
 
@@ -16,8 +8,36 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #>
 
-. $PSScriptRoot\classes.ps1
-. $PSScriptRoot\virtualTopology.ps1
-. $PSScriptRoot\invokeTopology.ps1
+# .source the classes Folder
+$files = @( Get-ChildItem -Path $PSScriptRoot\classes\*.ps1 -Recurse -ErrorAction SilentlyContinue )
+foreach ($file in $files) {
+    try {
+        . $file.FullName
+    } catch {
+        Write-Error -Message "Failed to import class $($class.FullName)"
+    }
+}
 
-Export-ModuleMember -Function * -Variable * 
+# .source the private Folder
+$files = @( Get-ChildItem -Path $PSScriptRoot\private\*.ps1 -Recurse -ErrorAction SilentlyContinue )
+foreach ($file in $files) {
+    try {
+        . $file.FullName
+    } catch {
+        Write-Error -Message "Failed to import function $($file.FullName)"
+    }
+}
+
+
+# .source the public Folder
+$files = @( Get-ChildItem -Path $PSScriptRoot\public\*.ps1 -Recurse -ErrorAction SilentlyContinue )
+foreach ($file in $files) {
+    try {
+        . $file.FullName
+    } catch {
+        Write-Error -Message "Failed to import function $($file.FullName)"
+    }
+}
+
+Export-ModuleMember -Function *
+

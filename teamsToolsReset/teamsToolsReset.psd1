@@ -43,7 +43,36 @@ Description = 'A collection of scripts to extend the funtionality of the Direct 
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-# RequiredModules = @()
+RequiredModules = @(
+    @{
+        ModuleName = 'MicrosoftTeams'
+        ModuleVersion = '6.7.0'
+    },
+    @{
+        ModuleName = 'Microsoft.Graph.authentication'
+        ModuleVersion = '2.25.0'
+    },
+    @{
+        ModuleName = 'Microsoft.Graph.Groups'
+        ModuleVersion = '2.25.0'
+    },
+    @{
+        ModuleName = 'Microsoft.Graph.Users'
+        ModuleVersion = '2.25.0'
+    },
+     @{
+        ModuleName = 'Microsoft.Graph.Identity.DirectoryManagement'
+        ModuleVersion = '2.25.0'
+    },  
+    @{
+        ModuleName = 'ExchangeOnlineManagement'
+        ModuleVersion = '2.0.4'
+    }, 
+    @{
+        ModuleName = 'teamsTools'
+        ModuleVersion = '2.0.0'
+    }
+)
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()

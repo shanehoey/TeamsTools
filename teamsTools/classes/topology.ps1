@@ -1,7 +1,6 @@
 # TeamsTools
 # https://github.com/shanehoey/TeamsTools
 
-
 <#
     Copyright (c) 2016-2025 Shane Hoey
 

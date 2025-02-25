@@ -1,38 +1,34 @@
 
-$domain = "sandbox.shanehoey.dev"
 
-Connect-Mggraph -scopes "Domain.ReadWrite.All" 
+function add-teamsDomain ($domain) {
 
-Import-Module Microsoft.Graph.Identity.DirectoryManagement
-
-New-MgDomain -AuthenticationType Managed -id $domain -IsAdminManaged -IsDefault 
-
-(Get-MgDomainVerificationDnsRecord -DomainId $domain | Where-Object {$_.RecordType -eq "Txt"}).AdditionalProperties.text
-
-dig $domain TXT
+    $newdomain = New-MgDomain -AuthenticationType Managed -id $domain -IsAdminManaged -IsDefault 
+    $msrecord = (Get-MgDomainVerificationDnsRecord -DomainId $domain | Where-Object {$_.RecordType -eq "Txt"}).AdditionalProperties.text
+    
+}
 
 
-confirm-MgDomain -DomainId "sandbox.shanehoey.dev" | Format-list *
-confirm-MgDomain -DomainId "play.shanehoey.dev" | Format-list *
-confirm-MgDomain -DomainId "hosting.shanehoey.dev" | Format-list * 
+function confirmDomain ($domain) {
 
-get-mgdomain | select id, isDefault, supportedServices, VerificationDnsRecords, AdditionalProperties  | FT 
+    confirm-MgDomain -DomainId $domain | Format-list *
+    get-mgdomain | select id, isDefault, supportedServices, VerificationDnsRecords, AdditionalProperties  | FT 
+    update-MgDomain -DomainID $domain -SupportedServices email
 
-update-MgDomain -DomainID "sandbox.shanehoey.dev" -SupportedServices email
-update-MgDomain -DomainID "play.shanehoey.dev" -SupportedServices email
-update-MgDomain -DomainID "hosting.shanehoey.dev" -SupportedServices email
+    
+}
 
-Get-MgDomainServiceConfigurationRecord -DomainId "sandbox.shanehoey.dev" | sort-object SupportedService | FL SupportedService,RecordType,label,ttl,AdditionalProperties
-Get-MgDomainServiceConfigurationRecord -DomainId "play.shanehoey.dev" | sort-object SupportedService | FL SupportedService,RecordType,label,ttl,AdditionalProperties
-Get-MgDomainServiceConfigurationRecord -DomainId "hosting.shanehoey.dev" | sort-object SupportedService | FL SupportedService,RecordType,label,ttl,AdditionalProperties
 
-update-MgDomain -DomainID "sandbox.shanehoey.dev" -SupportedServices email
-update-MgDomain -DomainID "play.shanehoey.dev" 
-update-MgDomain -DomainID "hosting.shanehoey.dev" 
+function confirmService ($domain){
+
+    Get-MgDomainServiceConfigurationRecord -DomainId $domain | sort-object SupportedService | FL SupportedService,RecordType,label,ttl,AdditionalProperties
+    update-MgDomain -DomainID $domain -SupportedServices email
+    get-mgdomain -DomainID $domain
+
+}
+
+
+#$Connect-Mggraph -scopes "Domain.ReadWrite.All" 
+#Disconnect-MgGraph 
 
 
 ### TODO  AT MOMENT THE ONLY WAY TO CHANGE THE DOMAIN TO HEALTH IS TO GO VIA ADMIN CENTRE
-
-get-mgdomain -DomainID "sandbox.shanehoey.dev"
-get-mgdomain -DomainID "play.shanehoey.dev"
-get-mgdomain -DomainID "hosting.shanehoey.dev" 
