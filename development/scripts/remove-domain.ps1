@@ -1,11 +1,3 @@
-#Requires -Modules @{ ModuleName="MicrosoftTeams"; ModuleVersion="6.7.0" }
-#Requires -Modules @{ ModuleName="Microsoft.Graph.authentication"; ModuleVersion="2.25.0" }
-#Requires -Modules @{ ModuleName="Microsoft.Graph.Identity.DirectoryManagement"; ModuleVersion="2.25.0" }
-#Requires -Modules @{ ModuleName="Microsoft.Graph.Groups"; ModuleVersion="2.25.0" }
-#Requires -Modules @{ ModuleName="Microsoft.Graph.Users"; ModuleVersion="2.25.0" }
-#Requires -Modules @{ ModuleName="ExchangeOnlineManagement"; ModuleVersion="2.0.4" }
-
-
 Connect-MgGraph -scopes "Domain.ReadWrite.All"  -NoWelcome
 Connect-ExchangeOnline
 

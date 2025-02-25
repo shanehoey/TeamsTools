@@ -1,4 +1,3 @@
-#Requires -Modules @{ ModuleName="MicrosoftTeams"; ModuleVersion="6.7.0" }
 
 New-CsOnlineDirectRoutingTelephoneNumberUploadOrder -StartingNumber "+61770106000" -EndingNumber "+61770106999"
 

@@ -5,11 +5,6 @@ catch {
     Connect-MicrosoftTeams -UseDeviceAuthentication
 }
 
-Import-Module  -Name .\teamsTools\ -Verbose -Force
-Import-Module  -Name .\teamsToolsDefaults\ -Verbose -Force
-Import-Module  -Name .\teamsToolsReset\ -Verbose -Force
-
-
 # TeamsVirtualTopology
 New-TeamsVirtualTopology -domain "sandbox.shanehoey.dev"
 
@@ -18,23 +13,20 @@ Add-TeamsVirtualNetworkRegion -NetworkRegionID "APAC"
 Add-TeamsVirtualNetworkRegion -NetworkRegionID "AMERICAS"
 Add-TeamsVirtualNetworkRegion -NetworkRegionID "EMEA"
 
-
 # TeamsVirtualNetworkSite
-Add-TeamsVirtualNetworkSite -NetworkSiteID "Brisbane" -NetworkRegionID "APAC" -Description "Australia Brisbane"
-Add-TeamsVirtualNetworkSite -NetworkSiteID "GoldCoast" -NetworkRegionID "APAC" -Description "Australia Gold Coast"
-Add-TeamsVirtualNetworkSite -NetworkSiteID "Sydney" -NetworkRegionID "APAC" -Description "Australia Sydney"
-Add-TeamsVirtualNetworkSite -NetworkSiteID "Melbourne" -NetworkRegionID "APAC" -Description "Australia Melbourne"
-
+Add-TeamsVirtualNetworkSite -NetworkSiteID "AUBNE" -NetworkRegionID "APAC" -Description "Australia - Brisbane"
+Add-TeamsVirtualNetworkSite -NetworkSiteID "AUSYD" -NetworkRegionID "APAC" -Description "Australia - Sydney"
+Add-TeamsVirtualNetworkSite -NetworkSiteID "AUMEL" -NetworkRegionID "APAC" -Description "Australia - Melbourne"
+Add-TeamsVirtualNetworkSite -NetworkSiteID "AUWA" -NetworkRegionID "APAC" -Description "Australia - Western Australia"
 
 # TeamsVirtualNetworkSubnet
-Add-TeamsVirtualNetworkSubnet -SubnetId 172.16.8.0 -Mask 24 -NetworkSiteID "Brisbane"
-Add-TeamsVirtualNetworkSubnet -SubnetId 172.16.9.0 -Mask 24 -NetworkSiteID "Brisbane"
-Add-TeamsVirtualNetworkSubnet -SubnetId 172.16.35.0 -Mask 24 -NetworkSiteID "GoldCoast"
-Add-TeamsVirtualNetworkSubnet -SubnetId 172.17.1.0 -Mask 25 -NetworkSiteID "Sydney"
-Add-TeamsVirtualNetworkSubnet -SubnetId 172.17.1.128 -Mask 25 -NetworkSiteID "Sydney"
-Add-TeamsVirtualNetworkSubnet -SubnetId 172.17.2.0 -Mask 25 -NetworkSiteID "Melbourne"
-Add-TeamsVirtualNetworkSubnet -SubnetId 172.17.2.128 -Mask 25 -NetworkSiteID "Melbourne"
-
+Add-TeamsVirtualNetworkSubnet -SubnetId 172.16.2.0 -Mask 25 -NetworkSiteID "AUSYD"
+Add-TeamsVirtualNetworkSubnet -SubnetId 172.16.2.128 -Mask 25 -NetworkSiteID "AUSYD"
+Add-TeamsVirtualNetworkSubnet -SubnetId 172.16.3.0 -Mask 25 -NetworkSiteID "AUMEL"
+Add-TeamsVirtualNetworkSubnet -SubnetId 172.16.3.128 -Mask 25 -NetworkSiteID "AUMEL"
+Add-TeamsVirtualNetworkSubnet -SubnetId 172.16.7.0 -Mask 25 -NetworkSiteID "AUBNE"
+Add-TeamsVirtualNetworkSubnet -SubnetId 172.16.7.128 -Mask 25 -NetworkSiteID "AUBNE"
+Add-TeamsVirtualNetworkSubnet -SubnetId 172.16.8.0 -Mask 26 -NetworkSiteID "AUWA"
 
 # TeamsVirtualTrustedIPAddress
 Add-TeamsVirtualTrustedIPAddress -IpAddress "198.51.100.0" -Mask 29
@@ -43,73 +35,49 @@ Add-TeamsVirtualTrustedIPAddress -IpAddress "192.0.2.0" -Mask 28
 Add-TeamsVirtualTrustedIPAddress -IpAddress (Invoke-WebRequest -UseBasicParsing api.ipify.org ).Content.Trim() -Mask 32
 
 # TeamsVirtualPSTNGateway
-Add-TeamsVirtualPSTNGateway -Identity "sbcsyd.sandbox.shanehoey.dev" -SipSignalingPort 5062 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true
-Add-TeamsVirtualPS# TeamsVirtualDialPlan
-Add-TeamsVirtualDialPlan -identity "AU02-DP1"
-Add-TeamsVirtualDialPlan -identity "AU03-DP1"
-Add-TeamsVirtualDialPlan -identity "AU07-DP1"
-Add-TeamsVirtualDialPlan -identity "AU08-DP1"
-
-# TeamsVirtualVoiceNormalisation
-$VoiceNormalisation = ([xml](invoke-webrequest https://gist.githubusercontent.com/shanehoey/68c3f24ea4301d84220891f830b73b63/raw/6b61c95566b42a6a842ab6f815a705380521e281/defaults.xml).content).defaults.VoiceNormalisation
-Add-TeamsVirtualVoiceNormalisation -parent "AU02-DP1" -name "Emergency" -Pattern $VoiceNormalisation.AU.Emergency.Pattern -Translation $VoiceNormalisation.AU.Emergency.Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU02-DP1" -name "FakePSTN" -Pattern '^(9\d{3})$' -Translation '+6177010$1'
-Add-TeamsVirtualVoiceNormalisation -parent "AU02-DP1" -name "Local" -Pattern $VoiceNormalisation.AU.Local[0].Pattern  -Translation $VoiceNormalisation.AU.Local[0].Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU02-DP1" -name "National" -Pattern $VoiceNormalisation.AU.National.Pattern -Translation $VoiceNormalisation.AU.National.Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU02-DP1" -name "Service" -Pattern $VoiceNormalisation.AU.Service.Pattern  -Translation $VoiceNormalisation.AU.Service.Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU02-DP1" -name "International" -Pattern $VoiceNormalisation.AU.International.Pattern -Translation $VoiceNormalisation.AU.International.Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU03-DP1" -name "Emergency" -Pattern $VoiceNormalisation.AU.Emergency.Pattern -Translation $VoiceNormalisation.AU.Emergency.Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU03-DP1" -name "FakePSTN" -Pattern '^(9\d{3})$' -Translation '+6177010$1'
-Add-TeamsVirtualVoiceNormalisation -parent "AU03-DP1" -name "Local" -Pattern $VoiceNormalisation.AU.Local[1].Pattern  -Translation $VoiceNormalisation.AU.Local[1].Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU03-DP1" -name "National" -Pattern $VoiceNormalisation.AU.National.Pattern -Translation $VoiceNormalisation.AU.National.Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU03-DP1" -name "Service" -Pattern $VoiceNormalisation.AU.Service.Pattern  -Translation $VoiceNormalisation.AU.Service.Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU03-DP1" -name "International" -Pattern $VoiceNormalisation.AU.International.Pattern -Translation $VoiceNormalisation.AU.International.Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU07-DP1" -name "Emergency" -Pattern $VoiceNormalisation.AU.Emergency.Pattern -Translation $VoiceNormalisation.AU.Emergency.Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU07-DP1" -name "FakePSTN" -Pattern '^(9\d{3})$' -Translation '+6177010$1'
-Add-TeamsVirtualVoiceNormalisation -parent "AU07-DP1" -name "Local" -Pattern $VoiceNormalisation.AU.Local[2].Pattern  -Translation $VoiceNormalisation.AU.Local[2].Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU07-DP1" -name "National" -Pattern $VoiceNormalisation.AU.National.Pattern -Translation $VoiceNormalisation.AU.National.Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU07-DP1" -name "Service" -Pattern $VoiceNormalisation.AU.Service.Pattern  -Translation $VoiceNormalisation.AU.Service.Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU07-DP1" -name "International" -Pattern $VoiceNormalisation.AU.International.Pattern -Translation $VoiceNormalisation.AU.International.Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU08-DP1" -name "Emergency" -Pattern $VoiceNormalisation.AU.Emergency.Pattern -Translation $VoiceNormalisation.AU.Emergency.Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU08-DP1" -name "FakePSTN" -Pattern '^(9\d{3})$' -Translation '+6177010$1'
-Add-TeamsVirtualVoiceNormalisation -parent "AU08-DP1" -name "Local" -Pattern $VoiceNormalisation.AU.Local[3].Pattern  -Translation $VoiceNormalisation.AU.Local[3].Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU08-DP1" -name "National" -Pattern $VoiceNormalisation.AU.National.Pattern -Translation $VoiceNormalisation.AU.National.Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU08-DP1" -name "Service" -Pattern $VoiceNormalisation.AU.Service.Pattern  -Translation $VoiceNormalisation.AU.Service.Translation
-Add-TeamsVirtualVoiceNormalisation -parent "AU08-DP1" -name "International" -Pattern $VoiceNormalisation.AU.International.Pattern -Translation $VoiceNormalisation.AU.International.Translation
-TNGateway -Identity "sbcmel.sandbox.shanehoey.dev" -SipSignalingPort 5063 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true
-Add-TeamsVirtualPSTNGateway -Identity "sbcbne.sandbox.shanehoey.dev" -SipSignalingPort 5067 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true -GatewaySiteId "AUBNE"
-Add-TeamsVirtualPSTNGateway -Identity "sbcool.sandbox.shanehoey.dev" -SipSignalingPort 5067 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true -GatewaySiteId "AUOOL" -BypassMode "Always" -ProxySbc "sbc-bne.sandbox.shanehoey.dev"
+Add-TeamsVirtualPSTNGateway -Identity "sbc02.sandbox.shanehoey.dev" -SipSignalingPort 5062 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true
+Add-TeamsVirtualPSTNGateway -Identity "sbc03.sandbox.shanehoey.dev" -SipSignalingPort 5063 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true
+Add-TeamsVirtualPSTNGateway -Identity "sbc07.sandbox.shanehoey.dev" -SipSignalingPort 5067 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true
+Add-TeamsVirtualPSTNGateway -Identity "sbc08.sandbox.shanehoey.dev" -SipSignalingPort 5068 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $true
 
 # TeamsVirtualPSTNUsage
-Add-TeamsVirtualPstnUsage -PstnUsage "AUBNE-Internal-PU1"
-Add-TeamsVirtualPstnUsage -PstnUsage "AUBNE-National-PU1"
-Add-TeamsVirtualPstnUsage -PstnUsage "AUBNE-International-PU1"
-Add-TeamsVirtualPstnUsage -PstnUsage "AUOOL-Internal-PU1"
-Add-TeamsVirtualPstnUsage -PstnUsage "AUOOL-National-PU1"
-Add-TeamsVirtualPstnUsage -PstnUsage "AUOOL-International-PU1"
+
 Add-TeamsVirtualPstnUsage -PstnUsage "AUSYD-Internal-PU1"
 Add-TeamsVirtualPstnUsage -PstnUsage "AUSYD-National-PU1"
 Add-TeamsVirtualPstnUsage -PstnUsage "AUSYD-International-PU1"
 Add-TeamsVirtualPstnUsage -PstnUsage "AUMEL-Internal-PU1"
 Add-TeamsVirtualPstnUsage -PstnUsage "AUMEL-National-PU1"
 Add-TeamsVirtualPstnUsage -PstnUsage "AUMEL-International-PU1"
+Add-TeamsVirtualPstnUsage -PstnUsage "AUBNE-Internal-PU1"
+Add-TeamsVirtualPstnUsage -PstnUsage "AUBNE-National-PU1"
+Add-TeamsVirtualPstnUsage -PstnUsage "AUBNE-International-PU1"
+Add-TeamsVirtualPstnUsage -PstnUsage "AUWA-Internal-PU1"
+Add-TeamsVirtualPstnUsage -PstnUsage "AUWA-National-PU1"
+Add-TeamsVirtualPstnUsage -PstnUsage "AUWA-International-PU1"
 
 
 # TeamsVirtualVoiceRoute
-$voiceroutes  = Get-teamsdefaultvoiceroutes -countryCode "AU" 
+$emergency  = initialize-teamsdefaultvoiceroutes | where-object {$_.CountryCode -eq "AU"} | where-object  {$_.type -eq "Emergency"}
+$internal  = initialize-teamsdefaultvoiceroutes | where-object {$_.CountryCode -eq "AU"} | where-object  {$_.type -eq "Internal"}
+$national  = initialize-teamsdefaultvoiceroutes | where-object {$_.CountryCode -eq "AU"} | where-object  {$_.type -eq "National"}
+$international  = initialize-teamsdefaultvoiceroutes | where-object {$_.CountryCode -eq "AU"} | where-object  {$_.type -eq "International"}
 
-Add-TeamsVirtualVoiceRoute  -Identity "AUBNE-Internal-VR1" -PstnUsageList "AUBNE-Internal-PU1" -pstngatewayList "sbcbne.sandbox.shanehoey.dev"  -NumberPattern $VoiceRoutes.AU.Internal.NumberPattern  -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUBNE-National-VR1"-PstnUsageList "AUBNE-National-PU1"-pstngatewayList "sbcbne.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.National.NumberPattern -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUBNE-International-VR1" -PstnUsageList "AUBNE-International-PU1" -pstngatewayList "sbcbne.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.International.NumberPattern  -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUOOL-Internal-VR1" -PstnUsageList "AUOOL-Internal-PU1" -pstngatewayList "sbcool.sandbox.shanehoey.dev"  -NumberPattern $VoiceRoutes.AU.Internal.NumberPattern  -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUOOL-National-VR1"-PstnUsageList "AUOOL-National-PU1"-pstngatewayList "sbcool.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.National.NumberPattern -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUOOL-International-VR1" -PstnUsageList "AUOOL-International-PU1" -pstngatewayList "sbcool.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.International.NumberPattern  -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-Internal-VR1" -PstnUsageList "AUSYD-Internal-PU1" -pstngatewayList "sbsyd.sandbox.shanehoey.dev"  -NumberPattern $VoiceRoutes.AU.Internal.NumberPattern  -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-National-VR1"-PstnUsageList "AUSYD-National-PU1"-pstngatewayList "sbcsyd.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.National.NumberPattern -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-International-VR1" -PstnUsageList "AUSYD-International-PU1" -pstngatewayList "sbcsyd.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.International.NumberPattern  -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUMEL-Internal-VR1" -PstnUsageList "AUMEL-Internal-PU1" -pstngatewayList "sbcmel.sandbox.shanehoey.dev"  -NumberPattern $VoiceRoutes.AU.Internal.NumberPattern  -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUMEL-National-VR1"-PstnUsageList "AUMEL-National-PU1"-pstngatewayList "sbcmel.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.National.NumberPattern -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUMEL-International-VR1" -PstnUsageList "AUMEL-International-PU1" -pstngatewayList "sbcmel.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.International.NumberPattern  -Priority 10000
+
+Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-Internal-VR1" -PstnUsageList "AUSYD-Internal-PU1" -pstngatewayList "sbsyd.sandbox.shanehoey.dev"  -NumberPattern $internal.NumberPattern  -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-National-VR1"-PstnUsageList "AUSYD-National-PU1"-pstngatewayList "sbcsyd.sandbox.shanehoey.dev" -NumberPattern $national.NumberPattern -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-International-VR1" -PstnUsageList "AUSYD-International-PU1" -pstngatewayList "sbcsyd.sandbox.shanehoey.dev" -NumberPattern $international.NumberPattern  -Priority 10000
+
+Add-TeamsVirtualVoiceRoute  -Identity "AUMEL-Internal-VR1" -PstnUsageList "AUMEL-Internal-PU1" -pstngatewayList "sbcmel.sandbox.shanehoey.dev"  -NumberPattern $internal.NumberPattern  -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUMEL-National-VR1"-PstnUsageList "AUMEL-National-PU1"-pstngatewayList "sbcmel.sandbox.shanehoey.dev" -NumberPattern $national.NumberPattern -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUMEL-International-VR1" -PstnUsageList "AUMEL-International-PU1" -pstngatewayList "sbcmel.sandbox.shanehoey.dev" -NumberPattern $international.NumberPattern  -Priority 10000
+
+Add-TeamsVirtualVoiceRoute  -Identity "AUBNE-Internal-VR1" -PstnUsageList "AUBNE-Internal-PU1" -pstngatewayList "sbcbne.sandbox.shanehoey.dev"  -NumberPattern $internal.NumberPattern  -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUBNE-National-VR1"-PstnUsageList "AUBNE-National-PU1"-pstngatewayList "sbcbne.sandbox.shanehoey.dev" -NumberPattern $national.NumberPattern -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUBNE-International-VR1" -PstnUsageList "AUBNE-International-PU1" -pstngatewayList "sbcbne.sandbox.shanehoey.dev" -NumberPattern $international.NumberPattern  -Priority 10000
+
+Add-TeamsVirtualVoiceRoute  -Identity "AUWA-Internal-VR1" -PstnUsageList "AUOOL-Internal-PU1" -pstngatewayList "sbcool.sandbox.shanehoey.dev"  -NumberPattern $internal.NumberPattern  -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUWA-National-VR1"-PstnUsageList "AUOOL-National-PU1"-pstngatewayList "sbcool.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.National.NumberPattern -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUWA-International-VR1" -PstnUsageList "AUOOL-International-PU1" -pstngatewayList "sbcool.sandbox.shanehoey.dev" -NumberPattern $VoiceRoutes.AU.International.NumberPattern  -Priority 10000
 
 
 # TeamsVirtualVoiceRoutingPolicy
