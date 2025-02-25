@@ -4,10 +4,10 @@
 RootModule = 'teamsToolsReset.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.1'
+ModuleVersion = '2.0.0'
 
 # Supported PSEditions
-# CompatiblePSEditions = @()
+CompatiblePSEditions = @('Core')
 
 # ID used to uniquely identify this module
 GUID = '3e03d491-0399-499d-aa8d-71165cb31158'
@@ -22,10 +22,10 @@ Author = 'Shane Hoey'
 Copyright = '(c) 2016-2025 Shane Hoey. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'A collection of scripts to extend the funtionality of the Direct Routing Cmdlets'
+Description = 'An additional module for teamsTools for resetting Teams Direct Routing configurations to defaults. This script should no be used in Production Tenants.'
 
 # Minimum version of the PowerShell engine required by this module
-# PowerShellVersion = ''
+PowerShellVersion = '7.2'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -108,7 +108,7 @@ RequiredModules = @(
 # ModuleList = @()
 
 # List of all files packaged with this module
-  FileList = @("TeamsToolsReset.psm1", "TeamsToolsReset.psd1", "LICENSE.txt", "TeamsToolsReset.ps1")
+  FileList = @("teamsToolsReset.psm1", "teamsToolsReset.psd1", "LICENSE.txt")
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{

@@ -113,7 +113,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = 'shanehoey','Mediant','Gateway','SBC','Skype','SkypeforBusiness','Skype4B','MicrosoftTeams','DirectRouting'
+        Tags = 'shanehoey','MicrosoftTeams','DirectRouting'
 
         # A URL to the license for this module.
         LicenseUri = 'https://github.com/shanehoey/TeamsTools/blob/master/LICENSE'

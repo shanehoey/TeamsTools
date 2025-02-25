@@ -1,9 +1,3 @@
-#Requires -Modules @{ ModuleName="MicrosoftTeams"; ModuleVersion="6.7.0" }
-#Requires -Modules @{ ModuleName="Microsoft.Graph.authentication"; ModuleVersion="2.25.0" }
-#Requires -Modules @{ ModuleName="Microsoft.Graph.Groups"; ModuleVersion="2.25.0" }
-#Requires -Modules @{ ModuleName="Microsoft.Graph.Users"; ModuleVersion="2.25.0" }
-#Requires -version 5.0
-
 #Set-StrictMode -Version Latest 
 
 <#
@@ -48,8 +42,5 @@ foreach ($file in $files) {
     }
 }
 
-Export-ModuleMember -Function *
+Export-ModuleMember -Function *-teamsTools*
 
-
-
-Export-ModuleMember -Function * -Variable * 
