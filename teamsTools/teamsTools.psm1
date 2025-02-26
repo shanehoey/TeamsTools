@@ -9,35 +9,17 @@
 #>
 
 # .source the classes Folder
-$files = @( Get-ChildItem -Path $PSScriptRoot\classes\*.ps1 -Recurse -ErrorAction SilentlyContinue )
-foreach ($file in $files) {
+$classes = @( Get-ChildItem -Path $PSScriptRoot\classes\*.ps1 -Recurse -ErrorAction SilentlyContinue )
+$private = @( Get-ChildItem -Path $PSScriptRoot\private\*.ps1 -Recurse -ErrorAction SilentlyContinue )
+$public = @( Get-ChildItem -Path $PSScriptRoot\public\*.ps1 -Recurse -ErrorAction SilentlyContinue )
+
+foreach ($file in $classes + $private + $public) {
     try {
         . $file.FullName
     } catch {
-        Write-Error -Message "Failed to import class $($class.FullName)"
+        Write-Error -Message "Failed to import  $($file.FullName)"
     }
 }
 
-# .source the private Folder
-$files = @( Get-ChildItem -Path $PSScriptRoot\private\*.ps1 -Recurse -ErrorAction SilentlyContinue )
-foreach ($file in $files) {
-    try {
-        . $file.FullName
-    } catch {
-        Write-Error -Message "Failed to import function $($file.FullName)"
-    }
-}
-
-
-# .source the public Folder
-$files = @( Get-ChildItem -Path $PSScriptRoot\public\*.ps1 -Recurse -ErrorAction SilentlyContinue )
-foreach ($file in $files) {
-    try {
-        . $file.FullName
-    } catch {
-        Write-Error -Message "Failed to import function $($file.FullName)"
-    }
-}
-
-Export-ModuleMember -Function *
-
+# Export only the functions from the public folder
+Export-ModuleMember -Function $public.basename 

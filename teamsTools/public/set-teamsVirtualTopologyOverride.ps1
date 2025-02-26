@@ -32,12 +32,12 @@ Function Set-TeamsVirtualTopologyOverride {
                         {  
                             $item.Identity = $OverridePstnGateway
                             $item.SipSignalingPort = $OverridePstnGatewayPort
-                            Write-Information -MessageData "Updatingd PstnGateway $PstnGateway -> $OverridePstnGateway"
+                            Write-Information -MessageData "Updating PstnGateway $PstnGateway -> $OverridePstnGateway"
                         }
                         if ($item.proxysbc -eq $pstnGateway) 
                         {  
                             $item.proxysbc = $OverridePstnGateway
-                            Write-Information -MessageData "Updatingd Proxy $PstnGateway -> $OverridePstnGateway"
+                            Write-Information -MessageData "Updating Proxy $PstnGateway -> $OverridePstnGateway"
                         }
                     }
 
