@@ -1,5 +1,5 @@
-# DOC Documentation set-teamsVirtualUser
-Function set-teamsVirtualUser {
+# DOC Documentation initialize-teamsVirtualUser
+Function initialize-teamsVirtualUser {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param (
@@ -28,22 +28,8 @@ Function set-teamsVirtualUser {
 
     try {
 
-        if (-not $script:VirtualTopology) {
-            throw "Teams VirtualTopology not found."
-        }
-
-        if ($script:VirtualTopology.User.Identity -notcontains $Identity) {
-            throw "Identity $Identity not found in VirtualTopology."
-        }
-
-        if ($PSBoundParameters.ContainsKey('VoiceRoutingPolicy')){
-            If ($script:VirtualTopology.VoiceRoutingPolicy.Identity -notcontains $VoiceRoutingPolicy) {
-                throw "VoiceRoutingPolicy $VoiceRoutingPolicy not found in VirtualTopology."
-            }
-        }
-
-        $Item = $script:VirtualTopology.User | where-object {$_.Identity -eq $Identity}
-
+        $Item = [VirtualUser]::new($Identity)
+        
         if ($VoiceRoutingPolicy){$item.VoiceRoutingPolicy = $VoiceRoutingPolicy}
         if ($Telephonenumber){$item.Telephonenumber = $Telephonenumber}
         if ($TelephoneNumberType){$item.TelephoneNumberType = $TelephoneNumberType}
@@ -61,6 +47,9 @@ Function set-teamsVirtualUser {
         if ($TeamsMobilityPolicy){$item.TeamsMobilityPolicy = $TeamsMobilityPolicy}
         if ($VoicemailPolicy){$item.VoicemailPolicy = $VoicemailPolicy}
         if ($SurvivableBranchAppliancePolicy){$item.SurvivableBranchAppliancePolicy = $SurvivableBranchAppliancePolicy}
+        
+        return $item
+
     } catch {
         Write-Error -Message "$_.Exception.Message"
     }

@@ -1,3 +1,4 @@
+# DOC Documentation get-teamsVirtualNetworkSite
 Function get-teamsVirtualNetworkSite {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param(

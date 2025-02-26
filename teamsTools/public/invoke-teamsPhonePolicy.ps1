@@ -1,3 +1,4 @@
+# DOC Documentation invoke-teamsPhonePolicy
 Function invoke-teamsPhonePolicy {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param (

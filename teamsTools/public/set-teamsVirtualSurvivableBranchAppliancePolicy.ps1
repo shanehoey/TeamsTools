@@ -1,3 +1,5 @@
+# DOC Documentation set-teamsVirtualSurvivableBranchAppliancePolicy
+
 Function set-teamsVirtualSurvivableBranchAppliancePolicy {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param (

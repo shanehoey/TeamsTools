@@ -1,3 +1,5 @@
+# DOC Documentation invoke-teamsDialPlan
+
 Function invoke-teamsDialPlan {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param (

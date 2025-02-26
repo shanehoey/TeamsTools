@@ -1,3 +1,4 @@
+# DOC Documentation set-teamsVirtualTrustedIPAddress
 Function set-teamsVirtualTrustedIPAddress {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param (

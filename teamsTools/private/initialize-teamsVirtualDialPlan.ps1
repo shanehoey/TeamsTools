@@ -1,5 +1,5 @@
-# DOC Documentation add-teamsVirtualDialPlan
-Function add-teamsVirtualDialPlan {
+# DOC Documentation initialize-teamsVirtualDialPlan
+Function initialize-teamsVirtualDialPlan {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param (
@@ -13,25 +13,15 @@ Function add-teamsVirtualDialPlan {
     )
 
     try {
-        if (-not $script:VirtualTopology) {
-            throw "Teams VirtualTopology not found."
-        }
-
-        if ($script:VirtualTopology.DialPlan.Identity -contains $Identity) {
-            throw "Identity $Identity exists in VirtualTopology."
-        }
-
-        if ($script:VirtualTopology.DialPlan.simplename -contains $simplename) {
-            throw "SimpleNaME $simplename exists in VirtualTopology."
-        }
-        
+       
         $Item = [VirtualDialPlan]::new($Identity)
+       
         if ($SimpleName){$item.SimpleName = $SimpleName}
         if ($ExternalAccessPrefix){$item.ExternalAccessPrefix = $ExternalAccessPrefix}
         if ($OptimizeDeviceDialing){$item.OptimizeDeviceDialing = $OptimizeDeviceDialing}
         if ($Description){$item.Description = $Description}
 
-        $script:VirtualTopology.DialPlan.Add($Item)
+        return $item
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

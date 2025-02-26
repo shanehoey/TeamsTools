@@ -1,3 +1,4 @@
+# DOC Documentation initialize-teamsDefaultVoiceNormalisationRules
 function initialize-teamsDefaultVoiceNormalisationRules {
 
     $rules = @()

@@ -1,3 +1,5 @@
+# DOC Documentation invoke-teamsPstnUsage
+
 Function invoke-teamsPstnUsage {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param (

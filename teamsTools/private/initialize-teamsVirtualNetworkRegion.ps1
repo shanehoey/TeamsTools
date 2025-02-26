@@ -1,5 +1,5 @@
-# DOC Documentation add-teamsVirtualNetworkRegion
-Function add-teamsVirtualNetworkRegion {
+# DOC Documentation initialize-teamsVirtualNetworkRegion
+Function initialize-teamsVirtualNetworkRegion {
     
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param (
@@ -9,19 +9,14 @@ Function add-teamsVirtualNetworkRegion {
     )
     
    try { 
-    if (-not $script:VirtualTopology) {
-        throw "Teams VirtualTopology not found."
-    }
-
-    if  ($script:VirtualTopology.NetworkRegion.NetworkRegionID -contains $NetworkRegionID) {
-        throw "VirtualTopology already contains $NetworkRegionID."
-    }
+    
 
     $item = [VirtualNetworkRegion]::new($NetworkRegionID)
+    
     if ($Description){$item.Description = $Description}
     if ($source){$item.Source = $source}
     
-    $Script:VirtualTopology.NetworkRegion.Add($item) 
+    return $item
 
     } Catch {
         Write-Error -Message "$_.Exception.Message"

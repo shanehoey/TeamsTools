@@ -1,5 +1,5 @@
-# DOC Documentation add-teamsVirtualPhonePolicy
-Function add-teamsVirtualPhonePolicy {
+# DOC Documentation initialize-teamsteamsVirtualPhonePolicy
+Function initialize-teamsVirtualPhonePolicy {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param (
@@ -34,7 +34,7 @@ Function add-teamsVirtualPhonePolicy {
         if ($SignInMode){$item.SignInMode = $SignInMode}
         if ($Description){$item.Description = $Description}
 
-        $script:VirtualTopology.PhonePolicy.Add($Item)
+        return $item
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

@@ -1,3 +1,5 @@
+# DOC Documentation get-teamsVirtualTopology
+
 Function get-teamsVirtualTopology {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param ()

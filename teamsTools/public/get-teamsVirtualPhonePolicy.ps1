@@ -1,3 +1,6 @@
+# DOC Documentation get-teamsvirtualphonepolicy
+
+
 Function get-teamsVirtualPhonePolicy {
     
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]

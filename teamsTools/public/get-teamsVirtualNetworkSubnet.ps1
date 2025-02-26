@@ -1,3 +1,4 @@
+# DOC Documentation get-teamsVirtualNetworkSubnet
 Function get-teamsVirtualNetworkSubnet {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param(

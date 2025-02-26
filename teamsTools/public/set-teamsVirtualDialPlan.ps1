@@ -1,3 +1,4 @@
+# DOC Documentation set-teamsVirtualDialPlan
 Function set-teamsVirtualDialPlan {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]

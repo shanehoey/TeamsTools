@@ -1,5 +1,5 @@
-# DOC Documentation add-teamsVirtualSurvivableBranchAppliancePolicy
-Function add-teamsVirtualSurvivableBranchAppliancePolicy {
+# DOC Documentation initialize-teamsVirtualSurvivableBranchAppliancePolicy
+Function initialize-teamsVirtualSurvivableBranchAppliancePolicy {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param (
@@ -20,7 +20,7 @@ Function add-teamsVirtualSurvivableBranchAppliancePolicy {
         $Item = [VirtualSurvivableBranchAppliancePolicy]::new($Identity)
         if($BranchApplianceFqdns){$item.BranchApplianceFqdns = $BranchApplianceFqdns}
 
-        $script:VirtualTopology.SurvivableBranchAppliancePolicy.Add($Item)
+        return $item
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

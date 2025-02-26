@@ -1,3 +1,4 @@
+# DOC Documentation add-teamsVirtualEmergencyCallingPolicy
 Function add-teamsVirtualEmergencyCallingPolicy {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]

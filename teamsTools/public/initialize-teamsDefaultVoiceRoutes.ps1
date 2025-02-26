@@ -1,4 +1,4 @@
-
+# DOC Documentation initialize-teamsDefaultVoiceRoutes
 function initialize-teamsDefaultVoiceRoutes {
 
     $routes = @()

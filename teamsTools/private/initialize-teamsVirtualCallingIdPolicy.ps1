@@ -1,6 +1,9 @@
-# DOC Documentation add-teamsVirtualCallingIdPolicy
+# DOC Docmentation initialize-teamsVirtualCallingIdPolicy
+# TODO  Needs to also do testing 
 
-Function add-teamsVirtualCallingIdPolicy {
+
+
+Function initialize-teamsVirtualCallingIdPolicy {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param (
@@ -10,22 +13,16 @@ Function add-teamsVirtualCallingIdPolicy {
     [Boolean] $BlockIncomingPstnCallerID,
     [String] $CallingIDSubstitute,
     [String] $CompanyName,	
-    [Boolean] $EnableUserOverride ,	
-    [String] $ResourceAccount 	,
-    [String] $ServiceNumber ,
+    [Boolean] $EnableUserOverride,	
+    [String] $ResourceAccount,
+    [String] $ServiceNumber,
     [string] $Description
     )
 
     try {
-        if (-not $script:VirtualTopology) {
-            throw "Teams VirtualTopology not found."
-        }
-
-        if ($script:VirtualTopology.CallingLineIdentity.Identity -contains $Identity) {
-            throw "Identity $Identity exists in VirtualTopology."
-        }
 
         $Item = [CallingIDPolicy]::new($Identity)
+        
         if ($BlockIncomingPstnCallerID){$item.BlockIncomingPstnCallerID = $BlockIncomingPstnCallerID}
         if ($CallingIDSubstitute){$item.CallingIDSubstitute = $CallingIDSubstitute}
         if ($CompanyName){$item.CompanyName = $CompanyName}
@@ -35,7 +32,7 @@ Function add-teamsVirtualCallingIdPolicy {
         if ($ServiceNumber){$item.ServiceNumber = $ServiceNumber}
         if ($Description){$item.Description = $Description}
 
-        $script:VirtualTopology.CallingLineIdentity.Add($Item)
+        return $item
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

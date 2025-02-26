@@ -1,3 +1,5 @@
+# DOC Documentation add-teamsvirtualnetworksubnet
+
 Function add-teamsVirtualNetworkSubnet {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param(

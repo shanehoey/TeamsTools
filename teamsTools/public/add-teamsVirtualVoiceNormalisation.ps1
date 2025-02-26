@@ -1,3 +1,4 @@
+# DOC Documentation add-teamsVirtualVoiceNormalisation
 Function add-teamsVirtualVoiceNormalisation {
 
     [CmdletBinding(DefaultParameterSetName='default')]

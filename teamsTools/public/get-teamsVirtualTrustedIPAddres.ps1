@@ -1,3 +1,4 @@
+# DOC Documentation get-teamsVirtualTrustedIPAddress
 Function get-teamsVirtualTrustedIPAddress {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param (

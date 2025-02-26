@@ -1,3 +1,4 @@
+# DOC Documentation invoke-teamsSurvivableBranchAppliance
 Function invoke-teamsSurvivableBranchAppliance {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param (    

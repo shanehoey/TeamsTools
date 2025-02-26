@@ -1,4 +1,4 @@
-# TeamsVirtualTrustedIPAddress
+# DOC Documentation add-teamVirtualTrustedIPAddress
 Function add-teamsVirtualTrustedIPAddress {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param (

@@ -1,3 +1,4 @@
+# DOC Documentation get-teamsVirtualVoiceNormalisation
 Function get-teamsVirtualVoiceNormalisation {
     
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]

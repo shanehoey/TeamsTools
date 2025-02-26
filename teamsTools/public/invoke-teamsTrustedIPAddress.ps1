@@ -1,3 +1,4 @@
+# DOC Documentation invoke-teams
 Function invoke-teamsTrustedIPAddress {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param (

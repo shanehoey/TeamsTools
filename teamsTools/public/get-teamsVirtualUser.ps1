@@ -1,3 +1,4 @@
+# DOC Documentation get-teamsVirtualUser
 Function get-teamsVirtualUser {
     
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]

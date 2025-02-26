@@ -1,6 +1,6 @@
-# DOC Documentation add-teamsVirtualSurvivableBranchAppliance
+# DOC Documentation initialize-VirtualSurvivableBranchAppliance
 
-Function add-teamsVirtualSurvivableBranchAppliance {
+Function initialize-teamsVirtualSurvivableBranchAppliance {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param (
@@ -23,7 +23,7 @@ Function add-teamsVirtualSurvivableBranchAppliance {
         if ($site) {$item.site =$site}
         if ($Description) {$item.Description = $Description}
      
-        $script:VirtualTopology.SurvivableBranchAppliance.Add($Item)
+        return $item
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

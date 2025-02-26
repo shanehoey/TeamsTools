@@ -1,3 +1,4 @@
+# DOC Documentation invoke-teamsPstnGateway
 Function invoke-teamsPstnGateway {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param (

@@ -1,3 +1,4 @@
+# DOC Documentation get-teamsVirtualSurvivableBranchAppliance
 Function get-teamsVirtualSurvivableBranchAppliance {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]

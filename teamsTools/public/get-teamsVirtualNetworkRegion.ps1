@@ -1,4 +1,4 @@
-
+# DOC Documentation get-teamsVirtualNetworkRegion
 
 Function get-teamsVirtualNetworkRegion {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]

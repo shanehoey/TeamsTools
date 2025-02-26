@@ -1,5 +1,5 @@
-# DOC Documentation add-
-Function add-teamsVirtualNetworkSite {
+# DOC Documentation initialize-teamsVirtualNetworkSite
+Function initialize-teamsVirtualNetworkSite {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param(
         [Parameter(Mandatory = $true)]
@@ -22,17 +22,6 @@ Function add-teamsVirtualNetworkSite {
 
     )
     try {
-    if (-not $script:VirtualTopology) {
-        throw "Teams VirtualTopology not found."
-    }
-
-    if ($script:VirtualTopology.NetworkRegion.NetworkRegionId -notcontains $NetworkRegionID ) {
-        throw "NetworkRegionID $NetworkRegionID not found in VirtualTopology."
-    }
-
-    if ($script:VirtualTopology.NetworkSite.NetworkSiteID -contains $NetworkSiteID) {
-        throw "NetworkSiteID $NetworkSiteID exists in VirtualTopology."
-    }
 
     $item = [VirtualNetworkSite]::new($NetworkSiteID, $NetworkRegionID)
 
@@ -45,8 +34,8 @@ Function add-teamsVirtualNetworkSite {
     If ($SiteAddress){$item.SiteAddress = $SiteAddress}
     If ($Description){$item.Description = $Description}
 
-    $item.Description = $description
-    $script:VirtualTopology.NetworkSite.Add($item)
+    
+    return $item
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

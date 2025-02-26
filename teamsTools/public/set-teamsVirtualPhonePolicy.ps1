@@ -1,3 +1,4 @@
+# DOC Documentation set-teamsVirtualPhonePolicy
 Function set-teamsVirtualPhonePolicy {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
