@@ -1,4 +1,6 @@
 # DOC Documentation set-teamsVirtualPhonePolicy
+# TODO Add support for SupportsShouldProcess
+
 Function set-teamsVirtualPhonePolicy {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]

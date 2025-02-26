@@ -1,4 +1,6 @@
 # DOC Documentation set-teamsVirtualUser
+# TODO Add support for SupportsShouldProcess
+
 Function set-teamsVirtualUser {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]

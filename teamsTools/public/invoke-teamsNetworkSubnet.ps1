@@ -1,4 +1,5 @@
 # DOC Documentation invoke-teamsNetworkSubnet
+
 Function invoke-teamsNetworkSubnet {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param (

@@ -1,4 +1,6 @@
-# DOC Documentation set-teamsVirtualDialPlan
+# DOC Documentation set-teams
+# TODO Add support for SupportsShouldProcess
+
 Function set-teamsVirtualDialPlan {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]

@@ -1,4 +1,6 @@
 # DOC Documentation set-teamsVirtualNetworkSubnet
+# TODO Add support for SupportsShouldProcess
+
 Function set-teamsVirtualNetworkSubnet {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param(

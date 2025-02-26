@@ -1,4 +1,6 @@
-# DOC Documentation set-teamsvirtualvoiceNormalisation
+# DOC Documentation set-teams
+# TODO Add support for SupportsShouldProcess
+
 Function set-teamsVirtualCallingIdPolicy {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]

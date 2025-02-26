@@ -1,4 +1,6 @@
-# DOC Documentation set-teamsVirtualEmergencyCallingPolicy
+# DOC Documentation set-teams
+# TODO Add support for SupportsShouldProcess
+
 Function set-teamsVirtualEmergencyCallingPolicy {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
