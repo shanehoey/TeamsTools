@@ -46,28 +46,32 @@ PowerShellVersion = '7.2'
 RequiredModules = @(
     @{
         ModuleName = 'MicrosoftTeams'
-        ModuleVersion = '6.7.0'
+        ModuleVersion = '6.8.0'
     },
     @{
         ModuleName = 'Microsoft.Graph.authentication'
-        ModuleVersion = '2.25.0'
+        ModuleVersion = '2.26.1'
+    },
+    @{
+        ModuleName = 'Microsoft.Graph.Applications'
+        ModuleVersion = '2.26.1'
+    },
+    @{
+       ModuleName = 'Microsoft.Graph.Identity.DirectoryManagement'
+       ModuleVersion = '2.26.1'
     },
     @{
         ModuleName = 'Microsoft.Graph.Groups'
-        ModuleVersion = '2.25.0'
+        ModuleVersion = '2.26.1'
     },
     @{
         ModuleName = 'Microsoft.Graph.Users'
-        ModuleVersion = '2.25.0'
-    },
-     @{
-        ModuleName = 'Microsoft.Graph.Identity.DirectoryManagement'
-        ModuleVersion = '2.25.0'
+        ModuleVersion = '2.26.1'
     },  
     @{
         ModuleName = 'ExchangeOnlineManagement'
-        ModuleVersion = '2.0.4'
-    }, 
+        ModuleVersion = '3.7.1'
+    },
     @{
         ModuleName = 'teamsTools'
         ModuleVersion = '2.0.0'

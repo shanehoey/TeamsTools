@@ -1,6 +1,5 @@
 # DOC Docmentation initialize-teamsVirtualCallingIdPolicy
-# TODO  Needs to also do testing 
-
+# INVESTIGATE  should the function do any cross checking or just create the new object ? 
 
 
 Function initialize-teamsVirtualCallingIdPolicy {

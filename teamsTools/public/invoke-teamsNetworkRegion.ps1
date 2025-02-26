@@ -1,4 +1,5 @@
 # DOC Documentation invoke-teamsNetworkRegion
+
 Function invoke-teamsNetworkRegion {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param (

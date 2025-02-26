@@ -17,13 +17,6 @@ Function initialize-teamsVirtualPhonePolicy {
     )
 
     try {
-        if (-not $script:VirtualTopology) {
-            throw "Teams VirtualTopology not found."
-        }
-
-        if ($script:VirtualTopology.PhonePolicy.Identity -contains $Identity) {
-            throw "Identity $Identity exists in VirtualTopology."
-        }
 
         $Item = [VirtualPhonePolicy]::new($Identity)
         if ($AllowBetterTogether){$item.AllowBetterTogether = $AllowBetterTogether}

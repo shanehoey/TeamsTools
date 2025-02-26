@@ -1,4 +1,6 @@
 # DOC Documentation get-teamsVirtualTrustedIPAddress
+# TODO Add support for SupportsShouldProcess
+
 Function get-teamsVirtualTrustedIPAddress {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param (

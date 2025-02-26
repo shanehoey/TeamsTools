@@ -1,4 +1,6 @@
 # DOC Documentation initialize-teamsDefaultVoiceNormalisationRules
+# TODO Add support for SupportsShouldProcess
+
 function initialize-teamsDefaultVoiceNormalisationRules {
 
     $rules = @()

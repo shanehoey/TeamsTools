@@ -11,15 +11,10 @@ Function initialize-teamsVirtualSurvivableBranchAppliance {
     )
 
     try {
-        if (-not $script:VirtualTopology) {
-            throw "Teams VirtualTopology not found."
-        }
 
-        if ($script:VirtualTopology.SurvivableBranchAppliance.identity -contains $identity) {
-            throw "Identity $identity exists in VirtualTopology."
-        }
 
         $Item = [VirtualSurvivableBranchAppliance]::new($identity)
+        
         if ($site) {$item.site =$site}
         if ($Description) {$item.Description = $Description}
      

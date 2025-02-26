@@ -20,7 +20,7 @@ Author = 'Shane Hoey'
 # CompanyName = ''
 
 # Copyright statement for this module
-Copyright = '(c) 2020-2025 Shane Hoey. All rights reserved.'
+Copyright = '(c) 2016-2025 Shane Hoey. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'A module for managing Microsoft Teams, in particular to extend the funtionality of the Direct Routing Cmdlets'
@@ -47,27 +47,31 @@ PowerShellVersion = '7.2'
 RequiredModules = @(
     @{
         ModuleName = 'MicrosoftTeams'
-        ModuleVersion = '6.7.0'
+        ModuleVersion = '6.8.0'
     },
     @{
         ModuleName = 'Microsoft.Graph.authentication'
-        ModuleVersion = '2.25.0'
+        ModuleVersion = '2.26.1'
+    },
+    @{
+        ModuleName = 'Microsoft.Graph.Applications'
+        ModuleVersion = '2.26.1'
+    },
+    @{
+       ModuleName = 'Microsoft.Graph.Identity.DirectoryManagement'
+       ModuleVersion = '2.26.1'
     },
     @{
         ModuleName = 'Microsoft.Graph.Groups'
-        ModuleVersion = '2.25.0'
+        ModuleVersion = '2.26.1'
     },
     @{
         ModuleName = 'Microsoft.Graph.Users'
-        ModuleVersion = '2.25.0'
-    },
-     @{
-        ModuleName = 'Microsoft.Graph.Identity.DirectoryManagement'
-        ModuleVersion = '2.25.0'
+        ModuleVersion = '2.26.1'
     },  
     @{
         ModuleName = 'ExchangeOnlineManagement'
-        ModuleVersion = '2.0.4'
+        ModuleVersion = '3.7.1'
     }
 )
 

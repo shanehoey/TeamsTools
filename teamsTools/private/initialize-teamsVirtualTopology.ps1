@@ -7,10 +7,14 @@ function initialize-teamsVirtualTopology {
     )
 
     if ($PSCmdlet.ShouldProcess("$DomainName")) {
-            $item = [VirtualTopology]::new($DomainName)
-            return $item  
+
+        $item = [VirtualTopology]::new($DomainName)
+        return $item  
+        
     } else {
-            Write-Host "Virtual Topology for domain $DomainName will be created"
+        
+        Write-Host "Virtual Topology for domain $DomainName will be created"
+
     }
 
 }

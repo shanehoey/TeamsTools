@@ -1,4 +1,5 @@
 # DOC Documentation add-teamsVirtualCallingIdPolicy
+# TODO Add support for SupportsShouldProcess
 
 Function add-teamsVirtualCallingIdPolicy {
 
@@ -25,7 +26,7 @@ Function add-teamsVirtualCallingIdPolicy {
             throw "Identity $Identity exists in VirtualTopology."
         }
 
-        $Item = [CallingIDPolicy]::new($Identity)
+        $Item = initialize-teamsVirtualCallingIdPolicy -Identity $Identity
         if ($BlockIncomingPstnCallerID){$item.BlockIncomingPstnCallerID = $BlockIncomingPstnCallerID}
         if ($CallingIDSubstitute){$item.CallingIDSubstitute = $CallingIDSubstitute}
         if ($CompanyName){$item.CompanyName = $CompanyName}
