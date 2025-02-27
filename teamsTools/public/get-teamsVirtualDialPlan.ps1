@@ -1,5 +1,5 @@
 # DOC Documentation get-teamVirtualDialPlan
-# TODO Add support for SupportsShouldProcess
+# IMPROVEMENT Add support for SupportsShouldProcess
 
 Function get-teamsVirtualDialPlan {
     

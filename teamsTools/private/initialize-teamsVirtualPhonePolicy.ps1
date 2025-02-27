@@ -1,4 +1,6 @@
 # DOC Documentation initialize-teamsteamsVirtualPhonePolicy
+# INVESTIGATE  should these function do any cross checking or just create the new object ? 
+
 Function initialize-teamsVirtualPhonePolicy {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]

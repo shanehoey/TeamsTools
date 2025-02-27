@@ -1,4 +1,6 @@
 # DOC Documentation initialize-teamsVirtualDialPlan
+# INVESTIGATE  should these function do any cross checking or just create the new object ? 
+
 Function initialize-teamsVirtualDialPlan {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]

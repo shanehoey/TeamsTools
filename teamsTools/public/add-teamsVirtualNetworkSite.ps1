@@ -1,5 +1,5 @@
 # DOC Documentation add-teamsVirtualNetworkSite
-# TODO Add support for SupportsShouldProcess
+# IMPROVEMENT Add support for SupportsShouldProcess
 
 Function add-teamsVirtualNetworkSite {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]

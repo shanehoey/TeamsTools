@@ -1,5 +1,5 @@
 # DOC Documentation initialize-teamsDefaultVoiceNormalisationRules
-# TODO Add support for SupportsShouldProcess
+# IMPROVEMENT Add support for SupportsShouldProcess
 
 function initialize-teamsDefaultVoiceNormalisationRules {
 

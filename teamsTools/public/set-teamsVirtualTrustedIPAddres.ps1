@@ -1,5 +1,5 @@
 # DOC Documentation set-teamsVirtualTrustedIPAddress
-# TODO Add support for SupportsShouldProcess
+# IMPROVEMENT Add support for SupportsShouldProcess
 
 Function set-teamsVirtualTrustedIPAddress {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]

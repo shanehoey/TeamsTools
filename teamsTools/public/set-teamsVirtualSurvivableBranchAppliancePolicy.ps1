@@ -1,5 +1,5 @@
 # DOC Documentation set-teamsVirtualSurvivableBranchAppliancePolicy
-# TODO Add support for SupportsShouldProcess
+# IMPROVEMENT Add support for SupportsShouldProcess
 
 Function set-teamsVirtualSurvivableBranchAppliancePolicy {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]

@@ -1,6 +1,6 @@
 
 Function set-teamsVirtualPstnUsage {
-# TODO Add support for SupportsShouldProcess
+# IMPROVEMENT Add support for SupportsShouldProcess
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param (

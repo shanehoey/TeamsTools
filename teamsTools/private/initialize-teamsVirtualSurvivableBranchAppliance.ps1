@@ -1,4 +1,5 @@
 # DOC Documentation initialize-VirtualSurvivableBranchAppliance
+# INVESTIGATE  should these function do any cross checking or just create the new object ? 
 
 Function initialize-teamsVirtualSurvivableBranchAppliance {
 

@@ -1,5 +1,5 @@
 # DOC Documentation get-teamsVirtualUser
-# TODO Add support for SupportsShouldProcess
+# IMPROVEMENT Add support for SupportsShouldProcess
 
 Function get-teamsVirtualUser {
     

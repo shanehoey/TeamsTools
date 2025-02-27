@@ -1,5 +1,5 @@
 # DOC Documentation set-teams
-# TODO Add support for SupportsShouldProcess
+# IMPROVEMENT Add support for SupportsShouldProcess
 
 Function set-teamsVirtualEmergencyCallingPolicy {
 

@@ -1,5 +1,5 @@
 # DOC Documentation initialize-teamsDefaultVoiceRoutes
-# TODO Add support for SupportsShouldProcess
+# IMPROVEMENT Add support for SupportsShouldProcess
 
 function initialize-teamsDefaultVoiceRoutes {
 

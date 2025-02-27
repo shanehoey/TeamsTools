@@ -1,5 +1,5 @@
 # DOC Documentation invoke-teamsVirtualTopology
-# TODO Add support for SupportsShouldProcess
+# IMPROVEMENT Add support for SupportsShouldProcess
 
 Function new-teamsVirtualTopology {
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact = 'low')]

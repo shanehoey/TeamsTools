@@ -1,4 +1,6 @@
 # DOC Documentation initialize-teamsVirtualSurvivableBranchAppliancePolicy
+# INVESTIGATE  should these function do any cross checking or just create the new object ? 
+
 Function initialize-teamsVirtualSurvivableBranchAppliancePolicy {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]

@@ -14,7 +14,18 @@ $classes = @( Get-ChildItem -Path $PSScriptRoot\classes\*.ps1 -Recurse -ErrorAct
 $private = @( Get-ChildItem -Path $PSScriptRoot\private\*.ps1 -Recurse -ErrorAction SilentlyContinue )
 $public = @( Get-ChildItem -Path $PSScriptRoot\public\*.ps1 -Recurse -ErrorAction SilentlyContinue )
 
+$development = @( Get-ChildItem -Path $PSScriptRoot\development\*.ps1 -Recurse -ErrorAction SilentlyContinue )
+
+
 foreach ($file in $classes + $private + $public) {
+    try {
+        . $file.FullName
+    } catch {
+        Write-Error -Message "Failed to import  $($file.FullName)"
+    }
+}
+
+foreach ($file in $development) {
     try {
         . $file.FullName
     } catch {

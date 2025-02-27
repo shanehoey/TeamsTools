@@ -1,5 +1,5 @@
 # DOC Documentation get-teamsVirtualSurvivableBranchAppliance
-# TODO Add support for SupportsShouldProcess
+# IMPROVEMENT Add support for SupportsShouldProcess
 
 Function get-teamsVirtualSurvivableBranchAppliance {
 

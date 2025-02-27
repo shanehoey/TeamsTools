@@ -1,4 +1,6 @@
 # DOC Documentation initialize-teamsVirtualUser
+# INVESTIGATE  should these function do any cross checking or just create the new object ? 
+[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'low')]
 Function initialize-teamsVirtualUser {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
@@ -28,6 +30,9 @@ Function initialize-teamsVirtualUser {
 
     try {
 
+        if ($PSCmdlet.ShouldProcess("$Identity")) {
+
+
         $Item = [VirtualUser]::new($Identity)
         
         if ($VoiceRoutingPolicy){$item.VoiceRoutingPolicy = $VoiceRoutingPolicy}
@@ -49,6 +54,10 @@ Function initialize-teamsVirtualUser {
         if ($SurvivableBranchAppliancePolicy){$item.SurvivableBranchAppliancePolicy = $SurvivableBranchAppliancePolicy}
         
         return $item
+        } else {
+            Write-Host "Virtual Teams User $identity will be created"
+
+        }
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

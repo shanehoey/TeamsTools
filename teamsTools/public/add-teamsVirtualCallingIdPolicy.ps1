@@ -1,5 +1,5 @@
 # DOC Documentation add-teamsVirtualCallingIdPolicy
-# TODO Add support for SupportsShouldProcess
+# IMPROVEMENT Add support for SupportsShouldProcess
 
 Function add-teamsVirtualCallingIdPolicy {
 

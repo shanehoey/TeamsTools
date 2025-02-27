@@ -1,4 +1,6 @@
 # DOC Documentation initialize-teamsVirtualNetworkSubnet
+# INVESTIGATE  should these function do any cross checking or just create the new object ? 
+
 Function initialize-teamsVirtualNetworkSubnet {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param(
