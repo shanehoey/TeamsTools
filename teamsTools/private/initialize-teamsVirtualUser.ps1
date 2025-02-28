@@ -1,6 +1,6 @@
 # DOC Documentation initialize-teamsVirtualUser
 # INVESTIGATE  should these function do any cross checking or just create the new object ? 
-[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'low')]
+# TODO supportsShouldProcess
 Function initialize-teamsVirtualUser {
 
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
