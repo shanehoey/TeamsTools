@@ -10,37 +10,20 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #>
 
+# DOC Documentation create it all
 
-# .source the classes Folder
-$files = @( Get-ChildItem -Path $PSScriptRoot\classes\*.ps1 -Recurse -ErrorAction SilentlyContinue )
-foreach ($file in $files) {
+$classes = @( Get-ChildItem -Path $PSScriptRoot\classes\*.ps1 -Recurse -ErrorAction SilentlyContinue )
+$private = @( Get-ChildItem -Path $PSScriptRoot\private\*.ps1 -Recurse -ErrorAction SilentlyContinue )
+$public = @( Get-ChildItem -Path $PSScriptRoot\public\*.ps1 -Recurse -ErrorAction SilentlyContinue )
+$development = @( Get-ChildItem -Path $PSScriptRoot\development\*.ps1 -Recurse -ErrorAction SilentlyContinue )
+
+foreach ($file in $classes + $private + $public + $development) {
     try {
         . $file.FullName
     } catch {
-        Write-Error -Message "Failed to import class $($class.FullName)"
+        Write-Error -Message "Failed to import  $($file.FullName)"
     }
 }
 
-# .source the private Folder
-$files = @( Get-ChildItem -Path $PSScriptRoot\private\*.ps1 -Recurse -ErrorAction SilentlyContinue )
-foreach ($file in $files) {
-    try {
-        . $file.FullName
-    } catch {
-        Write-Error -Message "Failed to import function $($file.FullName)"
-    }
-}
-
-
-# .source the public Folder
-$files = @( Get-ChildItem -Path $PSScriptRoot\public\*.ps1 -Recurse -ErrorAction SilentlyContinue )
-foreach ($file in $files) {
-    try {
-        . $file.FullName
-    } catch {
-        Write-Error -Message "Failed to import function $($file.FullName)"
-    }
-}
-
-Export-ModuleMember -Function *-teamsTools*
-
+#Export-ModuleMember -Function $public.basename 
+Export-ModuleMember -Function *

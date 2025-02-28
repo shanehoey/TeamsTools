@@ -1,7 +1,7 @@
 # DOC Documentation set-teamsvirtualtopologyoverride
 # IMPROVEMENT Add support for SupportsShouldProcess
 
-Function Set-TeamsVirtualTopologyOverride {
+Function set-teamsVirtualTopologyOverride {
     [CmdletBinding(ConfirmImpact = 'medium')]
     param (
         [Parameter(Position = 0, Mandatory = $true, ParameterSetName = "Default", ValueFromPipeline = $False)]

@@ -51,7 +51,7 @@ Function invoke-teamsDialPlan {
                     }
             
                 }
-                if ($rules) { if ($PSCmdlet.ShouldProcess("$($Item.identity)", "Replace NormalizationRules")) {Set-CsTenantDialPlan -Identity $item.identity -NormalizationRules $rules -erroraction stop }}
+                if ($rules) { if ($PSCmdlet.ShouldProcess("$($Item.identity)", "Replace NormalizationRules")) {set-CsTenantDialPlan -Identity $item.identity -NormalizationRules $rules -erroraction stop }}
 
             } catch { 
                 Write-warning -message "[voiceNormalisation] $($rule.identity) $($_.exception.message))" -ErrorAction continue

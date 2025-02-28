@@ -19,7 +19,7 @@
     It uses the ShouldProcess method to support -WhatIf and -Confirm parameters for safe execution.
 
 #>
-Function Invoke-TeamsUser {
+Function invoke-teamsUser {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param (
         [Parameter(Position = 0, Mandatory = $true, ParameterSetName = "Default", ValueFromPipeline = $true)]

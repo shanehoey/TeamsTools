@@ -1,6 +1,6 @@
 # DOC Documentation invoke-teamsSurvivableBranchAppliancePolicy
 
-Function Invoke-TeamsSurvivableBranchAppliancePolicy {
+Function invoke-teamsSurvivableBranchAppliancePolicy {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param (    
         [Parameter(Position = 0, Mandatory = $true, ParameterSetName = "Default", ValueFromPipeline = $true)]
