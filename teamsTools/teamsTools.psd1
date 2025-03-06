@@ -62,6 +62,10 @@ RequiredModules = @(
        ModuleVersion = '2.26.1'
     },
     @{
+       ModuleName = 'Microsoft.Graph.Identity.Governance'
+       ModuleVersion = '2.26.1'
+    },
+    @{
         ModuleName = 'Microsoft.Graph.Groups'
         ModuleVersion = '2.26.1'
     },
