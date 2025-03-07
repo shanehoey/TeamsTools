@@ -22,7 +22,7 @@ function Save-TeamsToolsAuthFile {
         [string]$tenantId,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'bySecret', ValueFromPipeline = $true)]
-        [TeamsToolsAuthApp]$secret = [TeamsToolsAuthApp]::new()
+        [TeamsToolsAuthApp]$secrets 
 
         )
 
@@ -31,15 +31,21 @@ function Save-TeamsToolsAuthFile {
         if ($PSCmdlet.ShouldProcess($filename, "Save Teams Tools Auth File")) {
 
             if ($PSCmdlet.ParameterSetName -eq 'byFile') {
-                $secrets = [TeamsToolsAuthApp]@{
-                    clientId = $ClientId 
-                    ClientSecret = $ClientSecret
+                $secretsJson = [PSCustomObject]@{
+                    ClientId = $ClientId
+                    ClientSecret = $ClientSecret | ConvertFrom-SecureString -AsPlainText
                     TenantId = $TenantId
-                }
-            } 
-            $secretsJson =  $secrets | ConvertTo-Json
-            $secureContent = ConvertTo-SecureString -String $secretsJson -AsPlainText -Force
-            $secureContent | ConvertFrom-SecureString | Out-File -FilePath $filename -Force
+                } |  ConvertTo-Json | ConvertTo-SecureString -AsPlainText -force
+            } else {
+                $secretsJson = [PSCustomObject]@{
+                    ClientId = $secrets.ClientId
+                    ClientSecret = $secrets.ClientSecret | ConvertFrom-SecureString -AsPlainText
+                    TenantId = $secrets.TenantId
+                } |  ConvertTo-Json | ConvertTo-SecureString -AsPlainText -force
+            }
+     
+            $secretsJson | ConvertFrom-SecureString | Out-File -FilePath $filename -Force
+        
         }
     } catch {
         Write-Error "An error occurred while reading the file $filename"
@@ -47,3 +53,4 @@ function Save-TeamsToolsAuthFile {
     }
 
 }
+ 

@@ -15,7 +15,7 @@ function Import-TeamsToolsAuthFile {
 
     try {
         $content = Get-Content -Path $filename | ConvertTo-SecureString | ConvertFrom-SecureString -AsPlainText | ConvertFrom-Json
-        $response = [PSCustomObject]@{
+        $response = [TeamsToolsAuthApp]@{
             ClientId     = $content.ClientId
             ClientSecret = $content.ClientSecret | ConvertTo-SecureString -AsPlainText
             TenantId     = $content.TenantId

@@ -1,15 +1,18 @@
-function get-teamsToolsAuthApp {
+function test-teamsToolsAuthApp {
     param ()
     try {
         $result = get-MGapplication -Filter "displayName eq 'TeamsToolsAuth'" -ErrorAction Stop
-        return $result | select-object -Property displayName,appId,@{Name="SecretID";Expression={$_.PasswordCredentials.KeyID}} 
+        if ($result) {
+            return $true
+        } else {
+            return $false
         }
+    }
     catch {
         if ($_.Exception.Message -match "Authentication needed") {
             Write-Error -Message "Authentication is required, Please authenticate with Connect-TeamsToolsMSGraph."
         } else {
-            Write-Error -Message "$_"
+            $false
         }
     }
-
 }

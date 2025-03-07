@@ -1,10 +1,3 @@
-try {
-    get-cstenant | Select-Object Sipdomain
-}
-catch {
-    Connect-MicrosoftTeams -UseDeviceAuthentication
-}
-
 # TeamsVirtualTopology
 New-TeamsVirtualTopology -domain "sandbox.shanehoey.dev"
 

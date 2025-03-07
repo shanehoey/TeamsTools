@@ -36,13 +36,13 @@ Function New-teamsToolsAuthApp {
 
             foreach ($permission in $permissions) {
                 $appRole = $apiPermission.AppRoles | Where-Object { $_.Value -eq $permission }
-                new-MgServicePrincipalAppRoleAssignment -ServicePrincipalId $servicePrincipal.Id -PrincipalId $servicePrincipal.Id -ResourceId $apiPermission.Id -AppRoleId $appRole.Id | out-null
+                $ServicePrincipalAppRole = new-MgServicePrincipalAppRoleAssignment -ServicePrincipalId $servicePrincipal.Id -PrincipalId $servicePrincipal.Id -ResourceId $apiPermission.Id -AppRoleId $appRole.Id
                 Write-verbose -message  "Added permission '$permission' to service principal."
             }
 
             # Assign the Teams Administrator role to the service principal
             $RoleDefinition = Get-MgRoleManagementDirectoryRoleDefinition -Filter "displayName eq 'Teams Administrator'"
-            New-MgRoleManagementDirectoryRoleAssignment -PrincipalId $servicePrincipal.Id -RoleDefinitionId $RoleDefinition.Id -DirectoryScopeId "/"
+            $ManagementDirectoryRole = New-MgRoleManagementDirectoryRoleAssignment -PrincipalId $servicePrincipal.Id -RoleDefinitionId $RoleDefinition.Id -DirectoryScopeId "/"
             Write-verbose -Message "Assigned Teams Administrator role to service principal."
 
             # BUG Exchange Online Administrator
@@ -58,9 +58,9 @@ Function New-teamsToolsAuthApp {
             $secret = Add-MGApplicationPassword -ApplicationID $application.Id -PasswordCredential $passwordCredential
             Write-verbose -message  "Created client secret for application 'TeamsToolsAuth'."
 
-            $secrets = [PSCustomObject]@{
+            $secrets = [TeamsToolsAuthApp]@{
                 ClientId = $application.AppId
-                ClientSecret = $secret.SecretText
+                ClientSecret = $secret.SecretText | ConvertTo-SecureString -AsPlainText -force
                 TenantId = (Get-MgOrganization).Id
             }
 
