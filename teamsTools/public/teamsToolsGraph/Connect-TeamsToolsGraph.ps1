@@ -1,5 +1,36 @@
+<#
+.SYNOPSIS
+Connects to Microsoft Graph using the specified scopes.
 
-Function connect-teamsToolsMSGraph {
+.DESCRIPTION
+The Connect-TeamsToolsGraph function connects to Microsoft Graph with the provided scopes. 
+It supports both device code authentication and interactive login.
+
+.PARAMETER useDeviceCode
+A switch parameter to indicate whether to use device code authentication.
+
+.PARAMETER scopes
+An array of scopes to request access to. The default scopes are:
+- Application.ReadWrite.All
+- Directory.ReadWrite.All
+- RoleManagement.ReadWrite.Directory
+- AppRoleAssignment.ReadWrite.All
+
+.EXAMPLE
+PS C:\> Connect-TeamsToolsGraph -useDeviceCode
+
+This example connects to Microsoft Graph using device code authentication.
+
+.EXAMPLE
+PS C:\> Connect-TeamsToolsGraph
+
+This example connects to Microsoft Graph using interactive login.
+
+.NOTES
+If the connection fails, appropriate error messages will be displayed based on the exception message.
+#>
+
+Function Connect-TeamsToolsGraph {
     [CmdletBinding(SupportsShouldProcess=$false, ConfirmImpact = 'low')]
     param (
         [switch]$useDeviceCode,

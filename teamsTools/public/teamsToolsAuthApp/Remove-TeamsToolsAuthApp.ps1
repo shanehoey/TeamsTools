@@ -1,15 +1,9 @@
-# DOC Documentation remove-teamsToolsAuth
+# DOC Documentation remove-teamsToolsAuthApp
 # IMPROVEMENT Add support for SupportsShouldProcess
 
-Function remove-TeamsToolsAuth {
+Function Remove-TeamsToolsAuthApp {
     [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact = 'High')]
     param ()
-
-    # Connect to Microsoft Graph
-    Connect-MgGraph -Scopes "Application.Read.All","Application.ReadWrite.All", 
-                            "Directory.Read.All", "Directory.ReadWrite.All", 
-                            "RoleManagement.ReadWrite.Directory","RoleManagement.Read.All",
-                            "AppRoleAssignment.ReadWrite.All" -NoWelcome -UseDeviceCode
 
     # Remove the TeamsToolsAuth Azure AD application
     $application = Get-MgApplication -Filter "displayName eq 'TeamsToolsAuth'"
@@ -23,6 +17,4 @@ Function remove-TeamsToolsAuth {
         write-Warning "TeamsToolsAuth Azure AD application not found."
     }
 
-    # Disconnect from Microsoft Graph
-    Disconnect-MgGraph  | out-null
 }

@@ -1,7 +1,7 @@
-# DOC Documentation NewteamsToolsAuth
+# DOC Documentation Import-TeamsToolsAuthFile
 # IMPROVEMENT Add support for SupportsShouldProcess
 
-function import-teamsToolsAuth {
+function Import-TeamsToolsAuthFile {
     param (
         [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
         [Parameter(Mandatory = $true)]
