@@ -79,6 +79,5 @@ $ServicePrincipal = Get-MgServicePrincipal -Filter "displayName eq 'TeamsToolsAu
 $servicePrincipal
 New-MgRoleManagementDirectoryRoleAssignment -PrincipalId $ServicePrincipal.Id -RoleDefinitionId $RoleDefinition.Id -DirectoryScopeId "/"
 
-
 # Disconnect from Microsoft Graph
 Disconnect-MgGraph

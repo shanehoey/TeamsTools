@@ -21,7 +21,6 @@ foreach ($domain in $domains) {
 }
 
 
-
 foreach ($user in (get-mguser -all)){                                                                                                   
     
     Write-Verbose -Message "Updating $($user.UserPrincipalName)" -verbose

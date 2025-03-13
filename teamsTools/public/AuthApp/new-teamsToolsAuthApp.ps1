@@ -47,8 +47,10 @@ Function New-teamsToolsAuthApp {
 
             # BUG Exchange Online Administrator
             Write-Verbose -message "Assigning Exchange Online Administrator role to service principal"
-            Write-warning -message "BUG Token authentication not supported for Exchange Online, WORKAROUND : manually connect to exchange online"
-
+            Write-warning -message "BUG- Token authentication not supported for Exchange Online, WORKAROUND : manually connect to exchange online"
+            #$RoleDefinition = Get-MgRoleManagementDirectoryRoleDefinition -Filter "displayName eq 'Exchange Administrator'"
+            #New-MgRoleManagementDirectoryRoleAssignment -PrincipalId $ServicePrincipal.Id -RoleDefinitionId $RoleDefinition.Id -DirectoryScopeId "/"
+            
             # Create a new client secret for the application
             $passwordCredential = @{
                 displayName = "TeamsToolAuth ${Get-Date}"

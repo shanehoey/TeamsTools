@@ -1,3 +1,9 @@
+Import-Module ./teamsTools/ 
+#BUG
+Import-TeamsToolsAuthFile -filename /home/shane/Documents/TeamTools/TeamsToolsAuth.json | Connect-TeamsTools
+$auth = Import-TeamsToolsAuthFile -filename /home/shane/Documents/TeamTools/TeamsToolsAuth.json
+Connect-TeamsTools -TenantId $auth.TenantID -ClientId $auth.ClientID -ClientSecret $auth.ClientSecret -Verbose
+
 # TeamsVirtualTopology
 New-TeamsVirtualTopology -domain "sandbox.shanehoey.dev"
 
@@ -56,9 +62,9 @@ $national  = initialize-teamsdefaultvoiceroutes | where-object {$_.CountryCode -
 $international  = initialize-teamsdefaultvoiceroutes | where-object {$_.CountryCode -eq "AU"} | where-object  {$_.type -eq "International"}
 
 
-Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-Internal-VR1" -PstnUsageList "AUSYD-Internal-PU1" -pstngatewayList "sbsyd.sandbox.shanehoey.dev"  -NumberPattern $internal.NumberPattern  -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-National-VR1"-PstnUsageList "AUSYD-National-PU1"-pstngatewayList "sbcsyd.sandbox.shanehoey.dev" -NumberPattern $national.NumberPattern -Priority 10000
-Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-International-VR1" -PstnUsageList "AUSYD-International-PU1" -pstngatewayList "sbcsyd.sandbox.shanehoey.dev" -NumberPattern $international.NumberPattern  -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-Internal-VR1" -PstnUsageList "AUSYD-Internal-PU1" -pstngatewayList "sbsyd.sandbox.shanehoey.dev"  -NumberPattern $internal.Pattern  -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-National-VR1"-PstnUsageList "AUSYD-National-PU1"-pstngatewayList "sbcsyd.sandbox.shanehoey.dev" -NumberPattern $national.Pattern -Priority 10000
+Add-TeamsVirtualVoiceRoute  -Identity "AUSYD-International-VR1" -PstnUsageList "AUSYD-International-PU1" -pstngatewayList "sbcsyd.sandbox.shanehoey.dev" -NumberPattern $international.Pattern  -Priority 10000
 
 Add-TeamsVirtualVoiceRoute  -Identity "AUMEL-Internal-VR1" -PstnUsageList "AUMEL-Internal-PU1" -pstngatewayList "sbcmel.sandbox.shanehoey.dev"  -NumberPattern $internal.NumberPattern  -Priority 10000
 Add-TeamsVirtualVoiceRoute  -Identity "AUMEL-National-VR1"-PstnUsageList "AUMEL-National-PU1"-pstngatewayList "sbcmel.sandbox.shanehoey.dev" -NumberPattern $national.NumberPattern -Priority 10000
