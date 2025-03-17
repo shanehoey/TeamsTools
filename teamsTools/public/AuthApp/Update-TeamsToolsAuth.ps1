@@ -1,7 +1,7 @@
 # DOC Documentation update=teamsToolsAuth
 # IMPROVEMENT Add support for SupportsShouldProcess
 
-Function update-teamsToolsAuth {
+Function Update-TeamsToolsAuth {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'med')]
     param (
         [int]$fecretDurationMonths = 3,

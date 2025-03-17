@@ -1,4 +1,4 @@
-function test-teamsToolsAuthApp {
+function Test-TeamsToolsAuthApp {
     param ()
     try {
         $result = get-MGapplication -Filter "displayName eq 'TeamsToolsAuth'" -ErrorAction Stop

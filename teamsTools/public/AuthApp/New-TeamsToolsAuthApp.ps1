@@ -1,7 +1,7 @@
 # DOC Documentation NewteamsToolsAuth
 # IMPROVEMENT Add support for SupportsShouldProcess
 
-Function New-teamsToolsAuthApp {
+Function New-TeamsToolsAuthApp {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'Medium')]
     param (
         [int]$secretDurationMonths = 3
