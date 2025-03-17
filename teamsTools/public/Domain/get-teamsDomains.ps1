@@ -1,38 +1,32 @@
-function get-teamsDomain {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+function Get-TeamsDomain{
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Low')]
     param (
-        [string]$domain
+        [Parameter(Mandatory=$false, ValueFromPipeline=$true)]
+        [Alias("Domain")]
+        [string[]]$Domains
     )
 
-    if ($PSCmdlet.ShouldProcess("Domain: $domain", "Adding Teams Domain")) {
-      
-        try {
-
-            if ($domain) {
-                $result = Get-MgDomain -DomainId $domain -erroraction Stop
-            } else {
-                $result = Get-MgDomain -erroraction Stop
+    process {
+        if ($PSCmdlet.ShouldProcess("Domains: $Domains", "Checking Teams Domain")) {
+            try {
+                $result = @()
+                if ($Domains) {
+                    foreach ($domain in $Domains) {
+                        Write-Verbose "Checking domain: $domain"
+                        try {
+                            $result = Get-MgDomain -DomainId $domain -ErrorAction Stop
+                        } catch {
+                            Write-Warning "Domain '$domain' does not exist."
+                        }
+                    }
+                } else {
+                    Write-Verbose "Checking all domains"
+                    $result = Get-MgDomain -ErrorAction Stop
+                }
+            } catch {
+                Write-Error "Failed to find Domain: $_"
             }
-  
-        } catch {
-            Write-Error "Failed to add Teams Domain: $_.Exception.Message"
+            return $result
         }
-
-        if ($result -is [array]) {
-            return $result | ForEach-Object {
-            [pscustomobject]@{
-                Id                = $_.Id
-                IsDefault         = $_.IsDefault
-                SupportedServices = $_.SupportedServices
-            }
-            }
-        } else {
-            return [pscustomobject]@{
-            Id                = $result.Id
-            IsDefault         = $result.IsDefault
-            SupportedServices = $result.SupportedServices
-            }
-        }
-
     }
 }

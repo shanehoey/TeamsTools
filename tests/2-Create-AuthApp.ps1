@@ -18,14 +18,3 @@ New-teamsToolsAuthApp | save-teamsToolsAuthfile -filename /home/shane/Documents/
 
 Disconnect-TeamsToolsGraph
 
-dir /home/shane/Documents/TeamsTools/ 
-del /home/shane/Documents/TeamsTools/TeamsToolsAuth.json
-
-
-# import the credentials from the file and connect to Teamstools
-import-teamsToolsauthfile -filename /home/shane/Documents/TeamsTools/TeamsToolsAuth.json | Connect-teamsTools
-$auth2 = import-teamsToolsauthfile -filename /home/shane/Documents/TeamsTools/TeamsToolsAuth.json
-Disconnect-TeamsTools
-
-Connect-TeamsTools -TenantId $auth2.TenantID -ClientId $auth2.ClientID -ClientSecret $auth2.ClientSecret -Verbose
-Disconnect-TeamsTools

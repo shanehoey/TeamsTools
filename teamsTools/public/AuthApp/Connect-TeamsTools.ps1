@@ -27,10 +27,6 @@ function Connect-TeamsTools {
         
         }
 
-
-
-        
-
         $body = @{
             grant_type    = "client_credentials"
             client_id     = $secrets.ClientId
@@ -40,7 +36,7 @@ function Connect-TeamsTools {
         $graphToken = Invoke-RestMethod -Uri "https://login.microsoftonline.com/$($secrets.TenantId)/oauth2/v2.0/token" -Method Post -ContentType "application/x-www-form-urlencoded" -Body $body
         if ($graphToken.access_token) {
             Write-Output "Successfully created token to Microsoft Graph."
-            Connect-MgGraph -AccessToken ($graphToken.access_token | ConvertTo-SecureString -AsPlainText -Force)
+            Connect-MgGraph -AccessToken ($graphToken.access_token | ConvertTo-SecureString -AsPlainText -Force) -NoWelcome
         } else {
             Write-Error "Failed to connect to Microsoft Graph."
         }

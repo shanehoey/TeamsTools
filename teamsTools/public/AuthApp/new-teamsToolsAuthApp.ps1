@@ -31,7 +31,8 @@ Function New-teamsToolsAuthApp {
                 "TeamSettings.ReadWrite.All",
                 "Channel.Delete.All",
                 "ChannelSettings.ReadWrite.All",
-                "ChannelMember.ReadWrite.All"
+                "ChannelMember.ReadWrite.All",
+                "Domain.ReadWrite.All"
             )
 
             foreach ($permission in $permissions) {
