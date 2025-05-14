@@ -73,3 +73,4 @@ function initialize-teamsDefaultVoiceNormalisationRules {
 
     return $rules
 }
+

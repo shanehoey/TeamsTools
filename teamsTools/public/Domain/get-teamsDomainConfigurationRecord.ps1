@@ -1,44 +1,37 @@
 function get-teamsDomainConfigurationRecord {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess=$false, ConfirmImpact='low')]
     param (
       [Parameter(Mandatory=$false)]
       [string[]]$domains
     )
-    
+
     if (-not $domains) {
       $domains = (Get-MgDomain).Id
-    }
+      }
     
     $results = @()
-    
-    foreach ($domain in $domains) {
+   
+    foreach ($domain in $domains) { 
       if ($domain -notlike "*.onmicrosoft.com") {
         try {
 
-        $ServiceConfigurationRecords = Get-MgDomainServiceConfigurationRecord -DomainId $domain |select-object SupportedService,RecordType,label,ttl,AdditionalProperties
-      
-        foreach ($record in $ServiceConfigurationRecords ){
-                $results += [PSCustomObject]@{
-                    DomainID = $domain
-                    ServiceConfiguration = @(Get-MgDomainServiceConfigurationRecord -DomainId $domain | sort-object SupportedService | select-object SupportedService,RecordType,label,ttl,AdditionalProperties)
-                    SupportedService = $record.SupportedService
-                    RecordType =$record.RecordType
-                    Label = $record.label
-                    TTL = $record.ttl
-                    type = $record.AdditionalProperties."@odata.RecordType"
+              $records = Get-MgDomainServiceConfigurationRecord -DomainId $domain | Select-Object Label,RecordType,SupportedService,Ttl,AdditionalProperties
 
-                  }
-          }
+              foreach ($record in $records ){
+                      switch ($record.RecordType) {
+                        "MX" { $results += [DnsRecord]::new($record.SupportedService, $record.RecordType, $record.label, $record.AdditionalProperties.mailExchange,$record.Ttl,$record.AdditionalProperties.preference )}
+                        "SRV" { $results += [DnsRecord]::new($record.SupportedService,$record.RecordType, $record.label, $record.AdditionalProperties.nameTarget,$record.Ttl,$record.AdditionalProperties.priority,$record.AdditionalProperties.port,$record.AdditionalProperties.service,$record.AdditionalProperties.protocol,$record.AdditionalProperties.weight ) }
+                        "CNAME" { $results += [DnsRecord]::new($record.SupportedService,$record.RecordType, $record.label, $record.AdditionalProperties.canonicalName,$record.Ttl) }
+                        "TXT" { $results += [DnsRecord]::new($record.SupportedService,$record.RecordType, $record.label, $record.AdditionalProperties.text,$record.Ttl) }
+                        default { $results += [DnsRecord]::new($record.SupportedService,$record.RecordType, $record.label, $record.AdditionalProperties,$record.Ttl) }
+                      }
+                }
 
-        } catch {
+          } catch {
           Write-Warning "Domain '$domain' does not exist or an error occurred:"
         }
-      }
     }
-    
-    return $results
   }
   
-
-
- 
+  return $results
+}

@@ -11,23 +11,30 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #>
 
-class authApp {
+
+class defaultVoiceRoute {
 
     [ValidateNotNullOrEmpty()]
-    [String]$ClientID
+    [ValidatePattern("^(global|[A-Z]{2})$")]
+    [string]$countryCode
 
     [ValidateNotNullOrEmpty()]
-    [SecureString]$ClientSecret
+    [ValidatePattern("^[a-zA-Z0-9_.\s]{1,32}$")]
+    [string]$displayName
 
     [ValidateNotNullOrEmpty()]
-    [String]$TenantID
+    [ValidateSet("Emergency", "Internal", "Local", "National", "Service", "International")]
+    [string]$type
+    
+    [ValidateNotNullOrEmpty()]
+    [string]$pattern
 
-    authApp() {
+    defaultVoiceRoute([string]$countryCode, [string]$displayName, [string]$type, [string]$pattern) {
+        $this.countryCode = $countryCode
+        $this.displayName = $displayName
+        $this.type = $type
+        $this.pattern = $pattern
     }
 
-    authApp([String]$ClientId, [SecureString]$ClientSecret, [String]$TenantID) {
-        $this.ClientId = $ClientId
-        $this.ClientSecret = $ClientSecret
-        $this.TenantID = $TenantID
-    }
 }
+

@@ -1,3 +1,5 @@
+import-module ./teamsTools/ -force -Verbose
+
 # Test Connection while disconnected
 
 # Expected Result Warning Message not connected
@@ -16,7 +18,6 @@ Test-TeamsToolsGraph -domain "notRealDomain"
 Test-TeamsToolsGraph -domain (Test-TeamsToolsGraph).tenant
 Test-TeamsToolsGraph -tenantID "notRealTenantID"
 Test-TeamsToolsGraph -tenantID (Test-TeamsToolsGraph).tenantID 
-
 
 # Logon to azure ad 
 
@@ -47,3 +48,4 @@ get-TeamsToolsGraph -domain (Test-TeamsToolsGraph).tenant
 get-TeamsToolsGraph -tenantID "notRealTenantID"
 get-TeamsToolsGraph -tenantID (Test-TeamsToolsGraph).tenantID 
 
+Disconnect-TeamsToolsGraph

@@ -1,11 +1,10 @@
 # DOC Documentation update=teamsToolsAuth
 # IMPROVEMENT Add support for SupportsShouldProcess
 
-Function Update-TeamsToolsAuth {
+Function Update-TeamsToolsAuthApp {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'med')]
     param (
-        [int]$fecretDurationMonths = 3,
-        
+        [int]$SecretDurationMonths = 3, 
         [string]$filename
 
     )
@@ -25,12 +24,7 @@ Function Update-TeamsToolsAuth {
         }
     }
 
-    # Connect to Microsoft Graph
-    Connect-MgGraph -Scopes "Application.Read.All","Application.ReadWrite.All", 
-                            "Directory.Read.All", "Directory.ReadWrite.All", 
-                            "RoleManagement.ReadWrite.Directory","RoleManagement.Read.All",
-                            "AppRoleAssignment.ReadWrite.All"
 
-   write-warning -message "Update-TeamsToolsAuth not implemented"
+Write-Error -Message "$($MyInvocation.MyCommand.Name) not implemented"
 
 }

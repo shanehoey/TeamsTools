@@ -1,7 +1,6 @@
 # DOC Documentation Import-TeamsToolsAuthFile
 # IMPROVEMENT Add support for SupportsShouldProcess
-
-function Import-TeamsToolsAuthFile {
+Function Import-TeamsToolsAuthFile {
     param (
         [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
         [Parameter(Mandatory = $true)]
@@ -15,7 +14,7 @@ function Import-TeamsToolsAuthFile {
 
     try {
         $content = Get-Content -Path $filename | ConvertTo-SecureString | ConvertFrom-SecureString -AsPlainText | ConvertFrom-Json
-        $response = [TeamsToolsAuthApp]@{
+        $response = [authApp]@{
             ClientId     = $content.ClientId
             ClientSecret = $content.ClientSecret | ConvertTo-SecureString -AsPlainText
             TenantId     = $content.TenantId

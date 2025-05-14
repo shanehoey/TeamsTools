@@ -61,7 +61,7 @@ Function New-TeamsToolsAuthApp {
             $secret = Add-MGApplicationPassword -ApplicationID $application.Id -PasswordCredential $passwordCredential
             Write-verbose -message  "Created client secret for application 'TeamsToolsAuth'."
 
-            $secrets = [TeamsToolsAuthApp]@{
+            $secrets = [authApp]@{
                 ClientId = $application.AppId
                 ClientSecret = $secret.SecretText | ConvertTo-SecureString -AsPlainText -force
                 TenantId = (Get-MgOrganization).Id

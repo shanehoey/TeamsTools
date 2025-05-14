@@ -11,20 +11,17 @@ function Connect-TeamsTools {
         [Parameter(Mandatory = $true, ParameterSetName = 'Default')]
         [securestring]$ClientSecret,
         [Parameter(Mandatory = $true, ParameterSetName = 'Secrets', ValueFromPipeline = $true)]
-        [TeamsToolsAuthApp]$Secrets
+        [authApp]$Secrets
     )
-
 
     if ($PSCmdlet.ShouldProcess("Connecting to Microsoft Graph and Teams")) {
 
         if ($PSCmdlet.ParameterSetName -eq 'Default') {
-        
-            $secrets = [TeamsToolsAuthApp]@{
+            $secrets = [authApp]@{
                 clientId = $ClientId 
                 ClientSecret = $ClientSecret
                 TenantId = $TenantId
             }
-        
         }
 
         $body = @{
@@ -33,9 +30,11 @@ function Connect-TeamsTools {
             client_secret = $secrets.ClientSecret | ConvertFrom-SecureString -AsPlainText
             scope         = "https://graph.microsoft.com/.default"
         }
+
         $graphToken = Invoke-RestMethod -Uri "https://login.microsoftonline.com/$($secrets.TenantId)/oauth2/v2.0/token" -Method Post -ContentType "application/x-www-form-urlencoded" -Body $body
+        
         if ($graphToken.access_token) {
-            Write-Output "Successfully created token to Microsoft Graph."
+            Write-Verbose -message "Created token for Microsoft Graph." -verbose
             Connect-MgGraph -AccessToken ($graphToken.access_token | ConvertTo-SecureString -AsPlainText -Force) -NoWelcome
         } else {
             Write-Error "Failed to connect to Microsoft Graph."
@@ -47,15 +46,17 @@ function Connect-TeamsTools {
             client_id     = $secrets.ClientId
             client_secret =  $secrets.ClientSecret | ConvertFrom-SecureString -AsPlainText
         }
+
         $teamsToken = Invoke-RestMethod -Uri "https://login.microsoftonline.com/$($secrets.TenantId)/oauth2/v2.0/token" -Method Post -ContentType "application/x-www-form-urlencoded" -Body $body
+        
         if ($teamsToken.access_token) {
-            Write-Output "Successfully created token to Microsoft Teams."
-            Connect-MicrosoftTeams -AccessTokens @($graphToken.access_token, $teamsToken.access_token)
+            Write-Verbose -message  "Created token for Microsoft Teams." -verbose
+            Connect-MicrosoftTeams -AccessTokens @($graphToken.access_token, $teamsToken.access_token) | out-null
         } else {
             Write-Error "Failed to connect to Microsoft Teams."
         }
 
-        Write-Warning "Exchange not Implemented"
+        Write-Warning "Exchange Token not Implemented"
         <#
         $body = @{
             grant_type    = "client_credentials"
@@ -71,5 +72,13 @@ function Connect-TeamsTools {
             Write-Error "Failed to connect to Microsoft Exchange."
         }
         #>
+            try {
+             Get-CsTenant -erroraction stop | out-null
+             Get-MgOrganization -ErrorAction Stop |  Out-Null
+             write-verbose -message "Successfully connected to Tenant." -verbose
+            } catch {
+            Write-Error "Failed to connect to Tenant. $_"
+            }
+
     }
 }

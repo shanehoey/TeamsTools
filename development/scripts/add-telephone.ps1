@@ -3,3 +3,9 @@ New-CsOnlineDirectRoutingTelephoneNumberUploadOrder -StartingNumber "+6177010600
 
 New-CsOnlineDirectRoutingTelephoneNumberUploadOrder -TelephoneNumber "+61770107000,+61770107001,+61770107002,+61770107003,+61770107004,+61770107005,+61770107006,+61770107007,+61770107008,+61770107009" 
 
+
+$numbers = get-csphonenumberassignment 7
+foreach ($number in $numbers) {
+    $number 
+    remove-csonlinetelephonenumber -telephoneNumber $number.TelephoneNumber
+}

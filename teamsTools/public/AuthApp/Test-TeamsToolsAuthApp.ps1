@@ -1,3 +1,8 @@
+
+# DOC Documentation update=teamsToolsAuth
+# IMPROVEMENT Add support for SupportsShouldProcess
+
+
 function Test-TeamsToolsAuthApp {
     param ()
     try {

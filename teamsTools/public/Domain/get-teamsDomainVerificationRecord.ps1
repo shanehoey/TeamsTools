@@ -1,5 +1,5 @@
 function get-teamsDomainVerificiationRecord {
-  [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+  [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'low')]
   param (
     [Parameter(Mandatory=$false)]
     [string[]]$domains
@@ -14,11 +14,10 @@ function get-teamsDomainVerificiationRecord {
   foreach ($domain in $domains) {
     if ($domain -notlike "*.onmicrosoft.com") {
       try {
-        $result = [PSCustomObject]@{
+        $results += [PSCustomObject]@{
           DomainID = (Get-MgDomain -DomainId $domain -erroraction stop).Id
           AdditionalPropertiesText = (Get-MgDomainVerificationDnsRecord -DomainId $domain | Where-Object {$_.RecordType -eq "Txt"}).AdditionalProperties.text
         }
-        $results += $result
       } catch {
         Write-Warning "Domain '$domain' does not exist or an error occurred:"
       }

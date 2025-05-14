@@ -22,7 +22,7 @@ function Save-TeamsToolsAuthFile {
         [string]$tenantId,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'bySecret', ValueFromPipeline = $true)]
-        [TeamsToolsAuthApp]$secrets 
+        [AuthApp]$secrets 
 
         )
 

@@ -1,3 +1,6 @@
+##BUG need to add the removal of all user policyies,  also if something fails because a user is assigned or group policy it should error and list the reason 
+ 
+ 
  <#
 .SYNOPSIS
 Removes Teams configuration for a specified domain.

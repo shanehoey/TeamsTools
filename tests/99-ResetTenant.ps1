@@ -1,11 +1,32 @@
-try {
-    get-cstenant | Select-Object Sipdomain
-} catch {
-    Connect-MicrosoftTeams -UseDeviceAuthentication
+#Requires -Modules @{ ModuleName="TeamsTools"; ModuleVersion="1.0.0" }#
+#Requires -Modules @{ ModuleName="TeamsToolsReset"; ModuleVersion="1.0.0" }
+
+import-module ./teamsTools/ -force -Verbose
+import-module ./teamsToolsReset/ -force -Verbose
+
+import-teamsToolsauthfile -filename /home/shane/Documents/TeamsTools/TeamsTools.auth | Connect-teamsTools
+
+
+#TODO NEED TO REMOVE GROUP POLICY need to add the group policy check to the scripts to the test script
+
+remove-teamstoolsconfig -domainname "sandbox.shanehoey.dev"  -clean 
+
+foreach ($number in (get-csphonenumberassignment)) {
+    $number | Select TelephoneNumber, PstnAssignmentStatus
+    remove-csonlinetelephonenumber -telephoneNumber $number.TelephoneNumber
+}
+
+foreach($i in (get-CsPhoneNumberassignment | select-object TelephoneNumber)) { 
+    remove-csonlineTelephoneNumber -telephonenumber $i.TelephoneNumber 
 }
 
 
-Remove-Module -Name teamsToolsReset
-Import-Module  -Name .\TeamsToolsReset\ -Verbose -Force
 
-remove-teamstoolsconfig -domainname "sandbox.shanehoey.dev"  -clean 
+# Remove Domain
+
+# Remove Teams authapp 
+
+Connect-TeamsToolsGraph
+Get-TeamsToolsAuthApp
+Test-TeamsToolsAuthApp
+Remove-TeamsToolsAuthApp -confirm:$false
