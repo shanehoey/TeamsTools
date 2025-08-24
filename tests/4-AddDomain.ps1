@@ -17,7 +17,12 @@ confirm-teamsDomainVerificationRecord
 
 
 get-teamsDomainConfigurationRecord | Format-Table -AutoSize
-get-teamsDomainConfigurationRecord -domain "sandbox.shanehoey.dev"
+
+#BUG  Wildcard domains are not supported
+get-teamsDomainConfigurationRecord -domain "play*.shanehoey.dev"
+
+
+get-teamsDomainConfigurationRecord -domain "play.shanehoey.dev"
 
 
 #CHECK: Is this a valid command in the module ?

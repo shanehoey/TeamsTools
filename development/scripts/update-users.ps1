@@ -51,7 +51,7 @@ Get-MgUser -Filter $filter -consistencyLevel eventual -countVariable count | sor
 
 
 
-#
+# 
 
 Connect-MgGraph -Scopes "User.ReadWrite.All"    
  

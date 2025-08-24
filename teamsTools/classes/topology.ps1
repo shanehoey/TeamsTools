@@ -11,11 +11,25 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #>
 
-enum Source {
+enum source {
     Virtual = 1
     Tenant = 2
     Unspecified =99
 }
+
+# Patterns for validation
+# -----------------------
+# Identity:        ^[a-zA-Z0-9_.]{1,32}$
+# Identity:        ^(?!\.)(?!.*\.\(\)$)[a-zA-Z0-9_.-]{1,49}$
+# Description:     ^(?!.*[!@#$%^*()=/\[\]{}:;?<>+']).{0,255}$
+# NetworkSiteID:   ^[a-zA-Z0-9_.]{1,32}$
+# NetworkRegionID: ^[a-zA-Z0-9_.]{1,32}$
+# SubnetID:        ^[a-zA-Z0-9_.]{1,32}$
+# PhoneNumber:     ^\+?[1-9]\d{1,14}$
+# UPN:             ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
+# SipAddress:      ^sip:[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
+# Fqdn:            ^(?!-)(?:[A-Za-z0-9-]{1,63}\.){1,126}(?:[A-Za-z]{2,63})$
+# Mask:            ^(([0-9]|[1-2][0-9]|3[0-2]))$
 
 class VirtualNetworkRegion {
     
@@ -26,6 +40,7 @@ class VirtualNetworkRegion {
 
     [ValidateNotNullOrEmpty()]
     [ValidatePattern("^[a-zA-Z0-9_.]{1,32}$")]
+    [Alias("Identity")]
     [String]$NetworkRegionId
     
     [ValidateNotNullOrEmpty()]
@@ -366,6 +381,8 @@ class VirtualVoiceRoutingPolicy {
     # Key              NoteProperty Deserialized.System.Management.Automation.PSCustomObject Key=ScopeClass=Global;SchemaId=;AuthorityId=;De…
     # OnlinePstnUsages NoteProperty Deserialized.System.Object[] OnlinePstnUsages=
     # RouteType        NoteProperty string RouteType=BYOT
+
+    # check $Identity could be 100 chars?
 
     [ValidateNotNullOrEmpty()]
     [ValidatePattern("^[ a-zA-Z0-9_.-]{1,32}$")]

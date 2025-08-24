@@ -2,16 +2,16 @@ function get-teamsDomainConfigurationRecord {
     [CmdletBinding(SupportsShouldProcess=$false, ConfirmImpact='low')]
     param (
       [Parameter(Mandatory=$false)]
-      [string[]]$domains
-    )
+      [Alias("domain")]
+      [string[]]$domainName
 
-    if (-not $domains) {
-      $domains = (Get-MgDomain).Id
+    if (-not $domainName) {
+      $domainName = (Get-MgDomain).Id
       }
     
     $results = @()
-   
-    foreach ($domain in $domains) { 
+
+    foreach ($domain in $domainName) { 
       if ($domain -notlike "*.onmicrosoft.com") {
         try {
 

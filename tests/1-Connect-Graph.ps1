@@ -37,6 +37,7 @@ Connect-TeamsToolsGraph
 Test-TeamsToolsGraph
 Test-TeamsToolsGraph -domain (Test-TeamsToolsGraph).tenant
 Test-TeamsToolsGraph -tenantID (Test-TeamsToolsGraph).tenantID 
+
 # Expected Result $false
 Test-TeamsToolsGraph -domain "notRealDomain"
 Test-TeamsToolsGraph -tenantID "notRealTenantID"

@@ -2,16 +2,16 @@ function Get-TeamsDomain{
     [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Low')]
     param (
         [Parameter(Mandatory=$false, ValueFromPipeline=$true)]
-        [Alias("Domain")]
-        [string[]]$Domains
+        [Alias("domain")]
+        [string[]]$domainName
     )
 
     process {
-        if ($PSCmdlet.ShouldProcess("Domains: $Domains", "Checking Teams Domain")) {
+        if ($PSCmdlet.ShouldProcess("Domains: $domainName", "Checking Teams Domain")) {
             try {
                 $result = @()
-                if ($Domains) {
-                    foreach ($domain in $Domains) {
+                if ($domainName) {
+                    foreach ($domain in $domainName) {
                         Write-Verbose "Checking domain: $domain"
                         try {
                             $result = Get-MgDomain -DomainId $domain -ErrorAction Stop

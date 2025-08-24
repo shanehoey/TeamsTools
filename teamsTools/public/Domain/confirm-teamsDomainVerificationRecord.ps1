@@ -1,18 +1,18 @@
 function confirm-teamsDomainVerificationRecord {
     param (
         [Parameter(Mandatory=$false, ValueFromPipeline=$true)]
-        [Alias("Domain")]
-        [string[]]$domains
+        [Alias("domain")]
+        [string[]]$domainName
     )
 
-    if (-not $domains) {
-        $domains = Get-MgDomain | Where-Object { -not $_.IsVerified } | Select-Object -ExpandProperty Id
+    if (-not $domainName) {
+        $domainName = Get-MgDomain | Where-Object { -not $_.IsVerified } | Select-Object -ExpandProperty Id
     }
 
-    if (-not $domains) {
+    if (-not $domainName) {
         Write-Warning "No domains provided. All domains are already verified."
     } else {
-        foreach ($domain in $domains) {
+        foreach ($domain in $domainName) {
             try {
                 $result = confirm-MgDomain -DomainId $domain -ErrorAction stop
 

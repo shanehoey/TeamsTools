@@ -6,7 +6,6 @@ import-module ./teamsToolsReset/ -force -Verbose
 
 import-teamsToolsauthfile -filename /home/shane/Documents/TeamsTools/TeamsTools.auth | Connect-teamsTools
 
-
 #TODO NEED TO REMOVE GROUP POLICY need to add the group policy check to the scripts to the test script
 
 remove-teamstoolsconfig -domainname "sandbox.shanehoey.dev"  -clean 
@@ -23,6 +22,10 @@ foreach($i in (get-CsPhoneNumberassignment | select-object TelephoneNumber)) {
 
 
 # Remove Domain
+
+Remove-teamstoolsdomain -domainname "playground.shanehoey.dev"
+Remove-teamstoolsdomain -domainname "play.shanehoey.dev"
+
 
 # Remove Teams authapp 
 

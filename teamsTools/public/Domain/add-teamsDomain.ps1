@@ -3,14 +3,14 @@ function add-teamsDomain {
   param (
     [Parameter(Mandatory=$true)]
     [Alias("domain")]
-    [string[]]$domains
+    [string[]]$domainName
   )
 
-  if ($PSCmdlet.ShouldProcess("Domain: $domains", "Adding Teams Domain")) {
-    
+  if ($PSCmdlet.ShouldProcess("Domain: $domainName", "Adding Teams Domain")) {
+
     $results = @()
 
-    foreach ($domain in $domains) {
+    foreach ($domain in $domainName) {
       try {
         $result = [PSCustomObject]@{
           DomainID = (New-MgDomain -AuthenticationType Managed -id $domain -IsAdminManaged -IsDefault -ErrorAction Stop).Id
@@ -18,7 +18,8 @@ function add-teamsDomain {
         }
         $results += $result
       } catch {
-        Write-Error "Failed to add Domain $domain to M365"
+        # Generic catch all
+        Write-Error "Unexpected error adding domain $domain : $($_.Exception.Message)"
       }
     }
         
