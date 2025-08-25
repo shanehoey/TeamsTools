@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Types>
+    <!-- AuthApp Class -->
+    <Type>
+        <Name>authApp</Name>
+        <Members>
+            <ScriptProperty>
+                <Name>TenantDisplay</Name>
+                <GetScriptBlock>
+                    if ($this.TenantID.Length -ge 8) {
+                        $this.TenantID.Substring(0, 8) + "..."
+                    } else {
+                        $this.TenantID
+                    }
+                </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptProperty>
+                <Name>ClientIdDisplay</Name>
+                <GetScriptBlock>
+                    if ($this.ClientID.Length -ge 8) {
+                        $this.ClientID.Substring(0, 8) + "..."
+                    } else {
+                        $this.ClientID
+                    }
+                </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptMethod>
+                <Name>ToString</Name>
+                <Script>
+                    return "AuthApp [ClientID: $($this.ClientIdDisplay), TenantID: $($this.TenantDisplay)]"
+                </Script>
+            </ScriptMethod>
+        </Members>
+    </Type>
+
+    <!-- DnsRecord Class -->
+    <Type>
+        <Name>DnsRecord</Name>
+        <Members>
+            <ScriptProperty>
+                <Name>IsValid</Name>
+                <GetScriptBlock>
+                    -not [string]::IsNullOrEmpty($this.Name) -and -not [string]::IsNullOrEmpty($this.Value)
+                </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptMethod>
+                <Name>ToString</Name>
+                <Script>
+                    return "$($this.Type) Record: $($this.Name) -> $($this.Value)"
+                </Script>
+            </ScriptMethod>
+        </Members>
+    </Type>
+
+    <!-- VirtualTopology Class -->
+    <Type>
+        <Name>VirtualTopology</Name>
+        <Members>
+            <ScriptProperty>
+                <Name>ObjectCount</Name>
+                <GetScriptBlock>
+                    $count = 0
+                    if ($this.NetworkRegion) { $count += $this.NetworkRegion.Count }
+                    if ($this.NetworkSite) { $count += $this.NetworkSite.Count }
+                    if ($this.NetworkSubnet) { $count += $this.NetworkSubnet.Count }
+                    if ($this.PstnGateway) { $count += $this.PstnGateway.Count }
+                    if ($this.VoiceRoute) { $count += $this.VoiceRoute.Count }
+                    if ($this.User) { $count += $this.User.Count }
+                    return $count
+                </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptProperty>
+                <Name>TenantIdDisplay</Name>
+                <GetScriptBlock>
+                    if ($this.TenantID -ne "00000000-0000-0000-0000-000000000000") {
+                        $this.TenantID.ToString().Substring(0, 8) + "..."
+                    } else {
+                        "Not Set"
+                    }
+                </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptMethod>
+                <Name>ToString</Name>
+                <Script>
+                    return "VirtualTopology [$($this.DomainName)] - $($this.ObjectCount) objects"
+                </Script>
+            </ScriptMethod>
+        </Members>
+    </Type>
+
+    <!-- VirtualUser Class -->
+    <Type>
+        <Name>VirtualUser</Name>
+        <Members>
+            <ScriptProperty>
+                <Name>HasPhoneNumber</Name>
+                <GetScriptBlock>
+                    -not [string]::IsNullOrEmpty($this.TelephoneNumber)
+                </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptProperty>
+                <Name>VoiceStatus</Name>
+                <GetScriptBlock>
+                    if ($this.EnterpriseVoiceEnabled) {
+                        if ($this.HasPhoneNumber) { "Enabled with Number" } else { "Enabled without Number" }
+                    } else {
+                        "Disabled"
+                    }
+                </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptMethod>
+                <Name>ToString</Name>
+                <Script>
+                    return "$($this.Identity) [$($this.VoiceStatus)]"
+                </Script>
+            </ScriptMethod>
+        </Members>
+    </Type>
+
+    <!-- VirtualVoiceRoute Class -->
+    <Type>
+        <Name>VirtualVoiceRoute</Name>
+        <Members>
+            <ScriptProperty>
+                <Name>PriorityLevel</Name>
+                <GetScriptBlock>
+                    switch ($this.Priority) {
+                        { $_ -le 10 } { 'High' }
+                        { $_ -le 50 } { 'Medium' }
+                        default { 'Low' }
+                    }
+                </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptProperty>
+                <Name>GatewayCount</Name>
+                <GetScriptBlock>
+                    if ($this.PstnGatewayList) { $this.PstnGatewayList.Count } else { 0 }
+                </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptMethod>
+                <Name>ToString</Name>
+                <Script>
+                    return "$($this.Identity) [Priority: $($this.Priority), Gateways: $($this.GatewayCount)]"
+                </Script>
+            </ScriptMethod>
+        </Members>
+    </Type>
+
+    <!-- VirtualPstnGateway Class -->
+    <Type>
+        <Name>VirtualPstnGateway</Name>
+        <Members>
+            <ScriptProperty>
+                <Name>Status</Name>
+                <GetScriptBlock>
+                    if ($this.Enabled) { "Enabled" } else { "Disabled" }
+                </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptProperty>
+                <Name>MediaBypassStatus</Name>
+                <GetScriptBlock>
+                    if ($this.MediaBypass) { "Enabled" } else { "Disabled" }
+                </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptMethod>
+                <Name>ToString</Name>
+                <Script>
+                    return "$($this.Identity) [$($this.Status), Port: $($this.SipSignalingPort)]"
+                </Script>
+            </ScriptMethod>
+        </Members>
+    </Type>
+
+    <!-- VirtualDialPlan Class -->
+    <Type>
+        <Name>VirtualDialPlan</Name>
+        <Members>
+            <ScriptProperty>
+                <Name>HasExternalAccess</Name>
+                <GetScriptBlock>
+                    -not [string]::IsNullOrEmpty($this.ExternalAccessPrefix)
+                </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptMethod>
+                <Name>ToString</Name>
+                <Script>
+                    return "$($this.Identity) [External Access: $($this.HasExternalAccess)]"
+                </Script>
+            </ScriptMethod>
+        </Members>
+    </Type>
+
+    <!-- VirtualNetworkSite Class -->
+    <Type>
+        <Name>VirtualNetworkSite</Name>
+        <Members>
+            <ScriptMethod>
+                <Name>ToString</Name>
+                <Script>
+                    return "$($this.NetworkSiteId) [Region: $($this.NetworkRegionId)]"
+                </Script>
+            </ScriptMethod>
+        </Members>
+    </Type>
+
+    <!-- VirtualNetworkSubnet Class -->
+    <Type>
+        <Name>VirtualNetworkSubnet</Name>
+        <Members>
+            <ScriptProperty>
+                <Name>SubnetCidr</Name>
+                <GetScriptBlock>
+                    "$($this.SubnetId)/$($this.Mask)"
+                </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptMethod>
+                <Name>ToString</Name>
+                <Script>
+                    return "$($this.SubnetCidr) [Site: $($this.NetworkSiteId)]"
+                </Script>
+            </ScriptMethod>
+        </Members>
+    </Type>
+
+    <!-- defaultVoiceRoute Class -->
+    <Type>
+        <Name>defaultVoiceRoute</Name>
+        <Members>
+            <ScriptMethod>
+                <Name>ToString</Name>
+                <Script>
+                    return "$($this.displayName) [$($this.countryCode) - $($this.type)]"
+                </Script>
+            </ScriptMethod>
+        </Members>
+    </Type>
+
+    <!-- defaultVoiceNormalisationRule Class -->
+    <Type>
+        <Name>defaultVoiceNormalisationRule</Name>
+        <Members>
+            <ScriptProperty>
+                <Name>HasAreaCode</Name>
+                <GetScriptBlock>
+                    -not [string]::IsNullOrEmpty($this.areaCode)
+                </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptMethod>
+                <Name>ToString</Name>
+                <Script>
+                    return "$($this.displayName) [$($this.countryCode) - $($this.type)]"
+                </Script>
+            </ScriptMethod>
+        </Members>
+    </Type>
+</Types>

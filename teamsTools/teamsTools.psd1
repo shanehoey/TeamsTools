@@ -47,35 +47,35 @@ PowerShellVersion = '7.2'
 RequiredModules = @(
     @{
         ModuleName = 'MicrosoftTeams'
-        ModuleVersion = '6.8.0'
+        ModuleVersion = '7.3.1'
     },
     @{
         ModuleName = 'Microsoft.Graph.authentication'
-        ModuleVersion = '2.26.1'
+        ModuleVersion = '2.30.0'
     },
     @{
         ModuleName = 'Microsoft.Graph.Applications'
-        ModuleVersion = '2.26.1'
+        ModuleVersion = '2.30.0'
     },
     @{
        ModuleName = 'Microsoft.Graph.Identity.DirectoryManagement'
-       ModuleVersion = '2.26.1'
+       ModuleVersion = '2.30.0'
     },
     @{
        ModuleName = 'Microsoft.Graph.Identity.Governance'
-       ModuleVersion = '2.26.1'
+       ModuleVersion = '2.30.0'
     },
     @{
         ModuleName = 'Microsoft.Graph.Groups'
-        ModuleVersion = '2.26.1'
+        ModuleVersion = '2.30.0'
     },
     @{
         ModuleName = 'Microsoft.Graph.Users'
-        ModuleVersion = '2.26.1'
-    },  
+        ModuleVersion = '2.30.0'
+    },
     @{
         ModuleName = 'ExchangeOnlineManagement'
-        ModuleVersion = '3.7.1'
+        ModuleVersion = '3.9.0'
     }
 )
 
@@ -86,10 +86,10 @@ RequiredModules = @(
 # ScriptsToProcess = @()
 
 # Type files (.ps1xml) to be loaded when importing this module
-# TypesToProcess = @()
+TypesToProcess = @('teamsTools.Types.ps1xml')
 
 # Format files (.ps1xml) to be loaded when importing this module
-# FormatsToProcess = @()
+FormatsToProcess = @('teamsTools.Format.ps1xml')
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
 # NestedModules = @()
@@ -139,10 +139,13 @@ PrivateData = @{
         # Prerelease = ''
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
-        # RequireLicenseAcceptance = $false
+        RequireLicenseAcceptance = $true
 
         # External dependent modules of this module
         # ExternalModuleDependencies = @()
+
+        # Minimum version of PowerShell supported
+        MinimumPSVersion = '7.2'
 
     } # End of PSData hashtable
 

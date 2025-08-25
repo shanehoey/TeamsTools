@@ -4,6 +4,7 @@ function get-teamsDomainConfigurationRecord {
       [Parameter(Mandatory=$false)]
       [Alias("domain")]
       [string[]]$domainName
+    )
 
     if (-not $domainName) {
       $domainName = (Get-MgDomain).Id
