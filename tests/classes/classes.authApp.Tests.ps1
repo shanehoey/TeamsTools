@@ -1,5 +1,8 @@
  # Combined authApp Class Tests (Simple + Detailed)
-. "./teamsTools/classes/authApp.ps1"
+ 
+BeforeAll -Scriptblock {
+	.  ./teamsTools/classes/authApp.ps1
+}
 
 Describe "authApp Class Tests" {
     # Simple tests

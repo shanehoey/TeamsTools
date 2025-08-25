@@ -1,5 +1,8 @@
 # Simple test for defaultVoiceRoute class
-. "./teamsTools/classes/defaultVoiceRoute.ps1"
+
+BeforeAll -Scriptblock {
+    . "./teamsTools/classes/defaultVoiceRoute.ps1"
+}
 
 Describe "defaultVoiceRoute Class Tests" {
     

@@ -1,5 +1,8 @@
 # Simple test for defaultVoiceNormalisationRule class
-. "./teamsTools/classes/defaultVoiceNormalisationRule.ps1"
+
+BeforeAll -Scriptblock {
+    . "./teamsTools/classes/defaultVoiceNormalisationRule.ps1"
+}
 
 Describe "defaultVoiceNormalisationRule Class Tests" {
     

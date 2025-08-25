@@ -1,5 +1,8 @@
 # Simple test for DnsRecord class
-. "./teamsTools/classes/domains.ps1"
+
+BeforeAll -Scriptblock {
+    . "./teamsTools/classes/domains.ps1"
+}
 
 Describe "DnsRecord Class Tests" {
     
