@@ -1,6 +1,5 @@
 # DOC Documentation NewteamsToolsAuth
 # IMPROVEMENT Add support for SupportsShouldProcess
-
 Function New-TeamsToolsAuthApp {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'Medium')]
     param (

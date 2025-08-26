@@ -1,0 +1,22 @@
+# DOC Documentation get-teamsVirtualVoiceRoutingPolicy
+# IMPROVEMENT Add support for SupportsShouldProcess
+Function Get-TeamsVirtualVoiceRoutingPolicy {
+    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    param (
+
+    [string] $Identity = "*"
+    )
+
+    try {
+        if (-not $script:VirtualTopology) {
+            throw "Teams VirtualTopology not found."
+        }
+
+        $Item = $script:VirtualTopology.VoiceRoutingPolicy | where-object {$_.Identity -like $Identity}
+        return $Item
+
+    } catch {
+        Write-Error -Message "$_.Exception.Message"
+    }
+}
+

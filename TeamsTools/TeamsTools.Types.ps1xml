@@ -2,7 +2,7 @@
 <Types>
     <!-- AuthApp Class -->
     <Type>
-        <Name>authApp</Name>
+        <Name>AuthApp</Name>
         <Members>
             <ScriptProperty>
                 <Name>TenantDisplay</Name>
@@ -224,7 +224,7 @@
 
     <!-- defaultVoiceRoute Class -->
     <Type>
-        <Name>defaultVoiceRoute</Name>
+        <Name>DefaultVoiceRoute</Name>
         <Members>
             <ScriptMethod>
                 <Name>ToString</Name>
@@ -237,7 +237,7 @@
 
     <!-- defaultVoiceNormalisationRule Class -->
     <Type>
-        <Name>defaultVoiceNormalisationRule</Name>
+        <Name>DefaultVoiceNormalisationRule</Name>
         <Members>
             <ScriptProperty>
                 <Name>HasAreaCode</Name>

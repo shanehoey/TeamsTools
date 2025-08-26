@@ -1,7 +1,6 @@
 # DOC Documentation Save-TeamsToolsAuthFile
 # IMPROVEMENT Add support for SupportsShouldProcess
-
-function Save-TeamsToolsAuthFile {
+Function Save-TeamsToolsAuthFile {
     param (
         [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
 

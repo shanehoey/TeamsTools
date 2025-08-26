@@ -1,6 +1,5 @@
 # DOC Documentation remove-teamsToolsAuthApp
 # IMPROVEMENT Add support for SupportsShouldProcess
-
 Function Remove-TeamsToolsAuthApp {
     [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact = 'High')]
     param ()

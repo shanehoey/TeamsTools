@@ -1,5 +1,5 @@
 BeforeAll -Scriptblock {
-	.  ./teamsTools/classes/authApp.ps1
+	.  ./TeamsTools/Classes/AuthApp.ps1
 }
 
 Describe "TeamsTools Module Load Test" {

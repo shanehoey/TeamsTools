@@ -11,7 +11,7 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #>
 
-class defaultVoiceNormalisationRule {
+class DefaultVoiceNormalisationRule {
 
     [ValidateNotNullOrEmpty()]
     [ValidatePattern("^(global|[A-Z]{2})$")]
@@ -34,7 +34,7 @@ class defaultVoiceNormalisationRule {
     [AllowNull()]
     [string]$areaCode
 
-    defaultVoiceNormalisationRule([string]$countryCode, [string]$displayName, [string]$type, [string]$pattern, [string]$translation, [string]$areaCode) {
+    DefaultVoiceNormalisationRule([string]$countryCode, [string]$displayName, [string]$type, [string]$pattern, [string]$translation, [string]$areaCode) {
         $this.countryCode = $countryCode
         $this.displayName = $displayName
         $this.type = $type
@@ -43,7 +43,7 @@ class defaultVoiceNormalisationRule {
         $this.areaCode = $areaCode
     }
 
-    defaultVoiceNormalisationRule([string]$countryCode, [string]$displayName, [string]$type, [string]$pattern, [string]$translation) {
+    DefaultVoiceNormalisationRule([string]$countryCode, [string]$displayName, [string]$type, [string]$pattern, [string]$translation) {
         $this.countryCode = $countryCode
         $this.displayName = $displayName
         $this.type = $type
@@ -53,7 +53,7 @@ class defaultVoiceNormalisationRule {
     }
 }
 
-class defaultVoiceRoute {
+class DefaultVoiceRoute {
 
     [ValidateNotNullOrEmpty()]
     [ValidatePattern("^(global|[A-Z]{2})$")]
@@ -70,7 +70,7 @@ class defaultVoiceRoute {
     [ValidateNotNullOrEmpty()]
     [string]$pattern
 
-    defaultVoiceRoute([string]$countryCode, [string]$displayName, [string]$type, [string]$pattern) {
+    DefaultVoiceRoute([string]$countryCode, [string]$displayName, [string]$type, [string]$pattern) {
         $this.countryCode = $countryCode
         $this.displayName = $displayName
         $this.type = $type

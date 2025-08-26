@@ -1,8 +1,6 @@
 # DOC Documentation update=teamsToolsAuth
 # IMPROVEMENT Add support for SupportsShouldProcess
-
-
-function Get-TeamsToolsAuthApp {
+Function Get-TeamsToolsAuthApp {
     param ()
     try {
         $result = get-MGapplication -Filter "displayName eq 'TeamsToolsAuth'" -ErrorAction Stop

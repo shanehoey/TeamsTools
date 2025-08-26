@@ -1,8 +1,7 @@
 # This should check the user is enabled for enterprise voice 
 
 Write-Warning "$MyInvocation.MyCommand.Name is not implemented"
-
-function test-teamsUserPhoneSystem {
+Function Test-TeamsUserPhoneSystem {
     param (
         $Identity 
     )

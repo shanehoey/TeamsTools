@@ -1,7 +1,6 @@
 # DOC Documentation NewteamsToolsAuth
 # IMPROVEMENT Add support for SupportsShouldProcess
-
-function Connect-TeamsTools {
+Function Connect-TeamsTools {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
         [Parameter(Mandatory = $true, ParameterSetName = 'Default')]

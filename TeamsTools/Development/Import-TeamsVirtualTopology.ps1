@@ -1,6 +1,5 @@
 # TODO vFuture - Add support for importing teams virtual topology
-
-function import-teamsVirtualTopology {
+Function Import-TeamsVirtualTopology {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]

@@ -29,7 +29,6 @@ This example connects to Microsoft Graph using interactive login.
 .NOTES
 If the connection fails, appropriate error messages will be displayed based on the exception message.
 #>
-
 Function Connect-TeamsToolsGraph {
     [CmdletBinding(SupportsShouldProcess=$false, ConfirmImpact = 'low')]
     param (

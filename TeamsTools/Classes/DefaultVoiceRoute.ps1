@@ -12,7 +12,7 @@
 #>
 
 
-class defaultVoiceRoute {
+class DefaultVoiceRoute {
 
     [ValidateNotNullOrEmpty()]
     [ValidatePattern("^(global|[A-Z]{2})$")]
@@ -29,7 +29,7 @@ class defaultVoiceRoute {
     [ValidateNotNullOrEmpty()]
     [string]$pattern
 
-    defaultVoiceRoute([string]$countryCode, [string]$displayName, [string]$type, [string]$pattern) {
+    DefaultVoiceRoute([string]$countryCode, [string]$displayName, [string]$type, [string]$pattern) {
         $this.countryCode = $countryCode
         $this.displayName = $displayName
         $this.type = $type

@@ -1,8 +1,6 @@
 # DOC Documentation add-teamsVirtualCallingIdPolicy
 # IMPROVEMENT Add support for SupportsShouldProcess
-
 Function Add-TeamsVirtualCallingIdPolicy {
-
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param (
     [Parameter(Mandatory = $true)]

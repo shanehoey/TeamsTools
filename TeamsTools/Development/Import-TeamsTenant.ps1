@@ -1,6 +1,5 @@
 # TODO vFuture - Add support for importing teams tenant topology
-
-function import-teamstenant {
+Function Import-TeamsTenant {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]

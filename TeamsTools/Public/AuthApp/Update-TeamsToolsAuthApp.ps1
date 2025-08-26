@@ -1,6 +1,5 @@
 # DOC Documentation update=teamsToolsAuth
 # IMPROVEMENT Add support for SupportsShouldProcess
-
 Function Update-TeamsToolsAuthApp {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'med')]
     param (

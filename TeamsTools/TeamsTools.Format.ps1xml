@@ -3,9 +3,9 @@
     <ViewDefinitions>
         <!-- AuthApp Table View -->
         <View>
-            <Name>authApp</Name>
+            <Name>AuthApp</Name>
             <ViewSelectedBy>
-                <TypeName>authApp</TypeName>
+                <TypeName>AuthApp</TypeName>
             </ViewSelectedBy>
             <TableControl>
                 <TableHeaders>
@@ -464,9 +464,9 @@
 
         <!-- defaultVoiceRoute Table View -->
         <View>
-            <Name>defaultVoiceRoute</Name>
+            <Name>DefaultVoiceRoute</Name>
             <ViewSelectedBy>
-                <TypeName>defaultVoiceRoute</TypeName>
+                <TypeName>DefaultVoiceRoute</TypeName>
             </ViewSelectedBy>
             <TableControl>
                 <TableHeaders>
@@ -510,9 +510,9 @@
 
         <!-- defaultVoiceNormalisationRule Table View -->
         <View>
-            <Name>defaultVoiceNormalisationRule</Name>
+            <Name>DefaultVoiceNormalisationRule</Name>
             <ViewSelectedBy>
-                <TypeName>defaultVoiceNormalisationRule</TypeName>
+                <TypeName>DefaultVoiceNormalisationRule</TypeName>
             </ViewSelectedBy>
             <TableControl>
                 <TableHeaders>

@@ -1,0 +1,23 @@
+# DOC Documentation get-teamsVirtualVoiceNormalisation
+# IMPROVEMENT Add support for SupportsShouldProcess
+Function Get-TeamsVirtualVoiceNormalisation {
+    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    param (
+    [string] $Identity = "*",
+    [string] $Pattern = "*",
+    [string] $Translation = "*"
+    )
+
+    try {
+        if (-not $script:VirtualTopology) {
+            throw "Teams VirtualTopology not found."
+        }
+
+        $Item = $script:VirtualTopology.VoiceNormalisation | where-object {$_.Identity -like $Identity -and $_.Pattern -like $Pattern -and $_.Translation -like $Translation}
+        return $Item
+
+    } catch {
+        Write-Error -Message "$_.Exception.Message"
+    }
+}
+

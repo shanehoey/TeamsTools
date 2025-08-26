@@ -1,7 +1,6 @@
 # DOC Documentation NewteamsToolsAuth
 # IMPROVEMENT Add support for SupportsShouldProcess
-
-function Disconnect-TeamsTools {
+Function Disconnect-TeamsTools {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param ()
 
