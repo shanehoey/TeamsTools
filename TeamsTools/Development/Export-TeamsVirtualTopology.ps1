@@ -1,6 +1,6 @@
 # TODO vFuture - Add support for exporting teams virtual topology
 
-function export-teamsVirtualTopology {
+function Export-TeamsVirtualTopology {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]

@@ -10,18 +10,18 @@
 
 # DOC Documentation create it all
 
-$classes = @( Get-ChildItem -Path $PSScriptRoot\classes\*.ps1 -Recurse -ErrorAction SilentlyContinue )
-$private = @( Get-ChildItem -Path $PSScriptRoot\private\*.ps1 -Recurse -ErrorAction SilentlyContinue )
-$public = @( Get-ChildItem -Path $PSScriptRoot\public\*.ps1 -Recurse -ErrorAction SilentlyContinue )
-$development = @( Get-ChildItem -Path $PSScriptRoot\development\*.ps1 -Recurse -ErrorAction SilentlyContinue )
+$Classes = @( Get-ChildItem -Path $PSScriptRoot\Classes\*.ps1 -Recurse -ErrorAction SilentlyContinue )
+$Private = @( Get-ChildItem -Path $PSScriptRoot\Private\*.ps1 -Recurse -ErrorAction SilentlyContinue )
+$Public = @( Get-ChildItem -Path $PSScriptRoot\Public\*.ps1 -Recurse -ErrorAction SilentlyContinue )
+$Development = @( Get-ChildItem -Path $PSScriptRoot\Development\*.ps1 -Recurse -ErrorAction SilentlyContinue )
 
-foreach ($file in $classes + $private + $public + $development) {
+foreach ($File in $Classes + $Private + $Public + $Development) {
     try {
-        . $file.FullName
+        . $File.FullName
     } catch {
-        Write-Error -Message "Failed to import  $($file.FullName)"
+        Write-Error -Message "Failed to import  $($File.FullName)"
     }
 }
 
-#Export-ModuleMember -Function $public.basename 
+#Export-ModuleMember -Function $Public.basename 
 Export-ModuleMember -Function *

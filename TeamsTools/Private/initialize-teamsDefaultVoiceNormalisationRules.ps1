@@ -1,7 +1,7 @@
-# DOC Documentation initialize-teamsDefaultVoiceNormalisationRules
+# DOC Documentation Initialize-TeamsDefaultVoiceNormalisationRules
 # IMPROVEMENT Add support for SupportsShouldProcess
 
-function initialize-teamsDefaultVoiceNormalisationRules {
+function Initialize-TeamsDefaultVoiceNormalisationRules {
 
     $rules = @()
 
