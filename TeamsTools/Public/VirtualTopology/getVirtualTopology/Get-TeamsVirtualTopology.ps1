@@ -7,13 +7,13 @@ Function Get-TeamsVirtualTopology {
     Try{
 
         if (-not $script:VirtualTopology) {
-            throw "Teams VirtualTopology not found. Please create new VirtualTopology with New-TeamsVirtualTopology."
+            Write-TeamsToolsError -Message "Teams VirtualTopology not found. Please create new VirtualTopology with New-TeamsVirtualTopology." -Terminate
         }
 
         return $Script:VirtualTopology
 
     }
     Catch {
-        Write-Error -Message "$_.Exception.Message"
+        Write-TeamsToolsError -Message "$_.Exception.Message" -Exception $_.Exception -Terminate
     }
 }

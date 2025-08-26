@@ -19,22 +19,22 @@ Function Set-TeamsVirtualVoiceRoute {
 
     try {
         if (-not $script:VirtualTopology) {
-            throw "Teams VirtualTopology not found."
+            Write-TeamsToolsError -Message "Teams VirtualTopology not found." -Terminate
         }
 
         if ($script:VirtualTopology.VoiceRoute.Identity -notcontains $Identity) {
-            throw "Identity $Identity not found in VirtualTopology."
+            Write-TeamsToolsError -Message "Identity $Identity not found in VirtualTopology." -Terminate
         }
        
         foreach ($item in $PstnUsageList.pstnusage) {
-            If ($script:VirtualTopology.PstnUsage.pstnusage -notcontains $item) {
-                    throw "PstnUsage $PstnUsage not found in VirtualTopology."
-            }
+        If ($script:VirtualTopology.PstnUsage.pstnusage -notcontains $item) {
+            Write-TeamsToolsError -Message "PstnUsage $PstnUsage not found in VirtualTopology." -Terminate
+        }
         }
     
         foreach ($item in $PstnGatewayList.identity) {
             If ($script:VirtualTopology.PSTNGateway.identity -notcontains $item) {
-                    throw "pstngatewaylist $pstngatewaylist not found in VirtualTopology."
+                    Write-TeamsToolsError -Message "pstngatewaylist $pstngatewaylist not found in VirtualTopology." -Terminate
                 }
         }
 
@@ -47,6 +47,6 @@ Function Set-TeamsVirtualVoiceRoute {
         $Item.BridgeSourcePhoneNumber = $BridgeSourcePhoneNumber
 
     } catch {
-        Write-Error -Message "$_.Exception.Message"
+        Write-TeamsToolsError -Message "$_.Exception.Message" -Exception $_.Exception -Terminate
     }
 }

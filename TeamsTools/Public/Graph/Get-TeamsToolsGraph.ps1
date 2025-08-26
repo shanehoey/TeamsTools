@@ -56,9 +56,9 @@ Function Get-TeamsToolsGraph {
             
             } catch {
                 if ($_.Exception.Message -match "Authentication needed") {
-                    Write-Error -Message "Authentication is required, Please authenticate with Connect-TeamsToolsMSGraph."
+                    Write-TeamsToolsError -Message "Authentication is required, Please authenticate with Connect-TeamsToolsMSGraph." -Exception $_.Exception -Terminate
                 } else {
-                    Write-Error -Message "No organization found with the specified domain: $domain "
+                    Write-TeamsToolsError -Message "No organization found with the specified domain: $domain " -Exception $_.Exception -Terminate
                 }
             }
 
@@ -68,9 +68,9 @@ Function Get-TeamsToolsGraph {
                 $result = Get-MgOrganization -ErrorAction Stop | Where-Object { $_.Id -eq $tenantID } | Select-Object @{Name='TenantID';Expression={$_.id}}, @{Name='Tenant';Expression={($_.VerifiedDomains | Select-Object -ExpandProperty Name) -join ', '}}
             } catch {
                 if ($_.Exception.Message -match "Authentication needed") {
-                    Write-Error -Message "Authentication is required, Please authenticate with Connect-TeamsToolsMSGraph."
+                    Write-TeamsToolsError -Message "Authentication is required, Please authenticate with Connect-TeamsToolsMSGraph." -Exception $_.Exception -Terminate
                 } else {
-                    Write-Error -Message "No organization found with the specified tenant ID: ${$tenantID}: $_"
+                    Write-TeamsToolsError -Message "No organization found with the specified tenant ID: ${$tenantID}: $_" -Exception $_.Exception -Terminate
                 }
             }
   
@@ -80,16 +80,16 @@ Function Get-TeamsToolsGraph {
                 $result = Get-MgOrganization -ErrorAction Stop | Select-Object @{Name='TenantID';Expression={$_.id}}, @{Name='Tenant';Expression={($_.VerifiedDomains | Select-Object -ExpandProperty Name) -join ', '}}
             } catch {
                 if ($_.Exception.Message -match "Authentication needed") {
-                    Write-Error -Message "Authentication is required, Please authenticate with Connect-TeamsToolsMSGraph."
+                    Write-TeamsToolsError -Message "Authentication is required, Please authenticate with Connect-TeamsToolsMSGraph." -Exception $_.Exception -Terminate
                 } else {
-                    Write-Error -Message "Error occurred confirming the connection: $_"
+                    Write-TeamsToolsError -Message "Error occurred confirming the connection: $_" -Exception $_.Exception -Terminate
                 }
 
             } 
             
         }
     } catch {
-            Write-Error -Message "$_"
+        Write-TeamsToolsError -Message "$_" -Exception $_.Exception -Terminate
     }
     return $result
 }
