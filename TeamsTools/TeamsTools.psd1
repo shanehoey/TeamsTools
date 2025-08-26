@@ -1,7 +1,7 @@
 @{
 
 # Script module or binary module file associated with this manifest.
-RootModule = 'teamsTools.psm1'
+RootModule = 'TeamsTools.psm1'
 
 # Version number of this module.
 # Major/Minor/Build
@@ -86,10 +86,10 @@ RequiredModules = @(
 # ScriptsToProcess = @()
 
 # Type files (.ps1xml) to be loaded when importing this module
-TypesToProcess = @('teamsTools.Types.ps1xml')
+TypesToProcess = @('TeamsTools.Types.ps1xml')
 
 # Format files (.ps1xml) to be loaded when importing this module
-FormatsToProcess = @('teamsTools.Format.ps1xml')
+FormatsToProcess = @('TeamsTools.Format.ps1xml')
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
 # NestedModules = @()
@@ -113,7 +113,7 @@ FormatsToProcess = @('teamsTools.Format.ps1xml')
 # ModuleList = @()
 
 # List of all files packaged with this module
-FileList = @("teamsTools.psm1", "teamsTools.psd1", "LICENSE.txt")
+# FileList = @("TeamsTools.psm1", "TeamsTools.psd1", "LICENSE.txt")
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{

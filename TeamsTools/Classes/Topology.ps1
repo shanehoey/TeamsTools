@@ -11,7 +11,7 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #>
 
-enum source {
+enum Source {
     Virtual = 1
     Tenant = 2
     Unspecified =99
@@ -52,6 +52,12 @@ class VirtualNetworkRegion {
 
     VirtualNetworkRegion([String]$NetworkRegionId) {
         $this.NetworkRegionId = $NetworkRegionId
+        $this.Source = "Unspecified"
+    }
+
+    VirtualNetworkRegion([String]$NetworkRegionId,[String]$Description) {
+        $this.NetworkRegionId = $NetworkRegionId
+        $this.Description = $Description
         $this.Source = "Unspecified"
     }
 
@@ -162,7 +168,7 @@ class VirtualTrustedIpAddress {
     [ValidatePattern("^(?!.*[!@#$%^*()=/\[\]{}:;?<>+']).{0,255}$")]
     [String]$Description
     
-    VirtualTrustedIPAddress([String]$IpAddress) {
+    VirtualTrustedIpAddress([String]$IpAddress) {
         $this.IpAddress = $IpAddress.split("/")[0]
         $this.Mask = $IpAddress.split("/")[1]
         $this.Source = "Unspecified"
@@ -436,16 +442,28 @@ class VirtualVoiceApplicationsPolicy {
 
 class VirtualEmergencyNumber {
 
-    [String]$EmergencyDialString 
+    # EmergencyDialMask
+    # EmergencyDialString
+    # OnlinePSTNUsage
+
+    [ValidatePattern("^\d{1,10}(?:;\d{1,10})*$")]
+    [String]$EmergencyDialString
     
     [ValidatePattern("^\d{1,10}(?:;\d{1,10})*$")]
-    [String]$EmergencyDialMask 
+    [String]$EmergencyDialMask
     
     [ValidatePattern("^[ a-zA-Z0-9_.-]{1,32}$")]
-    [String]$OnlinePstnUsage 
+    [String]$OnlinePstnUsage
     
     [ValidateNotNullOrEmpty()]
     [Source] hidden $Source
+
+    VirtualEmergencyNumber([String] $EmergencyDialString, [String] $EmergencyDialMask, [String] $OnlinePstnUsage) {
+        $this.EmergencyDialString = $EmergencyDialString
+        $this.EmergencyDialMask = $EmergencyDialMask
+        $this.OnlinePstnUsage = $OnlinePstnUsage
+        $this.Source = "Unspecified"
+    }
 }
 
 class VirtualVoicemailPolicy {
@@ -809,12 +827,12 @@ class VirtualMobilityPolicy {
     [ValidatePattern("^(?!.*[!@#$%^*()=/\[\]{}:;?<>+']).{0,255}$")]
     [String]$Description
     
-    VirtualTeamsMobilityPolicy([String] $Identity) {
+    VirtualMobilityPolicy([String] $Identity) {
         $this.Identity = $Identity
         $this.Source = "Unspecified"
     }
 
-    VirtualTeamsMobilityPolicy([String] $Identity, [Source]$Source) {
+    VirtualMobilityPolicy([String] $Identity, [Source]$Source) {
         $this.Identity = $Identity
         $this.Source = $Source
     }
@@ -938,11 +956,11 @@ class VirtualUser {
 class VirtualSurvivableBranchAppliance {
 
     [ValidateNotNullOrEmpty()]
-    [string]$Identity
+    [String]$Identity
     [ValidateNotNullOrEmpty()]
-    [string]$Site
+    [String]$Site
     [ValidateNotNullOrEmpty()]
-    [string]$Description
+    [String]$Description
     [ValidateNotNullOrEmpty()]
     [Source] hidden $Source
 
@@ -951,7 +969,7 @@ class VirtualSurvivableBranchAppliance {
         $this.Source = "Unspecified"
     }
 
-    VirtualSurvivableBranchAppliance([String]$Identity,[string]$Site,[string]$Description,[Source]$Source) {
+    VirtualSurvivableBranchAppliance([String]$Identity,[String]$Site,[String]$Description,[Source]$Source) {
         $this.Identity = $Identity
         $this.Site = $Site
         $this.Description = $Description
@@ -964,9 +982,9 @@ class VirtualSurvivableBranchAppliancePolicy {
 
     [ValidatePattern("^[a-zA-Z0-9_.-]{1,32}$")]
     [ValidateNotNullOrEmpty()]
-    [string]$Identity
+    [String]$Identity
     [ValidateNotNullOrEmpty()]
-    [System.Collections.Generic.List[string]]$BranchApplianceFqdns
+    [System.Collections.Generic.List[String]]$BranchApplianceFqdns
     [ValidateNotNullOrEmpty()]
     [Source] hidden $Source
     
@@ -975,7 +993,7 @@ class VirtualSurvivableBranchAppliancePolicy {
         $this.Source = "Unspecified"
     }
 
-    VirtualSurvivableBranchAppliancePolicy([String] $Identity,[System.Collections.Generic.List[string]]$BranchApplianceFqdns,[Source]$Source) {
+    VirtualSurvivableBranchAppliancePolicy([String] $Identity,[System.Collections.Generic.List[String]]$BranchApplianceFqdns,[Source]$Source) {
         $this.Identity = $Identity
         $this.BranchApplianceFqdns = $BranchApplianceFqdns
         $this.Source = $source
