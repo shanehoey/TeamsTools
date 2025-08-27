@@ -2,6 +2,9 @@
 #Requires -Modules @{ ModuleName="TeamsTools"; ModuleVersion="1.0.0" }#
 #Requires -Modules @{ ModuleName="TeamsToolsReset"; ModuleVersion="1.0.0" }
 
+import-teamsToolsauthfile -filename /home/shane/Development/teamsToolsAuth/teamsTools.auth | Connect-teamsTools
+
+
 # TeamsVirtualTopology
 New-TeamsVirtualTopology -domain "sandbox.shanehoey.dev"
 
@@ -32,10 +35,10 @@ Add-TeamsVirtualTrustedIPAddress -IpAddress "192.0.2.0"    -Mask 28
 Add-TeamsVirtualTrustedIPAddress -IpAddress (Invoke-WebRequest -UseBasicParsing api.ipify.org ).Content.Trim() -Mask 32
 
 # TeamsVirtualPSTNGateway
-Add-TeamsVirtualPSTNGateway -Identity "sbc02.sandbox.shanehoey.dev" -SipSignalingPort 5062 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $false
-Add-TeamsVirtualPSTNGateway -Identity "sbc03.sandbox.shanehoey.dev" -SipSignalingPort 5063 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $false
-Add-TeamsVirtualPSTNGateway -Identity "sbc07.sandbox.shanehoey.dev" -SipSignalingPort 5067 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $false
-Add-TeamsVirtualPSTNGateway -Identity "sbc08.sandbox.shanehoey.dev" -SipSignalingPort 5068 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $false
+Add-TeamsVirtualPstnGateway -Identity "sbc02.sandbox.shanehoey.dev" -SipSignalingPort 5062 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $false
+Add-TeamsVirtualPstnGateway -Identity "sbc03.sandbox.shanehoey.dev" -SipSignalingPort 5063 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $false
+Add-TeamsVirtualPstnGateway -Identity "sbc07.sandbox.shanehoey.dev" -SipSignalingPort 5067 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $false
+Add-TeamsVirtualPstnGateway -Identity "sbc08.sandbox.shanehoey.dev" -SipSignalingPort 5068 -MaxConcurrentSessions 10 -FailoverResponseCodes "508,503,504,500" -MediaBypass $false
 
 # TeamsVirtualPSTNUsage
 

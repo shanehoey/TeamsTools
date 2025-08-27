@@ -7,11 +7,9 @@ Function Get-TeamsVirtualCallingIDPolicy {
     )
 
     try {
-        if (-not $script:VirtualTopology) {
-            throw "Teams VirtualTopology not found."
-        }
-
-        $Item = $script:VirtualTopology.CallingLineIdentity | where-object {$_.Identity -like $Identity}
+        
+        Test-VirtualTopology
+        $Item = $script:VirtualTopology.CallingIdPolicy | where-object {$_.Identity -like $Identity}
         return $Item
 
     } catch {

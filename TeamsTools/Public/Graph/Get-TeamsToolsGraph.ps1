@@ -1,95 +1,115 @@
-<#
-.SYNOPSIS
-Retrieves information about Microsoft 365 organizations using Microsoft Graph.
+# ...existing code...
+function Get-TeamsToolsGraph {
+    <#
+    .SYNOPSIS
+    Retrieve organization info from Microsoft Graph.
 
-.DESCRIPTION
-The Get-TeamsToolsGraph function retrieves information about Microsoft 365 organizations based on the specified domain or tenant ID. If no parameters are provided, it retrieves information about the current organization.
+    .DESCRIPTION
+    Returns tenant id and verified domains for a tenant. Use -Domain to find org by domain, -TenantId to find by tenant id,
+    or call with no parameters to return the current organization(s).
 
-.PARAMETER domain
-Specifies the domain of the organization to retrieve information for. This parameter is optional.
+    .PARAMETER Domain
+    The domain to look up.
 
-.PARAMETER tenantID
-Specifies the tenant ID of the organization to retrieve information for. This parameter is optional.
+    .PARAMETER TenantId
+    The tenant id to look up.
 
-.PARAMETER default
-Specifies whether to use the default parameter set. This parameter is optional.
-
-.EXAMPLE
-Get-TeamsToolsGraph -domain "example.com"
-Retrieves information about the organization with the specified domain.
-
-.EXAMPLE
-Get-TeamsToolsGraph -tenantID "12345678-1234-1234-1234-123456789012"
-Retrieves information about the organization with the specified tenant ID.
-
-.EXAMPLE
-Get-TeamsToolsGraph
-Retrieves information about the current organization.
-
-.NOTES
-This function requires the Microsoft Graph PowerShell module to be installed and authenticated.
-
-#>
-Function Get-TeamsToolsGraph {
-    [CmdletBinding(SupportsShouldProcess=$false, ConfirmImpact = 'low',DefaultParameterSetName = 'default')]
-
+    .EXAMPLE
+    Get-TeamsToolsGraph -Domain "example.com"
+    .EXAMPLE
+    Get-TeamsToolsGraph -TenantId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    #>
+    [CmdletBinding(DefaultParameterSetName = 'Default')]
     param (
-        [Parameter(Mandatory=$false, ParameterSetName='ByDomain')]
-        [string]$domain,
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByDomain')]
+        [ValidateNotNullOrEmpty()]
+        [string]$Domain,
 
-        [Parameter(Mandatory=$false, ParameterSetName='ByTenantID')]
-        [string]$tenantID,
-
-        [Parameter(Mandatory=$false, ParameterSetName='default')]
-        [switch]$default
-
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByTenantId')]
+        [ValidateNotNullOrEmpty()]
+        [string]$TenantId
     )
-    
-    try {
 
-        if ($domain) {
-            try {
-                
-                if (Get-MgDomain -Filter "id eq '$domain'" -ErrorAction stop) {
-                    $result = Get-MgOrganization -ErrorAction Stop | Select-Object @{Name='TenantID';Expression={$_.id}}, @{Name='Tenant';Expression={($_.VerifiedDomains | Select-Object -ExpandProperty Name) -join ', '}}
-                } 
-            
-            } catch {
-                if ($_.Exception.Message -match "Authentication needed") {
-                    Write-TeamsToolsError -Message "Authentication is required, Please authenticate with Connect-TeamsToolsMSGraph." -Exception $_.Exception -Terminate
-                } else {
-                    Write-TeamsToolsError -Message "No organization found with the specified domain: $domain " -Exception $_.Exception -Terminate
-                }
-            }
-
-        } elseif ($tenantID) {
-
-            try {
-                $result = Get-MgOrganization -ErrorAction Stop | Where-Object { $_.Id -eq $tenantID } | Select-Object @{Name='TenantID';Expression={$_.id}}, @{Name='Tenant';Expression={($_.VerifiedDomains | Select-Object -ExpandProperty Name) -join ', '}}
-            } catch {
-                if ($_.Exception.Message -match "Authentication needed") {
-                    Write-TeamsToolsError -Message "Authentication is required, Please authenticate with Connect-TeamsToolsMSGraph." -Exception $_.Exception -Terminate
-                } else {
-                    Write-TeamsToolsError -Message "No organization found with the specified tenant ID: ${$tenantID}: $_" -Exception $_.Exception -Terminate
-                }
-            }
-  
-        } else {
-
-            try {
-                $result = Get-MgOrganization -ErrorAction Stop | Select-Object @{Name='TenantID';Expression={$_.id}}, @{Name='Tenant';Expression={($_.VerifiedDomains | Select-Object -ExpandProperty Name) -join ', '}}
-            } catch {
-                if ($_.Exception.Message -match "Authentication needed") {
-                    Write-TeamsToolsError -Message "Authentication is required, Please authenticate with Connect-TeamsToolsMSGraph." -Exception $_.Exception -Terminate
-                } else {
-                    Write-TeamsToolsError -Message "Error occurred confirming the connection: $_" -Exception $_.Exception -Terminate
-                }
-
-            } 
-            
-        }
-    } catch {
-        Write-TeamsToolsError -Message "$_" -Exception $_.Exception -Terminate
+    begin {
+        $result = $null
     }
-    return $result
+
+    process {
+        try {
+            switch ($PSCmdlet.ParameterSetName) {
+
+                'ByDomain' {
+                    try {
+                        # Verify the domain exists (throws on auth/network errors)
+                        $domainObj = Get-MgDomain -Filter "id eq '$Domain'" -ErrorAction Stop
+                    } catch {
+                        $errMsg = if ($_.Exception) { $_.Exception.Message } else { $_.ToString() }
+                        if ($errMsg -match 'Authentication') {
+                            Write-Error -Message "Authentication required. Please run Connect-TeamsToolsMSGraph." -Category AuthenticationError
+                            return
+                        }
+
+                        # Domain not found or other error
+                        Write-Warning -Message "No organization found for domain '$Domain': $errMsg"
+                        return
+                    }
+
+                    # If domain verification succeeded, return organization(s)
+                    try {
+                        $result = Get-MgOrganization -ErrorAction Stop |
+                                  Select-Object @{Name='TenantID';Expression={$_.Id}},
+                                                @{Name='Tenant';Expression={($_.VerifiedDomains | Select-Object -ExpandProperty Name) -join ', '}}
+                    } catch {
+                        Write-Error -Message "Failed to retrieve organization information: $($_.Exception.Message)" -Category NotSpecified
+                        return
+                    }
+                }
+
+                'ByTenantId' {
+                    try {
+                        $orgs = Get-MgOrganization -ErrorAction Stop
+                    } catch {
+                        if ($_.Exception.Message -match 'Authentication') {
+                            Write-Error -Message "Authentication required. Please run Connect-TeamsToolsMSGraph." -Category AuthenticationError
+                            return
+                        }
+                        Write-Error -Message "Failed to retrieve organizations: $($_.Exception.Message)" -Category NotSpecified
+                        return
+                    }
+
+                    $result = $orgs | Where-Object { $_.Id -eq $TenantId } |
+                              Select-Object @{Name='TenantID';Expression={$_.Id}},
+                                            @{Name='Tenant';Expression={($_.VerifiedDomains | Select-Object -ExpandProperty Name) -join ', '}}
+
+                    if (-not $result) {
+                        Write-Warning -Message "No organization found with tenant ID '$TenantId'."
+                        return
+                    }
+                }
+
+                'Default' {
+                    try {
+                        $result = Get-MgOrganization -ErrorAction Stop |
+                                  Select-Object @{Name='TenantID';Expression={$_.Id}},
+                                                @{Name='Tenant';Expression={($_.VerifiedDomains | Select-Object -ExpandProperty Name) -join ', '}}
+                    } catch {
+                        if ($_.Exception.Message -match 'Authentication') {
+                            Write-Error -Message "Authentication required. Please run Connect-TeamsToolsMSGraph." -Category AuthenticationError
+                            return
+                        }
+                        Write-Error -Message "Failed to retrieve organization information: $($_.Exception.Message)" -Category NotSpecified
+                        return
+                    }
+                }
+            }
+        } catch {
+            Write-Error -Message "Unexpected error: $($_.Exception.Message)" -Category NotSpecified
+            return
+        }
+    }
+
+    end {
+        return $result
+    }
 }
+# ...existing code...

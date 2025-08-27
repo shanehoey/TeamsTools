@@ -12,66 +12,8 @@ This backlog contains all the testing improvements needed to make the TeamsTools
 
 ---
 
-## High Priority Items
 
-### 1. **Pester Unit Tests Framework** 
-**Status**: Not Started  
-**Effort**: Medium  
-**Description**: Set up Pester testing framework and create basic unit tests
 
-**Tasks**:
-- [ ] Install/configure Pester module
-- [ ] Create test structure (`Tests/Unit/`, `Tests/Integration/`)
-- [ ] Create sample unit test for one function
-- [ ] Document testing standards and conventions
-
-**Example Structure**:
-```
-Tests/
-├── Unit/
-│   ├── Classes/
-│   ├── Public/
-│   │   ├── AuthApp/
-│   │   ├── Domain/  
-│   │   ├── Graph/
-│   │   └── VirtualTopology/
-│   └── Private/
-├── Integration/
-└── Fixtures/
-```
-
-### 2. **Class Testing**
-**Status**: Not Started  
-**Effort**: Medium  
-**Description**: Create comprehensive tests for all PowerShell classes
-
-**Classes to Test**:
-- [ ] `authApp` - Constructor validation, property validation
-- [ ] `VirtualTopology` - Object creation, collections, methods
-- [ ] `VirtualUser` - Property validation, voice status logic
-- [ ] `VirtualVoiceRoute` - Priority validation, gateway lists
-- [ ] `VirtualPstnGateway` - FQDN validation, port ranges
-- [ ] `VirtualDialPlan` - Identity patterns, external access
-- [ ] `VirtualNetworkSite/Subnet` - Network validation
-- [ ] `DnsRecord` - DNS record type validation
-- [ ] `defaultVoiceRoute/NormalisationRule` - Pattern validation
-
-**Example Test**:
-```powershell
-Describe "authApp Class" {
-    It "Should create authApp with valid parameters" {
-        $clientSecret = ConvertTo-SecureString "secret" -AsPlainText -Force
-        $auth = [authApp]::new("client123", $clientSecret, "tenant456")
-        
-        $auth.ClientID | Should -Be "client123"
-        $auth.TenantID | Should -Be "tenant456"
-    }
-    
-    It "Should validate ClientID is not null" {
-        { [authApp]::new("", $null, "tenant") } | Should -Throw
-    }
-}
-```
 
 ### 3. **Parameter Validation Tests**
 **Status**: Not Started  

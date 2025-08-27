@@ -21,8 +21,10 @@ Function Get-TeamsDefaultVoiceRoutes {
         $routes = $routes | Where-Object { $_.Type -eq $Type }
     }
 
-    return $routes
+    if ($routes) {
+        return $routes
+    } else {
+        Write-Warning "No matching routes found for $CountryCode, $CountryName, $Type"
+    }
+
 }
-
-
-

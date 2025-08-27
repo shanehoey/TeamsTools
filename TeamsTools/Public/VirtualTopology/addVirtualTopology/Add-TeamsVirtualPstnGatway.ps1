@@ -1,6 +1,6 @@
 # DOC Documentation Function add-teamsVirtualPSTNGateway
 # IMPROVEMENT Add support for SupportsShouldProcess
-Function Add-TeamsVirtualPSTNGatway {
+Function Add-TeamsVirtualPstnGateway {
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param (
     [Parameter(Mandatory = $true)]

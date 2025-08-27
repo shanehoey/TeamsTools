@@ -18,18 +18,21 @@ Disconnects the current session from Microsoft Graph.
 
 #>
 Function Disconnect-TeamsToolsGraph {
-    [CmdletBinding(SupportsShouldProcess=$false, ConfirmImpact = 'low')]
+    [CmdletBinding(
+        SupportsShouldProcess=$false, 
+        ConfirmImpact = 'low'
+    )]
     param ()
     
     try {
         Disconnect-MgGraph -ErrorAction Stop | out-null
-        Write-Verbose -Message "Disconnected from Microsoft Graph" -verbose    
+        Write-Verbose -Message "Disconnected from Microsoft Graph"
     }
     catch {
-        if ($_.Exception.Message -eq "No application to sign out from.") {
-            Write-Warning -Message "Disconnection not required: No active connection to Microsoft Graph."
+        if ($_.Exception.Message -eq "Nof application to sign out from.") {
+           Write-Warning -Message "Disconnection not required: No active connection to Microsoft Graph." 
         } else {
-            Write-Error -Message "Failed to disconnect from Microsoft Graph:  $_"
+           Write-Error -Message "Failed to disconnect from Microsoft Graph : $_" -Category NotSpecified
         }
     }
 

@@ -18,10 +18,13 @@ $Development = @( Get-ChildItem -Path $PSScriptRoot\Development\*.ps1 -Recurse -
 foreach ($File in $Classes + $Private + $Public + $Development) {
     try {
         . $File.FullName
+        # INVESTIGATE - Maybe not supported
+        Write-Verbose "Successfully imported $($File.FullName)"
+
     } catch {
         Write-Error -Message "Failed to import  $($File.FullName)"
     }
 }
 
 #Export-ModuleMember -Function $Public.basename 
-Export-ModuleMember -Function *
+Export-ModuleMember -Function * 
