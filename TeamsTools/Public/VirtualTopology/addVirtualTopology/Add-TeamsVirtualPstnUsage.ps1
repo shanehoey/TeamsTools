@@ -1,6 +1,8 @@
 # DOC Documentation Function add-teamsVirtualPstnUsage
 # IMPROVEMENT Add support for SupportsShouldProcess
+
 Function Add-TeamsVirtualPstnUsage {
+    
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param (
     [Parameter(Mandatory = $true)]

@@ -1,31 +1,33 @@
 # DOC Documentation Function add-teamsVirtualPSTNGateway
 # IMPROVEMENT Add support for SupportsShouldProcess
+
 Function Add-TeamsVirtualPstnGateway {
+
     [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
     param (
-    [Parameter(Mandatory = $true)]
-    [string] $Identity,
-    [int] $SipSignalingPort,
-    [int] $MaxConcurrentSessions,
-    [string] $SendSipOptions,
-    [string] $ForwardCallHistory,
-    [string] $ForwardPai,
-    [string] $FailoverResponseCodes,
-    [string] $FailoverTimeSeconds,
-    [string] $MediaBypass,
-    [string] $BypassMode,
+        [Parameter(Mandatory = $true)]
+        [string] $Identity,
+        [int] $SipSignalingPort,
+        [int] $MaxConcurrentSessions,
+        [string] $SendSipOptions,
+        [string] $ForwardCallHistory,
+        [string] $ForwardPai,
+        [string] $FailoverResponseCodes,
+        [string] $FailoverTimeSeconds,
+        [string] $MediaBypass,
+        [string] $BypassMode,
 
-    [string] $ProxySbc,
-    [string] $Enabled,
-    [string] $Description,
-    [string] $GatewayLbrEnabledUserOverride,
-    [string] $GatewaySiteId,
-    [string] $GatewaySiteLbrEnabled,
-    [string] $InboundPstnNumberTranslationRules,
-    [string] $InboundTeamsNumberTranslationRules,
-    [string] $MediaRelayRoutingLocationOverride,
-    [string] $OutboundPstnNumberTranslationRules,
-    [string] $OutboundTeamsNumberTranslationRules
+        [string] $ProxySbc,
+        [string] $Enabled,
+        [string] $Description,
+        [string] $GatewayLbrEnabledUserOverride,
+        [string] $GatewaySiteId,
+        [string] $GatewaySiteLbrEnabled,
+        [string] $InboundPstnNumberTranslationRules,
+        [string] $InboundTeamsNumberTranslationRules,
+        [string] $MediaRelayRoutingLocationOverride,
+        [string] $OutboundPstnNumberTranslationRules,
+        [string] $OutboundTeamsNumberTranslationRules
     )
 
     try {
@@ -69,6 +71,5 @@ Function Add-TeamsVirtualPstnGateway {
     } catch {
         Write-Error -Message "$_.Exception.Message"
     }
-
 
 }
