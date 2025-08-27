@@ -1,7 +1,7 @@
 # DOC Documentation add-teamsVirtualNetworkSite
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Add-TeamsVirtualNetworkSite {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
@@ -35,19 +35,23 @@ Function Add-TeamsVirtualNetworkSite {
         throw "NetworkSiteID $NetworkSiteID exists in VirtualTopology."
     }
 
-    $item = [VirtualNetworkSite]::new($NetworkSiteID, $NetworkRegionID)
+    if ($PSCmdlet.ShouldProcess("VirtualTopology NetworkSite '$NetworkSiteID'","Add")) {
+        $item = [VirtualNetworkSite]::new($NetworkSiteID, $NetworkRegionID)
 
-    if ($EmergencyCallingPolicy){$item.EmergencyCallingPolicy = $EmergencyCallingPolicy}
-    If ($EmergencyCallRoutingPolicy){$item.EmergencyCallRoutingPolicy = $EmergencyCallRoutingPolicy}
-    If ($EnableLocationBasedRouting){$item.EnableLocationBasedRouting = $EnableLocationBasedRouting}
-    If ($LocationPolicy){$item.LocationPolicy = $LocationPolicy}
-    If ($NetworkRoamingPolicy){$item.NetworkRoamingPolicy = $NetworkRoamingPolicy}
-    If ($OnlineVoiceRoutingPolicy){$item.OnlineVoiceRoutingPolicy = $OnlineVoiceRoutingPolicy}
-    If ($SiteAddress){$item.SiteAddress = $SiteAddress}
-    If ($Description){$item.Description = $Description}
+        if ($EmergencyCallingPolicy){$item.EmergencyCallingPolicy = $EmergencyCallingPolicy}
+        If ($EmergencyCallRoutingPolicy){$item.EmergencyCallRoutingPolicy = $EmergencyCallRoutingPolicy}
+        If ($EnableLocationBasedRouting){$item.EnableLocationBasedRouting = $EnableLocationBasedRouting}
+        If ($LocationPolicy){$item.LocationPolicy = $LocationPolicy}
+        If ($NetworkRoamingPolicy){$item.NetworkRoamingPolicy = $NetworkRoamingPolicy}
+        If ($OnlineVoiceRoutingPolicy){$item.OnlineVoiceRoutingPolicy = $OnlineVoiceRoutingPolicy}
+        If ($SiteAddress){$item.SiteAddress = $SiteAddress}
+        If ($Description){$item.Description = $Description}
 
-    $item.Description = $description
-    $script:VirtualTopology.NetworkSite.Add($item)
+        $item.Description = $description
+        $script:VirtualTopology.NetworkSite.Add($item)
+    } else {
+        Write-Verbose "Skipping add of NetworkSite '$NetworkSiteID' (ShouldProcess declined or -WhatIf)."
+    }
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

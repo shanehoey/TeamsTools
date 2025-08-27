@@ -1,7 +1,7 @@
 # DOC Documentation set-teamsVirtualSurvivableBranchAppliancePolicy
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Set-TeamsVirtualSurvivableBranchAppliancePolicy {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
         [Parameter(Mandatory = $true)]
         [string]$Identity,

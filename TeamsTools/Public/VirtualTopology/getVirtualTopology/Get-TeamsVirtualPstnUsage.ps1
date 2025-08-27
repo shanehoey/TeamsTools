@@ -8,7 +8,7 @@ Function Get-TeamsVirtualPstnUsage {
             throw "Teams VirtualTopology not found."
         }
 
-        $Item = $script:VirtualTopology.PSTNUsage
+        $Item = $script:VirtualTopology.PstnUsage
         return $Item
 
     } catch {

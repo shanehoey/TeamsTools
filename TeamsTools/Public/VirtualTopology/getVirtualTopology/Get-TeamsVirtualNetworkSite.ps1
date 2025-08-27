@@ -1,7 +1,7 @@
 # DOC Documentation get-teamsVirtualNetworkSite
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Get-TeamsVirtualNetworkSite {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param(
         [string]$NetworkSiteID = "*",
 

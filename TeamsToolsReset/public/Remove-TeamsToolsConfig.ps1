@@ -32,7 +32,8 @@ This command removes all Teams configuration for the domain "shanehoey.dev" but 
 .NOTES
 Ensure you have the necessary permissions to run this script and modify Teams configurations.
 #>
-Function  
+Function  remove-teamsToolsConfig {
+
     [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact = "HIGH")]
     param(
         [switch]$clean = $false,

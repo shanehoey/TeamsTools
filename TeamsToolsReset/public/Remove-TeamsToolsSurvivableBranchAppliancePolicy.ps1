@@ -1,5 +1,6 @@
-Function  
-    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "HIGH")]
+Function  Remove-TeamsToolsSurvivableBranchAppliancePolicy {
+    
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")]
     param()
 
     try { $items = Get-CsTeamsSurvivableBranchAppliancePolicy -erroraction SilentlyContinue } catch { write-warning "[Error] get-CsTeamsSurvivableBranchAppliancePolicy $($error[0].exception.message)" }

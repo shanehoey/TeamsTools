@@ -2,7 +2,7 @@
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Save-TeamsToolsAuthFile {
     param (
-        [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
 
         [Parameter(Mandatory = $true,ParameterSetName = 'byFile')]
         [Parameter(Mandatory = $true,ParameterSetName = 'bySecret')]

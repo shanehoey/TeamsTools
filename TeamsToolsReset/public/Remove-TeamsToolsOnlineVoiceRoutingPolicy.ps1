@@ -1,5 +1,6 @@
-Function  
-    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "HIGH")]
+Function  remove-teamstoolsOnlineVoiceRoutingPolicy {
+    
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")]
     param()
 
     try { $items = Get-CsOnlineVoiceRoutingPolicy -erroraction SilentlyContinue } catch { write-warning "[Error] Get-CsOnlineVoiceRoutingPolicy $($error[0].exception.message)" }

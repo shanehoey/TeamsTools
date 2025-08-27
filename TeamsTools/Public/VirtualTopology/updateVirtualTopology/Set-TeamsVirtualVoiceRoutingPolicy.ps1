@@ -25,7 +25,7 @@ function Set-TeamsVirtualVoiceRoutingPolicy {
             Write-TeamsToolsError -Message "Voice routing policy with Identity '$Identity' not found in VirtualTopology." -Terminate
         }
 
-        # Validate PSTN usages if provided (adjust property names to your model)
+        # Validate Pstn usages if provided (adjust property names to your model)
         if ($PstnUsageList) {
             $missing = @()
             foreach ($usageId in $PstnUsageList) {
@@ -34,7 +34,7 @@ function Set-TeamsVirtualVoiceRoutingPolicy {
                 }
             }
             if ($missing.Count -gt 0) {
-                Write-TeamsToolsError -Message "PSTNUsage(s) not found in VirtualTopology: $($missing -join ', ')" -Terminate
+                Write-TeamsToolsError -Message "PstnUsage(s) not found in VirtualTopology: $($missing -join ', ')" -Terminate
             }
         }
 

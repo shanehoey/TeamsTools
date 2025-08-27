@@ -1,10 +1,15 @@
 Function Get-TeamsDomainConfigurationRecord {
-    [CmdletBinding(SupportsShouldProcess=$false, ConfirmImpact='low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
       [Parameter(Mandatory=$false)]
-      [Alias("domain")]
+      [Alias('domain')]
       [string[]]$domainName
     )
+
+    if ($PSCmdlet -and -not $PSCmdlet.ShouldProcess('Domains', 'Retrieve domain configuration records')) {
+        Write-Verbose "Skipping retrieval of domain configuration records because ShouldProcess returned false."
+        return
+    }
 
     if (-not $domainName) {
       $domainName = (Get-MgDomain).Id

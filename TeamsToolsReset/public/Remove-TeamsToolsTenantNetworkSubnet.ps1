@@ -1,5 +1,5 @@
-Function  
-    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "HIGH")]
+Function  Remove-TeamsToolsTenantNetworkSubnet {
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")]
     param()
 
     try { $items = Get-CsTenantNetworkSubnet -erroraction SilentlyContinue } catch { write-warning "[Error] Get-CsTenantNetworkSubnet $($error[0].exception.message)" }

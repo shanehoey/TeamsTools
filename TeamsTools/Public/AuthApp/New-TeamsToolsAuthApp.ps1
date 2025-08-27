@@ -1,7 +1,7 @@
 # DOC Documentation NewteamsToolsAuth
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function New-TeamsToolsAuthApp {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'Medium')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
     param (
         [int]$secretDurationMonths = 3
 
@@ -12,61 +12,65 @@ Function New-TeamsToolsAuthApp {
             throw "An application with the display name 'TeamsToolsAuth' already exists."
         } else {
 
-            # Create the Azure AD application
-            $application = New-MgApplication -DisplayName "TeamsToolsAuth"
-            Write-verbose -message  "Created application 'TeamsToolsAuth'."
+            if ($PSCmdlet.ShouldProcess("Create TeamsToolsAuth App", "Create Azure AD application, service principal, assign permissions and secret")) {
+                # Create the Azure AD application
+                $application = New-MgApplication -DisplayName "TeamsToolsAuth"
+                Write-verbose -message  "Created application 'TeamsToolsAuth'."
 
-            # Create a service principal for the application
-            $servicePrincipal = New-MgServicePrincipal -AppId $application.AppId
-            Write-verbose -message  "Created service principal for 'TeamsToolsAuth'."
+                # Create a service principal for the application
+                $servicePrincipal = New-MgServicePrincipal -AppId $application.AppId
+                Write-verbose -message  "Created service principal for 'TeamsToolsAuth'."
 
-            # Add the required permissions to the service principal
-            $apiPermission = Get-MgServicePrincipal -Filter "displayName eq 'Microsoft Graph'"
-            $permissions = @(
-                "Organization.Read.All",
-                "User.Read.All",
-                "Group.ReadWrite.All",
-                "AppCatalog.ReadWrite.All",
-                "TeamSettings.ReadWrite.All",
-                "Channel.Delete.All",
-                "ChannelSettings.ReadWrite.All",
-                "ChannelMember.ReadWrite.All",
-                "Domain.ReadWrite.All"
-            )
+                # Add the required permissions to the service principal
+                $apiPermission = Get-MgServicePrincipal -Filter "displayName eq 'Microsoft Graph'"
+                $permissions = @(
+                    "Organization.Read.All",
+                    "User.Read.All",
+                    "Group.ReadWrite.All",
+                    "AppCatalog.ReadWrite.All",
+                    "TeamSettings.ReadWrite.All",
+                    "Channel.Delete.All",
+                    "ChannelSettings.ReadWrite.All",
+                    "ChannelMember.ReadWrite.All",
+                    "Domain.ReadWrite.All"
+                )
 
-            foreach ($permission in $permissions) {
-                $appRole = $apiPermission.AppRoles | Where-Object { $_.Value -eq $permission }
-                $ServicePrincipalAppRole = new-MgServicePrincipalAppRoleAssignment -ServicePrincipalId $servicePrincipal.Id -PrincipalId $servicePrincipal.Id -ResourceId $apiPermission.Id -AppRoleId $appRole.Id
-                Write-verbose -message  "Added permission '$permission' to service principal."
-            }
+                foreach ($permission in $permissions) {
+                    $appRole = $apiPermission.AppRoles | Where-Object { $_.Value -eq $permission }
+                    $ServicePrincipalAppRole = new-MgServicePrincipalAppRoleAssignment -ServicePrincipalId $servicePrincipal.Id -PrincipalId $servicePrincipal.Id -ResourceId $apiPermission.Id -AppRoleId $appRole.Id
+                    Write-verbose -message  "Added permission '$permission' to service principal."
+                }
 
-            # Assign the Teams Administrator role to the service principal
-            $RoleDefinition = Get-MgRoleManagementDirectoryRoleDefinition -Filter "displayName eq 'Teams Administrator'"
-            $ManagementDirectoryRole = New-MgRoleManagementDirectoryRoleAssignment -PrincipalId $servicePrincipal.Id -RoleDefinitionId $RoleDefinition.Id -DirectoryScopeId "/"
-            Write-verbose -Message "Assigned Teams Administrator role to service principal."
+                # Assign the Teams Administrator role to the service principal
+                $RoleDefinition = Get-MgRoleManagementDirectoryRoleDefinition -Filter "displayName eq 'Teams Administrator'"
+                $ManagementDirectoryRole = New-MgRoleManagementDirectoryRoleAssignment -PrincipalId $servicePrincipal.Id -RoleDefinitionId $RoleDefinition.Id -DirectoryScopeId "/"
+                Write-verbose -Message "Assigned Teams Administrator role to service principal."
 
-            # BUG Exchange Online Administrator
-            Write-Verbose -message "Assigning Exchange Online Administrator role to service principal"
-            Write-warning -message "BUG- Token authentication not supported for Exchange Online, WORKAROUND : manually connect to exchange online"
-            #$RoleDefinition = Get-MgRoleManagementDirectoryRoleDefinition -Filter "displayName eq 'Exchange Administrator'"
-            #New-MgRoleManagementDirectoryRoleAssignment -PrincipalId $ServicePrincipal.Id -RoleDefinitionId $RoleDefinition.Id -DirectoryScopeId "/"
+                # BUG Exchange Online Administrator
+                Write-Verbose -message "Assigning Exchange Online Administrator role to service principal"
+                Write-warning -message "BUG- Token authentication not supported for Exchange Online, WORKAROUND : manually connect to exchange online"
+                #$RoleDefinition = Get-MgRoleManagementDirectoryRoleDefinition -Filter "displayName eq 'Exchange Administrator'"
+                #New-MgRoleManagementDirectoryRoleAssignment -PrincipalId $ServicePrincipal.Id -RoleDefinitionId $RoleDefinition.Id -DirectoryScopeId "/"
             
-            # Create a new client secret for the application
-            $passwordCredential = @{
-                displayName = "TeamsToolAuth ${Get-Date}"
-                endDateTime = (Get-Date).AddMonths($SecretDurationMonths)
+                # Create a new client secret for the application
+                $passwordCredential = @{
+                    displayName = "TeamsToolAuth ${Get-Date}"
+                    endDateTime = (Get-Date).AddMonths($SecretDurationMonths)
+                }
+
+                $secret = Add-MGApplicationPassword -ApplicationID $application.Id -PasswordCredential $passwordCredential
+                Write-verbose -message  "Created client secret for application 'TeamsToolsAuth'."
+
+                $secrets = [authApp]@{
+                    ClientId = $application.AppId
+                    ClientSecret = $secret.SecretText | ConvertTo-SecureString -AsPlainText -force
+                    TenantId = (Get-MgOrganization).Id
+                }
+
+                return $secrets
+            } else {
+                Write-Verbose "Skipping creation of TeamsToolsAuth app (ShouldProcess declined or -WhatIf)."
             }
-
-            $secret = Add-MGApplicationPassword -ApplicationID $application.Id -PasswordCredential $passwordCredential
-            Write-verbose -message  "Created client secret for application 'TeamsToolsAuth'."
-
-            $secrets = [authApp]@{
-                ClientId = $application.AppId
-                ClientSecret = $secret.SecretText | ConvertTo-SecureString -AsPlainText -force
-                TenantId = (Get-MgOrganization).Id
-            }
-
-            return $secrets
         } 
         
     } catch {

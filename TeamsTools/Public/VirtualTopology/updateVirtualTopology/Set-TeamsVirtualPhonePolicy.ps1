@@ -1,7 +1,7 @@
 # DOC Documentation set-teamsVirtualPhonePolicy
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Set-TeamsVirtualPhonePolicy {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
@@ -26,13 +26,21 @@ Function Set-TeamsVirtualPhonePolicy {
         }
 
         $Item = $script:VirtualTopology.PhonePolicy | where-object {$_.Identity -eq $Identity}
-        if ($AllowBetterTogether){$item.AllowBetterTogether = $AllowBetterTogether}
-        if ($AllowHomeScreen){$item.AllowHomeScreen = $AllowHomeScreen}
-        if ($AllowHotDesking){$item.AllowHotDesking = $AllowHotDesking}
-        if ($HotDeskingIdleTimeoutInMinutes){$item.HotDeskingIdleTimeoutInMinutes = $HotDeskingIdleTimeoutInMinutes}
-        if ($SearchOnCommonAreaPhoneMode){$item.SearchOnCommonAreaPhoneMode = $SearchOnCommonAreaPhoneMode}
-        if ($SignInMode){$item.SignInMode = $SignInMode}
-        if ($Description){$item.Description = $Description}
+
+        if ($PSCmdlet.ShouldProcess("VirtualTopology PhonePolicy/$Identity", "Update")) {
+            if ($AllowBetterTogether){$item.AllowBetterTogether = $AllowBetterTogether}
+            if ($AllowHomeScreen){$item.AllowHomeScreen = $AllowHomeScreen}
+            if ($AllowHotDesking){$item.AllowHotDesking = $AllowHotDesking}
+            if ($HotDeskingIdleTimeoutInMinutes){$item.HotDeskingIdleTimeoutInMinutes = $HotDeskingIdleTimeoutInMinutes}
+            if ($SearchOnCommonAreaPhoneMode){$item.SearchOnCommonAreaPhoneMode = $SearchOnCommonAreaPhoneMode}
+            if ($SignInMode){$item.SignInMode = $SignInMode}
+            if ($Description){$item.Description = $Description}
+
+            return $item
+        } else {
+            Write-Verbose "Skipping update of PhonePolicy '$Identity' (ShouldProcess declined)."
+            return $null
+        }
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

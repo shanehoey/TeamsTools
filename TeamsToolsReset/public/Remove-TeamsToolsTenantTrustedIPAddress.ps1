@@ -1,5 +1,5 @@
-Function  
-    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "HIGH")]
+Function  Remove-TeamsToolsTenantTrustedIPAddress {
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")]
     param()
 
     try { $items = Get-CsTenantTrustedIPAddress -erroraction silentlycontinue } catch { write-warning "[Error] Get-CsTenantTrustedIPAddress $($error[0].exception.message)" }

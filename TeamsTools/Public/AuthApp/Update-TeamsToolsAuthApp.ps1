@@ -1,7 +1,7 @@
 # DOC Documentation update=teamsToolsAuth
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Update-TeamsToolsAuthApp {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'med')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
     param (
         [int]$SecretDurationMonths = 3, 
         [string]$filename
@@ -24,6 +24,10 @@ Function Update-TeamsToolsAuthApp {
     }
 
 
-Write-Error -Message "$($MyInvocation.MyCommand.Name) not implemented"
+if ($PSCmdlet.ShouldProcess("Update TeamsToolsAuthApp", "Perform update actions")) {
+    Write-Error -Message "$($MyInvocation.MyCommand.Name) not implemented"
+} else {
+    Write-Verbose "Skipping Update-TeamsToolsAuthApp (ShouldProcess declined)."
+}
 
 }

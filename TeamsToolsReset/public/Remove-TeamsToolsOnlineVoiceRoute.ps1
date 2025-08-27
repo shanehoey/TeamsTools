@@ -1,5 +1,5 @@
-Function  
-    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "HIGH")]
+Function  Remove-TeamsToolsOnlineVoiceRoute {
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param()
 
     try { $items = Get-CsOnlineVoiceRoute -erroraction SilentlyContinue } catch { write-warning "[Error] Get-CsOnlineVoiceRoute $($error[0].exception.message)" }

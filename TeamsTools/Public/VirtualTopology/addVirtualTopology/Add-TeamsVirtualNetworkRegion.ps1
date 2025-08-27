@@ -1,7 +1,7 @@
 # DOC Documentation add-teamsVirtualNetworkRegion
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Add-TeamsVirtualNetworkRegion {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
         [Parameter(Mandatory, ValueFromPipeline)][ValidateNotNullOrEmpty()][string]$NetworkRegionID,
         [Parameter(ValueFromPipeline)][string]$Description,
@@ -21,7 +21,13 @@ Function Add-TeamsVirtualNetworkRegion {
     if ($Description){$item.Description = $Description}
     if ($source){$item.Source = $source}
     
-    $Script:VirtualTopology.NetworkRegion.Add($item) 
+    if ($PSCmdlet.ShouldProcess("VirtualTopology NetworkRegion '$NetworkRegionID'", "Add")) {
+        $Script:VirtualTopology.NetworkRegion.Add($item)
+        return $item
+    } else {
+        Write-Verbose "Skipping add of NetworkRegion '$NetworkRegionID' (ShouldProcess declined)."
+        return $null
+    }
 
     } Catch {
         Write-Error -Message "$_.Exception.Message"

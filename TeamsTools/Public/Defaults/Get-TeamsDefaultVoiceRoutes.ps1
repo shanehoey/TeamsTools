@@ -1,13 +1,19 @@
 # DOC Documentation initialize-teamsDefaultVoiceRoutes
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Get-TeamsDefaultVoiceRoutes {
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
         [string]$CountryCode,
         [string]$CountryName,
         [string]$Type
     )
 
-    $routes = initialize-teamsDefaultVoiceRoutes
+    if ($PSCmdlet -and -not $PSCmdlet.ShouldProcess('DefaultVoiceRoutes','Retrieve default voice routes')) {
+        Write-Verbose "Skipping retrieval of default voice routes because ShouldProcess returned false."
+        return
+    }
+
+    $routes = Initialize-TeamsDefaultVoiceRoutes
 
     if ($CountryCode) {
         $routes = $routes | Where-Object { $_.CountryCode -eq $CountryCode }

@@ -1,7 +1,7 @@
 # DOC Documentation set-teams
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Set-TeamsCallingIDPolicy {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]

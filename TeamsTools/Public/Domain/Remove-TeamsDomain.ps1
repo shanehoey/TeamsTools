@@ -1,5 +1,5 @@
 Function Remove-TeamsDomain {
-  [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'high')]
+  [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
   param (
     [Parameter(Mandatory=$true)]
     [Alias("domain")]

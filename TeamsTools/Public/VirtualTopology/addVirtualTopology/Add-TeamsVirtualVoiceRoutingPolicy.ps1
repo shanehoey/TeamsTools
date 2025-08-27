@@ -1,7 +1,7 @@
 # DOC Documentation add-teamsVirtualVoiceRoutingPolicy
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Add-TeamsVirtualVoiceRoutingPolicy {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
 
     [string] $Identity,
@@ -19,16 +19,20 @@ Function Add-TeamsVirtualVoiceRoutingPolicy {
         }
 
         foreach ($item in $pstnUsageList) {
-            If ($script:VirtualTopology.PSTNUsage.PSTNUsage -notcontains $item) {
-                throw "PSTNUsage $item not found in VirtualTopology."
+            If ($script:VirtualTopology.PstnUsage.PstnUsage -notcontains $item) {
+                throw "PstnUsage $item not found in VirtualTopology."
             }
         }
 
 
-        $Item = [VirtualVoiceRoutingPolicy]::new($Identity,$pstnUsageList)
-        if ($Description){$item.Description = $Description}
+        if ($PSCmdlet.ShouldProcess("VirtualTopology VoiceRoutingPolicy '$Identity'","Add")) {
+            $Item = [VirtualVoiceRoutingPolicy]::new($Identity,$pstnUsageList)
+            if ($Description){$item.Description = $Description}
 
-        $script:VirtualTopology.VoiceRoutingPolicy.Add($Item)
+            $script:VirtualTopology.VoiceRoutingPolicy.Add($Item)
+        } else {
+            Write-Verbose "Skipping add of VoiceRoutingPolicy '$Identity' (ShouldProcess declined or -WhatIf)."
+        }
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

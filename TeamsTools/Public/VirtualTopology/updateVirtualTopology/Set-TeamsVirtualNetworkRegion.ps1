@@ -1,7 +1,7 @@
 # DOC Documentation set-teamsVirtualNetworkRegion
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Set-TeamsVirtualNetworkRegion {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]

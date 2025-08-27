@@ -2,7 +2,7 @@
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Import-TeamsToolsAuthFile {
     param (
-        [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
         [Parameter(Mandatory = $true)]
         $filename
     )
@@ -13,6 +13,11 @@ Function Import-TeamsToolsAuthFile {
     }
 
     try {
+        if (-not $PSCmdlet.ShouldProcess($filename, "Import TeamsTools Auth File")) {
+            Write-Verbose "Skipping import of auth file '$filename' (ShouldProcess declined)."
+            return $null
+        }
+
         $content = Get-Content -Path $filename | ConvertTo-SecureString | ConvertFrom-SecureString -AsPlainText | ConvertFrom-Json
         $response = [authApp]@{
             ClientId     = $content.ClientId

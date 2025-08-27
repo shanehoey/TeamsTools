@@ -1,7 +1,7 @@
 # DOC Documentation add-teamsVirtualCallingIdPolicy
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Add-TeamsVirtualCallingIdPolicy {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
@@ -24,17 +24,21 @@ Function Add-TeamsVirtualCallingIdPolicy {
             throw "Identity $Identity exists in VirtualTopology."
         }
 
-        $Item = initialize-teamsVirtualCallingIdPolicy -Identity $Identity
-        if ($BlockIncomingPstnCallerID){$item.BlockIncomingPstnCallerID = $BlockIncomingPstnCallerID}
-        if ($CallingIDSubstitute){$item.CallingIDSubstitute = $CallingIDSubstitute}
-        if ($CompanyName){$item.CompanyName = $CompanyName}
-        if ($Description){$item.Description = $Description}
-        if ($EnableUserOverride){$item.EnableUserOverride = $EnableUserOverride}
-        if ($ResourceAccount){$item.ResourceAccount = $ResourceAccount}
-        if ($ServiceNumber){$item.ServiceNumber = $ServiceNumber}
-        if ($Description){$item.Description = $Description}
+        if ($PSCmdlet.ShouldProcess("VirtualTopology CallingIDPolicy '$Identity'","Add")) {
+            $Item = initialize-teamsVirtualCallingIdPolicy -Identity $Identity
+            if ($BlockIncomingPstnCallerID){$item.BlockIncomingPstnCallerID = $BlockIncomingPstnCallerID}
+            if ($CallingIDSubstitute){$item.CallingIDSubstitute = $CallingIDSubstitute}
+            if ($CompanyName){$item.CompanyName = $CompanyName}
+            if ($Description){$item.Description = $Description}
+            if ($EnableUserOverride){$item.EnableUserOverride = $EnableUserOverride}
+            if ($ResourceAccount){$item.ResourceAccount = $ResourceAccount}
+            if ($ServiceNumber){$item.ServiceNumber = $ServiceNumber}
+            if ($Description){$item.Description = $Description}
 
-        $script:VirtualTopology.CallingLineIdentity.Add($Item)
+            $script:VirtualTopology.CallingLineIdentity.Add($Item)
+        } else {
+            Write-Verbose "Skipping add of CallingIDPolicy '$Identity' (ShouldProcess declined or -WhatIf)."
+        }
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

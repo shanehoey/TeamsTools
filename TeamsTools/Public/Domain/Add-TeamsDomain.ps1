@@ -1,5 +1,5 @@
 Function Add-TeamsDomain {
-  [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'medium')]
+  [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
   param (
     [Parameter(Mandatory=$true)]
     [Alias("domain")]

@@ -1,7 +1,7 @@
 # DOC Documentation add-teamsvirtualvoiceroute
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Add-TeamsVirtualVoiceRoute {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
         [Parameter(Mandatory = $true)]
         [string] $Identity,
@@ -33,15 +33,19 @@ Function Add-TeamsVirtualVoiceRoute {
         }
     
         foreach ($item in $PstnGatewayList.identity) {
-            If ($script:VirtualTopology.PSTNGateway.identity -notcontains $item) {
+            If ($script:VirtualTopology.PstnGateway.identity -notcontains $item) {
                     throw "pstngatewaylist $item not found in VirtualTopology."
                 }
         }
 
-        $Item = [VirtualVoiceRoute]::new($Identity,$NumberPattern,$PstnUsageList,$PstnGatewayList,$priority)
-        if ($Description){$item.Description = $Description}
-        if ($BridgeSourcePhoneNumber){$item.BridgeSourcePhoneNumber = $BridgeSourcePhoneNumber}
-        $script:VirtualTopology.VoiceRoute.Add($Item)
+        if ($PSCmdlet.ShouldProcess("VirtualTopology VoiceRoute '$Identity'","Add")) {
+            $Item = [VirtualVoiceRoute]::new($Identity,$NumberPattern,$PstnUsageList,$PstnGatewayList,$priority)
+            if ($Description){$item.Description = $Description}
+            if ($BridgeSourcePhoneNumber){$item.BridgeSourcePhoneNumber = $BridgeSourcePhoneNumber}
+            $script:VirtualTopology.VoiceRoute.Add($Item)
+        } else {
+            Write-Verbose "Skipping add of VoiceRoute '$Identity' (ShouldProcess declined or -WhatIf)."
+        }
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

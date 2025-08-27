@@ -1,19 +1,27 @@
-# DOC Documentation get-teamsvirtualPSTNGateway
-# IMPROVEMENT Add support for SupportsShouldProcess
-Function Get-TeamsVirtualPSTNGatway {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+
+Function Get-TeamsVirtualPstnGateway {
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
-    [string]$Identity = "*"
+        [Parameter(Position = 0, ValueFromPipeline = $true)]
+        [string]$Identity = "*"
     )
+
     try {
         if (-not $script:VirtualTopology) {
             throw "Teams VirtualTopology not found."
         }
 
-        $Item = $script:VirtualTopology.PSTNGateway | where-object {$_.Identity -like $Identity}
+        # Respect -WhatIf / -Confirm by calling ShouldProcess for read operations as requested
+        if (-not $PSCmdlet.ShouldProcess("VirtualTopology.PstnGateway", "Retrieve items matching '$Identity'")) {
+            Write-Verbose "Retrieval cancelled by ShouldProcess"
+            return $null
+        }
+
+        $Item = $script:VirtualTopology.PstnGateway | Where-Object { $_.Identity -like $Identity }
         return $Item
 
     } catch {
-        Write-Error -Message "$_.Exception.Message"
+        $msg = if ($_.Exception) { $_.Exception.Message } else { $_.ToString() }
+        Write-Error -Message $msg
     }
 }

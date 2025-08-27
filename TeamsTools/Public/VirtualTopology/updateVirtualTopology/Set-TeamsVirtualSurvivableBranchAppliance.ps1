@@ -1,7 +1,7 @@
 # DOC Documentation set-teamsvirtualsurvivablebranchappliance
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Set-TeamsVirtualSurvivableBranchAppliance {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
         [Parameter(Mandatory = $true)]
         [string]$identity,
@@ -18,9 +18,13 @@ Function Set-TeamsVirtualSurvivableBranchAppliance {
         throw "identity $identity not found in VirtualTopology."
     }
 
-    $Item = $script:VirtualTopology.SurvivableBranchAppliance | where-object {$_.identity -eq $identity}
-    if ($item.site) {$Item.site = $site}
-    if ($item.description) { $Item.site = $site }
+    if ($PSCmdlet.ShouldProcess("VirtualTopology SurvivableBranchAppliance '$identity'","Update")) {
+        $Item = $script:VirtualTopology.SurvivableBranchAppliance | where-object {$_.identity -eq $identity}
+        if ($item.site) {$Item.site = $site}
+        if ($item.description) { $Item.site = $site }
+    } else {
+        Write-Verbose "Skipping update of SurvivableBranchAppliance '$identity' (ShouldProcess declined or -WhatIf)."
+    }
 
 
     } catch {

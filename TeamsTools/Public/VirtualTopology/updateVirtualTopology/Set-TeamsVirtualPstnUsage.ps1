@@ -1,7 +1,7 @@
 Function Set-TeamsVirtualPstnUsage {
 # IMPROVEMENT Add support for SupportsShouldProcess
 
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
     [Parameter(Mandatory = $true)]
     $PstnUsage

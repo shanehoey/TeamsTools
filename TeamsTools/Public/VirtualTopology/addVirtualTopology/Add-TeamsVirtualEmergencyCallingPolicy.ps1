@@ -1,7 +1,7 @@
 # DOC Documentation add-teamsVirtualEmergencyCallingPolicy
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Add-TeamsVirtualEmergencyCallingPolicy {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
@@ -18,10 +18,14 @@ Function Add-TeamsVirtualEmergencyCallingPolicy {
             throw "Identity $Identity exists in VirtualTopology."
         }
 
-        $Item = [VirtualEmergencyCallingPolicy]::new($Identity)
-        if ($Description){$item.Description = $Description}
+        if ($PSCmdlet.ShouldProcess("VirtualTopology EmergencyCallingPolicy '$Identity'","Add")) {
+            $Item = [VirtualEmergencyCallingPolicy]::new($Identity)
+            if ($Description){$item.Description = $Description}
 
-        $script:VirtualTopology.EmergencyCallingPolicy.Add($Item)
+            $script:VirtualTopology.EmergencyCallingPolicy.Add($Item)
+        } else {
+            Write-Verbose "Skipping add of EmergencyCallingPolicy '$Identity' (ShouldProcess declined or -WhatIf)."
+        }
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

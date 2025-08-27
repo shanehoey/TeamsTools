@@ -1,5 +1,5 @@
-Function  
-    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "HIGH")]
+Function  Remove-TeamsToolsTenantNetworkRegion {
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")]
     param()
 
 

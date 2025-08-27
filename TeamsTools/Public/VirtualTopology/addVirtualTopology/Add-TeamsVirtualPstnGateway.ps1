@@ -1,47 +1,42 @@
-# DOC Documentation set-teamsVirtualPSTNGateway
+# DOC Documentation Function add-teamsVirtualPstnGateway
 # IMPROVEMENT Add support for SupportsShouldProcess
-Function Set-TeamsVirtualPstnGateway {
+
+Function Add-TeamsVirtualPstnGateway {
+
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
-    [Parameter(Mandatory = $true)]
-    [string] $Identity,
-    [int] $SipSignalingPort,
-    [int] $MaxConcurrentSessions,
-    [string] $SendSipOptions,
-    [string] $ForwardCallHistory,
-    [string] $ForwardPai,
-    [string] $FailoverResponseCodes,
-    [string] $FailoverTimeSeconds,	
-    [string] $MediaBypass,
-    [string] $BypassMode,
-    [string] $ProxySbc,
-    [string] $Enabled,	
-    [string] $Description,
-    [string] $GatewayLbrEnabledUserOverride,
-    [string] $GatewaySiteId,
-    [string] $GatewaySiteLbrEnabled,
-    [string] $InboundPstnNumberTranslationRules,
-    [string] $InboundTeamsNumberTranslationRules,
-    [string] $MediaRelayRoutingLocationOverride,
-    [string] $OutboundPstnNumberTranslationRules,
-    [string] $OutboundTeamsNumberTranslationRules
+        [Parameter(Mandatory = $true)]
+        [string] $Identity,
+        [int] $SipSignalingPort,
+        [int] $MaxConcurrentSessions,
+        [string] $SendSipOptions,
+        [string] $ForwardCallHistory,
+        [string] $ForwardPai,
+        [string] $FailoverResponseCodes,
+        [string] $FailoverTimeSeconds,
+        [string] $MediaBypass,
+        [string] $BypassMode,
+
+        [string] $ProxySbc,
+        [string] $Enabled,
+        [string] $Description,
+        [string] $GatewayLbrEnabledUserOverride,
+        [string] $GatewaySiteId,
+        [string] $GatewaySiteLbrEnabled,
+        [string] $InboundPstnNumberTranslationRules,
+        [string] $InboundTeamsNumberTranslationRules,
+        [string] $MediaRelayRoutingLocationOverride,
+        [string] $OutboundPstnNumberTranslationRules,
+        [string] $OutboundTeamsNumberTranslationRules
     )
+
     try {
         if (-not $script:VirtualTopology) {
             throw "Teams VirtualTopology not found."
         }
-
-        if ($script:VirtualTopology.PstnGateway.Identity -notcontains $Identity) {
-            throw "Identity $Identity does not exist in VirtualTopology."
+        if ($script:VirtualTopology.PstnGateway.Identity -contains $Identity) {
+            throw "Identity $Identity exists in VirtualTopology."
         }
-        
-
-        if ($PSBoundParameters.ContainsKey('ProxySbc')){
-            If ($script:VirtualTopology.PstnGateway.Identity -notcontains $ProxySbc ) {
-                throw "ProxySBC $ProxySBC not found in VirtualTopology."
-            }
-        }
-
 
         if ($PSBoundParameters.ContainsKey('GatewaySiteId')){
             If ($script:VirtualTopology.Networksite.NetworkSiteId -notcontains $GatewaySiteId) {
@@ -49,10 +44,8 @@ Function Set-TeamsVirtualPstnGateway {
             }
         }
 
-
-        if ($PSCmdlet.ShouldProcess("VirtualTopology PstnGateway '$Identity'","Update")) {
-            $Item = $script:VirtualTopology.PstnGateway | where-object {$_.Identity -eq $Identity}
-
+        if ($PSCmdlet.ShouldProcess("VirtualTopology PstnGateway '$Identity'","Add")) {
+            $Item = [VirtualPstnGateway]::new($Identity)
             if ($SipSignalingPort){$item.SipSignalingPort = $SipSignalingPort}
             if ($maxConcurrentSessions){$item.MaxConcurrentSessions = $MaxConcurrentSessions}
             if ($SendSipOptions){$item.SendSipOptions = $SendSipOptions}
@@ -76,10 +69,11 @@ Function Set-TeamsVirtualPstnGateway {
 
             $script:VirtualTopology.PstnGateway.Add($Item)
         } else {
-            Write-Verbose "Skipping update of PstnGateway '$Identity' (ShouldProcess declined or -WhatIf)."
+            Write-Verbose "Skipping add of PstnGateway '$Identity' (ShouldProcess declined or -WhatIf)."
         }
 
     } catch {
         Write-Error -Message "$_.Exception.Message"
     }
+
 }

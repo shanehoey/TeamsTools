@@ -1,7 +1,7 @@
 # DOC Documentation get-teamsVirtualSurvivableBranchAppliance
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Get-TeamsVirtualSurvivableBranchAppliance {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
 
     [string] $Identity = "*"

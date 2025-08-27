@@ -31,7 +31,7 @@
 
 #>
 Function Test-TeamsToolsGraph {
-    [CmdletBinding(SupportsShouldProcess=$false, ConfirmImpact = 'low',DefaultParameterSetName = 'default')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low', DefaultParameterSetName = 'default')]
 
     param (
         [Parameter(Mandatory=$false, ParameterSetName='ByDomain')]

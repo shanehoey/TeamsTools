@@ -1,7 +1,7 @@
 # DOC Documentation add-teamVirtualTrustedIPAddress
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Add-TeamsVirtualTrustedIPAddress {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
         [Parameter(Mandatory = $true)]
         [string]$IpAddress,
@@ -18,10 +18,14 @@ Function Add-TeamsVirtualTrustedIPAddress {
         throw "IPAddress $IpAddress exists in VirtualTopology."
     }
 
-    $Item = [VirtualTrustedIPAddress]::new($IpAddress, $Mask)
-    if ($Description){$item.Description = $Description}
+    if ($PSCmdlet.ShouldProcess("VirtualTopology TrustedIPAddress '$IpAddress'","Add")) {
+        $Item = [VirtualTrustedIPAddress]::new($IpAddress, $Mask)
+        if ($Description){$item.Description = $Description}
 
-    $script:VirtualTopology.TrustedIPAddress.Add($Item)
+        $script:VirtualTopology.TrustedIPAddress.Add($Item)
+    } else {
+        Write-Verbose "Skipping add of TrustedIPAddress '$IpAddress' (ShouldProcess declined or -WhatIf)."
+    }
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

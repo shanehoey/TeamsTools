@@ -106,25 +106,25 @@
                     <ListEntry>
                         <ListItems>
                             <ListItem>
-                                <Label>Domain Name</Label>
+                                <Label>DomainName</Label>
                                 <PropertyName>DomainName</PropertyName>
                             </ListItem>
                             <ListItem>
-                                <Label>Tenant ID</Label>
+                                <Label>TenantIdDisplay</Label>
                                 <PropertyName>TenantIdDisplay</PropertyName>
                             </ListItem>
                             <ListItem>
-                                <Label>Total Objects</Label>
+                                <Label>ObjectCount</Label>
                                 <PropertyName>ObjectCount</PropertyName>
                             </ListItem>
                             <ListItem>
-                                <Label>Network Regions</Label>
+                                <Label>NetworkRegions</Label>
                                 <ScriptBlock>
                                     if ($_.NetworkRegion) { $_.NetworkRegion.Count } else { 0 }
                                 </ScriptBlock>
                             </ListItem>
                             <ListItem>
-                                <Label>Network Sites</Label>
+                                <Label>NetworkSites</Label>
                                 <ScriptBlock>
                                     if ($_.NetworkSite) { $_.NetworkSite.Count } else { 0 }
                                 </ScriptBlock>

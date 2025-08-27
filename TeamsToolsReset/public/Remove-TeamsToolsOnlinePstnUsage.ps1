@@ -1,5 +1,5 @@
-Function  
-    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "HIGH")]
+Function  Remove-TeamsToolsOnlinePstnUsage {   
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param()
 
     try { $items = Get-CsOnlinePstnUsage -erroraction silentlycontinue } catch { write-warning "[Error] Get-CsOnlinePstnUsage $($error[0].exception.message)" }

@@ -3,7 +3,7 @@
 
 Function Add-TeamsVirtualPstnUsage {
     
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
     [Parameter(Mandatory = $true)]
     $PstnUsage
@@ -18,8 +18,12 @@ Function Add-TeamsVirtualPstnUsage {
             throw "PstnUsage $PstnUsage exists in VirtualTopology."
         }
 
-        $Item = [VirtualPstnUsage]::new($PstnUsage)
-        $script:VirtualTopology.PstnUsage.Add($Item)
+        if ($PSCmdlet.ShouldProcess("VirtualTopology PstnUsage '$PstnUsage'","Add")) {
+            $Item = [VirtualPstnUsage]::new($PstnUsage)
+            $script:VirtualTopology.PstnUsage.Add($Item)
+        } else {
+            Write-Verbose "Skipping add of PstnUsage '$PstnUsage' (ShouldProcess declined or -WhatIf)."
+        }
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

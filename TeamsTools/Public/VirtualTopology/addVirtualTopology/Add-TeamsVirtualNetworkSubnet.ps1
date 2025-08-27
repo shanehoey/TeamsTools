@@ -1,7 +1,7 @@
 # DOC Documentation add-teamsvirtualnetworksubnet
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Add-TeamsVirtualNetworkSubnet {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param(
     [Parameter(Mandatory = $true)]
     [string]$SubnetId,
@@ -24,10 +24,14 @@ Function Add-TeamsVirtualNetworkSubnet {
         throw "SubnetId $SubnetId exists in VirtualTopology."
     }
 
-    $Item = [VirtualNetworkSubnet]::new($NetworkSiteId, $SubnetId, $Mask)
-    if ($Description){$item.Description = $Description}
+    if ($PSCmdlet.ShouldProcess("VirtualTopology NetworkSubnet '$SubnetId'","Add")) {
+        $Item = [VirtualNetworkSubnet]::new($NetworkSiteId, $SubnetId, $Mask)
+        if ($Description){$item.Description = $Description}
 
-    $script:VirtualTopology.NetworkSubnet.Add($Item)
+        $script:VirtualTopology.NetworkSubnet.Add($Item)
+    } else {
+        Write-Verbose "Skipping add of NetworkSubnet '$SubnetId' (ShouldProcess declined or -WhatIf)."
+    }
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

@@ -1,5 +1,6 @@
-Function  
-    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "HIGH")]
+Function  Remove-TeamsToolsTenantDialPlan {
+
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param()
 
     try { $items = Get-CsTenantDialPlan -erroraction SilentlyContinue } catch { write-warning "[Error] Get-CsTenantDialPlan $($error[0].exception.message)" }

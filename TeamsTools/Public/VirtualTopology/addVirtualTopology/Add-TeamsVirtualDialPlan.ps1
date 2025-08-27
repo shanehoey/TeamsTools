@@ -1,7 +1,7 @@
 # DOC Documentation add-teamsVirtualDialPlan
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Add-TeamsVirtualDialPlan {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
@@ -25,13 +25,17 @@ Function Add-TeamsVirtualDialPlan {
             throw "SimpleNaME $simplename exists in VirtualTopology."
         }
         
-        $Item = [VirtualDialPlan]::new($Identity)
-        if ($SimpleName){$item.SimpleName = $SimpleName}
-        if ($ExternalAccessPrefix){$item.ExternalAccessPrefix = $ExternalAccessPrefix}
-        if ($OptimizeDeviceDialing){$item.OptimizeDeviceDialing = $OptimizeDeviceDialing}
-        if ($Description){$item.Description = $Description}
+        if ($PSCmdlet.ShouldProcess("VirtualTopology DialPlan '$Identity'","Add")) {
+            $Item = [VirtualDialPlan]::new($Identity)
+            if ($SimpleName){$item.SimpleName = $SimpleName}
+            if ($ExternalAccessPrefix){$item.ExternalAccessPrefix = $ExternalAccessPrefix}
+            if ($OptimizeDeviceDialing){$item.OptimizeDeviceDialing = $OptimizeDeviceDialing}
+            if ($Description){$item.Description = $Description}
 
-        $script:VirtualTopology.DialPlan.Add($Item)
+            $script:VirtualTopology.DialPlan.Add($Item)
+        } else {
+            Write-Verbose "Skipping add of DialPlan '$Identity' (ShouldProcess declined or -WhatIf)."
+        }
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

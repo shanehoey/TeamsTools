@@ -1,5 +1,5 @@
-Function  
-    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "HIGH")]
+Function  Remove-TeamsToolsUsers {
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")]
     param()
 
     try { $items = get-csonlineuser -erroraction SilentlyContinue } catch { write-warning "[Error] get-csonlineusers $($error[0].exception.message)" }

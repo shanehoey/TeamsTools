@@ -1,7 +1,7 @@
 # DOC Documentation set-teamsVirtualNetworkSubnet
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Set-TeamsVirtualNetworkSubnet {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param(
     [Parameter(Mandatory = $true)]
     [string]$SubnetId,

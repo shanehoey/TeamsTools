@@ -1,7 +1,7 @@
 # DOC Documentation add-teamsVirtualVoiceNormalisation
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Add-TeamsVirtualVoiceNormalisation {
-    [CmdletBinding(DefaultParameterSetName='default')]
+    [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName='default', ConfirmImpact = 'Low')]
     param (
         [Parameter(Mandatory = $true, ParameterSetName='default')]
         [ValidateNotNullOrEmpty()]
@@ -30,17 +30,21 @@ Function Add-TeamsVirtualVoiceNormalisation {
             throw "Identity $Identity exists in VirtualTopology."
         }
 
-        if ($PSCmdlet.ParameterSetName -eq 'parent') {
-            $Item = [VirtualVoiceNormalisation]::new($Parent,$Name,$Pattern,$Translation)
+        if ($PSCmdlet.ShouldProcess("VirtualTopology VoiceNormalisation","Add $($Name ?? $Identity)")) {
+            if ($PSCmdlet.ParameterSetName -eq 'parent') {
+                $Item = [VirtualVoiceNormalisation]::new($Parent,$Name,$Pattern,$Translation)
+            } else {
+                $Item = [VirtualVoiceNormalisation]::new($Identity,$Pattern,$Translation)
+            }
+
+            if ($isinternalextension){$item.isinternalextension = $isinternalextension}
+            if ($Priority){$item.Priority = $Priority}
+            if ($Description){$item.Description = $Description}
+
+            $script:VirtualTopology.VoiceNormalisation.Add($Item)
         } else {
-            $Item = [VirtualVoiceNormalisation]::new($Identity,$Pattern,$Translation)
+            Write-Verbose "Skipping add of VoiceNormalisation for $($Name ?? $Identity) (ShouldProcess declined or -WhatIf)."
         }
-
-        if ($isinternalextension){$item.isinternalextension = $isinternalextension}
-        if ($Priority){$item.Priority = $Priority}
-        if ($Description){$item.Description = $Description}
-
-        $script:VirtualTopology.VoiceNormalisation.Add($Item)
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

@@ -1,7 +1,7 @@
 # DOC Documentation add-teamsVirtualPhonePolicy
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Add-TeamsVirtualPhonePolicy {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
@@ -25,16 +25,20 @@ Function Add-TeamsVirtualPhonePolicy {
             throw "Identity $Identity exists in VirtualTopology."
         }
 
-        $Item = [VirtualPhonePolicy]::new($Identity)
-        if ($AllowBetterTogether){$item.AllowBetterTogether = $AllowBetterTogether}
-        if ($AllowHomeScreen){$item.AllowHomeScreen = $AllowHomeScreen}
-        if ($AllowHotDesking){$item.AllowHotDesking = $AllowHotDesking}
-        if ($HotDeskingIdleTimeoutInMinutes){$item.HotDeskingIdleTimeoutInMinutes = $HotDeskingIdleTimeoutInMinutes}
-        if ($SearchOnCommonAreaPhoneMode){$item.SearchOnCommonAreaPhoneMode = $SearchOnCommonAreaPhoneMode}
-        if ($SignInMode){$item.SignInMode = $SignInMode}
-        if ($Description){$item.Description = $Description}
+        if ($PSCmdlet.ShouldProcess("VirtualTopology PhonePolicy '$Identity'","Add")) {
+            $Item = [VirtualPhonePolicy]::new($Identity)
+            if ($AllowBetterTogether){$item.AllowBetterTogether = $AllowBetterTogether}
+            if ($AllowHomeScreen){$item.AllowHomeScreen = $AllowHomeScreen}
+            if ($AllowHotDesking){$item.AllowHotDesking = $AllowHotDesking}
+            if ($HotDeskingIdleTimeoutInMinutes){$item.HotDeskingIdleTimeoutInMinutes = $HotDeskingIdleTimeoutInMinutes}
+            if ($SearchOnCommonAreaPhoneMode){$item.SearchOnCommonAreaPhoneMode = $SearchOnCommonAreaPhoneMode}
+            if ($SignInMode){$item.SignInMode = $SignInMode}
+            if ($Description){$item.Description = $Description}
 
-        $script:VirtualTopology.PhonePolicy.Add($Item)
+            $script:VirtualTopology.PhonePolicy.Add($Item)
+        } else {
+            Write-Verbose "Skipping add of PhonePolicy '$Identity' (ShouldProcess declined or -WhatIf)."
+        }
 
     } catch {
         Write-Error -Message "$_.Exception.Message"

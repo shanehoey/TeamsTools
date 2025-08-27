@@ -1,6 +1,6 @@
 # DOC Documentation invoke-teamsVoiceRoute
 Function Invoke-TeamsVoiceRoute {
-    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param (
         [Parameter(Position = 0, Mandatory = $true, ParameterSetName = "Default", ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]

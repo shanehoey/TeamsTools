@@ -1,7 +1,7 @@
 # DOC Documentation set-teams
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Set-TeamsVirtualVoiceRoute {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
         [Parameter(Mandatory = $true)]
         [string] $Identity,
@@ -26,25 +26,29 @@ Function Set-TeamsVirtualVoiceRoute {
             Write-TeamsToolsError -Message "Identity $Identity not found in VirtualTopology." -Terminate
         }
        
-        foreach ($item in $PstnUsageList.pstnusage) {
-        If ($script:VirtualTopology.PstnUsage.pstnusage -notcontains $item) {
-            Write-TeamsToolsError -Message "PstnUsage $PstnUsage not found in VirtualTopology." -Terminate
-        }
-        }
-    
-        foreach ($item in $PstnGatewayList.identity) {
-            If ($script:VirtualTopology.PSTNGateway.identity -notcontains $item) {
+        if ($PSCmdlet.ShouldProcess("VirtualTopology VoiceRoute '$Identity'","Update")) {
+            foreach ($item in $PstnUsageList.pstnusage) {
+                If ($script:VirtualTopology.PstnUsage.pstnusage -notcontains $item) {
+                    Write-TeamsToolsError -Message "PstnUsage $PstnUsage not found in VirtualTopology." -Terminate
+                }
+            }
+
+            foreach ($item in $PstnGatewayList.identity) {
+                If ($script:VirtualTopology.PstnGateway.identity -notcontains $item) {
                     Write-TeamsToolsError -Message "pstngatewaylist $pstngatewaylist not found in VirtualTopology." -Terminate
                 }
-        }
+            }
 
-        $Item = $script:VirtualTopology.VoiceRoute | where-object {$_.Identity -eq $Identity}
-        $Item.NumberPattern = $NumberPattern
-        $Item.PstnUsageList = $PstnUsageList
-        $Item.PstnGatewayList = $PstnGatewayList
-        $Item.Priority = $Priority
-        $Item.Description = $Description
-        $Item.BridgeSourcePhoneNumber = $BridgeSourcePhoneNumber
+            $Item = $script:VirtualTopology.VoiceRoute | where-object {$_.Identity -eq $Identity}
+            $Item.NumberPattern = $NumberPattern
+            $Item.PstnUsageList = $PstnUsageList
+            $Item.PstnGatewayList = $PstnGatewayList
+            $Item.Priority = $Priority
+            $Item.Description = $Description
+            $Item.BridgeSourcePhoneNumber = $BridgeSourcePhoneNumber
+        } else {
+            Write-Verbose "Skipping update of VoiceRoute '$Identity' (ShouldProcess declined or -WhatIf)."
+        }
 
     } catch {
         Write-TeamsToolsError -Message "$_.Exception.Message" -Exception $_.Exception -Terminate

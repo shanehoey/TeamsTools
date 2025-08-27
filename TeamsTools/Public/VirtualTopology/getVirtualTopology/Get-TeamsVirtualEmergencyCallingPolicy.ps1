@@ -1,7 +1,7 @@
 # DOC Documentation get-teamsVirtualEmergencyCallingPolicy
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Get-TeamsVirtualEmergencyCallingPolicy {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
     [string] $Identity = "*"
     )

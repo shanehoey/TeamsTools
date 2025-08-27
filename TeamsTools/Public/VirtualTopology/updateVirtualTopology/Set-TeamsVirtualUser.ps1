@@ -1,7 +1,7 @@
 # DOC Documentation set-teamsVirtualUser
 # IMPROVEMENT Add support for SupportsShouldProcess
 Function Set-TeamsVirtualUser {
-    [CmdletBinding(SupportsShouldProcess,ConfirmImpact = 'low')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param (
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
@@ -42,25 +42,29 @@ Function Set-TeamsVirtualUser {
             }
         }
 
-        $Item = $script:VirtualTopology.User | where-object {$_.Identity -eq $Identity}
+        if ($PSCmdlet.ShouldProcess("VirtualTopology User '$Identity'","Update")) {
+            $Item = $script:VirtualTopology.User | where-object {$_.Identity -eq $Identity}
 
-        if ($VoiceRoutingPolicy){$item.VoiceRoutingPolicy = $VoiceRoutingPolicy}
-        if ($Telephonenumber){$item.Telephonenumber = $Telephonenumber}
-        if ($TelephoneNumberType){$item.TelephoneNumberType = $TelephoneNumberType}
-        if ($EnterpriseVoiceEnabled){$item.EnterpriseVoiceEnabled = $EnterpriseVoiceEnabled}
-        if ($DialPlan){$item.DialPlan = $DialPlan}
-        if ($PhonePolicy){$item.PhonePolicy = $PhonePolicy}
-        if ($EmergencyCallingPolicy){$item.EmergencyCallingPolicy = $EmergencyCallingPolicy}
-        if ($EmergencyCallRoutingPolicy){$item.EmergencyCallRoutingPolicy = $EmergencyCallRoutingPolicy}
-        if ($UsageLocation){$item.UsageLocation = $UsageLocation}
-        if ($DialOutPolicy){$item.DialOutPolicy = $DialOutPolicy}
-        if ($CallingIDPolicy){$item.CallingIDPolicy = $CallingIDPolicy}
-        if ($CallHoldPolicy){$item.CallHoldPolicy = $CallHoldPolicy}
-        if ($CallParkPolicy){$item.CallParkPolicy = $CallParkPolicy}
-        if ($CallingLineIdentityPolicy){$item.CallingLineIdentityPolicy = $CallingLineIdentityPolicy}
-        if ($TeamsMobilityPolicy){$item.TeamsMobilityPolicy = $TeamsMobilityPolicy}
-        if ($VoicemailPolicy){$item.VoicemailPolicy = $VoicemailPolicy}
-        if ($SurvivableBranchAppliancePolicy){$item.SurvivableBranchAppliancePolicy = $SurvivableBranchAppliancePolicy}
+            if ($VoiceRoutingPolicy){$item.VoiceRoutingPolicy = $VoiceRoutingPolicy}
+            if ($Telephonenumber){$item.Telephonenumber = $Telephonenumber}
+            if ($TelephoneNumberType){$item.TelephoneNumberType = $TelephoneNumberType}
+            if ($EnterpriseVoiceEnabled){$item.EnterpriseVoiceEnabled = $EnterpriseVoiceEnabled}
+            if ($DialPlan){$item.DialPlan = $DialPlan}
+            if ($PhonePolicy){$item.PhonePolicy = $PhonePolicy}
+            if ($EmergencyCallingPolicy){$item.EmergencyCallingPolicy = $EmergencyCallingPolicy}
+            if ($EmergencyCallRoutingPolicy){$item.EmergencyCallRoutingPolicy = $EmergencyCallRoutingPolicy}
+            if ($UsageLocation){$item.UsageLocation = $UsageLocation}
+            if ($DialOutPolicy){$item.DialOutPolicy = $DialOutPolicy}
+            if ($CallingIDPolicy){$item.CallingIDPolicy = $CallingIDPolicy}
+            if ($CallHoldPolicy){$item.CallHoldPolicy = $CallHoldPolicy}
+            if ($CallParkPolicy){$item.CallParkPolicy = $CallParkPolicy}
+            if ($CallingLineIdentityPolicy){$item.CallingLineIdentityPolicy = $CallingLineIdentityPolicy}
+            if ($TeamsMobilityPolicy){$item.TeamsMobilityPolicy = $TeamsMobilityPolicy}
+            if ($VoicemailPolicy){$item.VoicemailPolicy = $VoicemailPolicy}
+            if ($SurvivableBranchAppliancePolicy){$item.SurvivableBranchAppliancePolicy = $SurvivableBranchAppliancePolicy}
+        } else {
+            Write-Verbose "Skipping update of User '$Identity' (ShouldProcess declined or -WhatIf)."
+        }
     } catch {
         Write-Error -Message "$_.Exception.Message"
     }

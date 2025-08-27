@@ -18,8 +18,8 @@ This example removes all Online PSTN Gateways after user confirmation.
 This function requires the Teams PowerShell module to be installed and connected to the appropriate Teams environment.
 
 #>
-Function  
-    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "HIGH")]
+Function  Remove-TeamsToolsOnlinePSTNGateway {
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param()
 
     try { $items = Get-CsOnlinePSTNGateway -erroraction SilentlyContinue | sort-object ProxySBC -Descending } catch { write-warning "[Error] Get-CsOnlinePSTNGateway $($error[0].exception.message)" }
