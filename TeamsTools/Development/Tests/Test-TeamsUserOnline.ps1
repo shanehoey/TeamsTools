@@ -1,3 +1,3 @@
 # if ($user.OnPremHostingProvider -eq "SRV:") { Write-warning -message "[Warning] $($Item.Identity) OnPremHostingProvider is $($user.OnPremHostingProvider)" -ErrorAction continue }   
 
-Write-Warning "$MyInvocation.MyCommand.Name is not implemented"
+Write-warning "Not Implemented: $($PSCommandPath ?? $MyInvocation.MyCommand.Path)"
