@@ -5,7 +5,7 @@ Function Add-TeamsVirtualEmergencyCallingPolicy {
     param (
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
-    [string] $Identity	,
+    [string] $Identity,
     [ValidateNotNullOrEmpty()][string] $Description
     )
 

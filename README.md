@@ -62,5 +62,5 @@ Install-Module -Name Microsoft.Graph.Users -MinimumVersion 2.30.0 -Scope $scope
 
 Install-Module -Name Microsoft.Graph.Identity.Governance -MinimumVersion 2.30.0 -Scope $scope
 
-Licensing
+## Licensing
 Licensed under MIT (LICENSE.txt), allowing free use, modification, and distribution.

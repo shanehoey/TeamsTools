@@ -40,15 +40,16 @@ Function Initialize-TeamsDefaultVoiceNormalisationRules {
     $rules += [DefaultVoiceNormalisationRule]::new('CO', 'Colombia', 'National', '^(57|0)?(\d{3,12})$', '+57$2')
     $rules += [DefaultVoiceNormalisationRule]::new('CO', 'Colombia', 'International', '^00((?!57)(\d{10,15}))$', '+$1')
 
-    $rules += [DefaultVoiceNormalisationRule]::new('GB', 'United Kingdom', 'Emergency', '^(112|999)$', '+44$1')
-    $rules += [DefaultVoiceNormalisationRule]::new('GB', 'United Kingdom', 'Internal', '^$', '$1')
-    $rules += [DefaultVoiceNormalisationRule]::new('GB', 'United Kingdom', 'National', '^(44|0)?(\d{10})$', '+44$2')
-    $rules += [DefaultVoiceNormalisationRule]::new('GB', 'United Kingdom', 'International', '^00((?!44)(\d{10,15}))$', '+$1')
 
     $rules += [DefaultVoiceNormalisationRule]::new('MZ', 'Mozambique', 'Emergency', '^(11[79]|198)$', '+25$1')
     $rules += [DefaultVoiceNormalisationRule]::new('MZ', 'Mozambique', 'Internal', '^$', '$1')
     $rules += [DefaultVoiceNormalisationRule]::new('MZ', 'Mozambique', 'National', '^(25|0)?(\d{10})$', '+25$2')
     $rules += [DefaultVoiceNormalisationRule]::new('MZ', 'Mozambique', 'International', '^00((?!25)(\d{10,15}))$', '+$1')
+
+    $rules += [DefaultVoiceNormalisationRule]::new('MX', 'Mexico', 'Emergency', '^(911)$', '+52$1')
+    $rules += [DefaultVoiceNormalisationRule]::new('MX', 'Mexico', 'Internal', '^$', '$1')
+    $rules += [DefaultVoiceNormalisationRule]::new('MX', 'Mexico', 'National', '^(52|0)?(\d{10})$', '+52$2')
+    $rules += [DefaultVoiceNormalisationRule]::new('MX', 'Mexico', 'International', '^00((?!52)(\d{10,15}))$', '+$1')
 
     $rules += [DefaultVoiceNormalisationRule]::new('PH', 'Phillipines', 'Emergency', '^(911|143|8888|1555|163|1343|1342|136)$', '+63$1')
     $rules += [DefaultVoiceNormalisationRule]::new('PH', 'Phillipines', 'Internal', '^$', '$1')
@@ -60,6 +61,12 @@ Function Initialize-TeamsDefaultVoiceNormalisationRules {
     $rules += [DefaultVoiceNormalisationRule]::new('SG', 'Singapore', 'Internal', '^$', '$1')
     $rules += [DefaultVoiceNormalisationRule]::new('SG', 'Singapore', 'National', '^(65|0)?(\d{10})$', '+65$2')
     $rules += [DefaultVoiceNormalisationRule]::new('SG', 'Singapore', 'International', '^00((?!65)(\d{10,15}))$', '+$1')
+
+    $rules += [DefaultVoiceNormalisationRule]::new('UK', 'United Kingdom', 'Emergency', '^(112|999)$', '+44$1')
+    $rules += [DefaultVoiceNormalisationRule]::new('UK', 'United Kingdom', 'Internal', '^$', '$1')
+    $rules += [DefaultVoiceNormalisationRule]::new('UK', 'United Kingdom', 'National', '^(44|0)?(\d{10})$', '+44$2')
+    $rules += [DefaultVoiceNormalisationRule]::new('UK', 'United Kingdom', 'International', '^00((?!44)(\d{10,15}))$', '+$1')
+
 
     $rules += [DefaultVoiceNormalisationRule]::new('US', 'United States', 'Emergency', '^(911)$', '+1$1')
     $rules += [DefaultVoiceNormalisationRule]::new('US', 'United States', 'Internal', '^$', '$1')

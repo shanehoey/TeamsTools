@@ -54,12 +54,7 @@ Function Initialize-TeamsDefaultVoiceRoutes {
     $routes += [DefaultVoiceRoute]::new("FR", "France", "Internal", "^$")
     $routes += [DefaultVoiceRoute]::new("FR", "France", "National", "\+33\d{3,9}$")
     $routes += [DefaultVoiceRoute]::new("FR", "France", "International", "\+(?!33)\d{10,15}$")
-
-    $routes += [DefaultVoiceRoute]::new("GB", "United Kingdom", "Emergency", "^\+44(112|999)$")
-    $routes += [DefaultVoiceRoute]::new("GB", "United Kingdom", "Internal", "^$")
-    $routes += [DefaultVoiceRoute]::new("GB", "United Kingdom", "National", "\+44\d{3,10}$")
-    $routes += [DefaultVoiceRoute]::new("GB", "United Kingdom", "International", "\+(?!44)\d{10,15}$")
-   
+  
     $routes += [DefaultVoiceRoute]::new("HK", "Hong Kong", "Emergency", "^\+852(999|112)$")
     $routes += [DefaultVoiceRoute]::new("HK", "Hong Kong", "Internal", "^$")
     $routes += [DefaultVoiceRoute]::new("HK", "Hong Kong", "National", "\+852\d{3,10}$")
@@ -145,6 +140,11 @@ Function Initialize-TeamsDefaultVoiceRoutes {
     $routes += [DefaultVoiceRoute]::new("TW", "Taiwan", "National", "\+886\d{3,10}$")
     $routes += [DefaultVoiceRoute]::new("TW", "Taiwan", "International", "\+(?!886)\d{10,15}$")
 
+    $routes += [DefaultVoiceRoute]::new("UK", "United Kingdom", "Emergency", "^\+44(112|999)$")
+    $routes += [DefaultVoiceRoute]::new("UK", "United Kingdom", "Internal", "^$")
+    $routes += [DefaultVoiceRoute]::new("UK", "United Kingdom", "National", "\+44\d{3,10}$")
+    $routes += [DefaultVoiceRoute]::new("UK", "United Kingdom", "International", "\+(?!44)\d{10,15}$")
+ 
     $routes += [DefaultVoiceRoute]::new("US", "United States", "Emergency", "^\+1911$")
     $routes += [DefaultVoiceRoute]::new("US", "United States", "Internal", "^$")
     $routes += [DefaultVoiceRoute]::new("US", "United States", "National", "\+1\d{3,10}$")
