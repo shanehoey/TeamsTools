@@ -89,6 +89,15 @@ foreach ($module in $prereqModules) {
 ```
 
 
+### Install developer prerequisite modules
+
+If you are developing TeamsTools, you may also want to install the following modules:
+
+```powershell
+
+Install-Module -Name Pester -MinimumVersion 6.0.1 -Scope $scope
+
+```
 
 ## Licensing
 Licensed under MIT (LICENSE.txt), allowing free use, modification, and distribution.
